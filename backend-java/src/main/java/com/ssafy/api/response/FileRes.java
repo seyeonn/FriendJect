@@ -4,8 +4,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Getter @Setter
 @ApiModel("FileResponse")
 public class FileRes {
 	  private String message;
