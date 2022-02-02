@@ -282,3 +282,4 @@ insert into file (content_type, data, file_name, file_id) values ('image/png', '
 ;
 2022-02-03 00:35:57.036 DEBUG 35968 --- [http-nio-127.0.0.1-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
 2022-02-03 00:35:57.037 DEBUG 35968 --- [http-nio-127.0.0.1-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.ssafy.common.model.response.BaseResponseBody@31f905b0]
+2022-02-03 00:35:57.052 DEBUG 35968 --- [http-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
