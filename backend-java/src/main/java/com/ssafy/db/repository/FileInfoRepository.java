@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.ssafy.db.entity.FileInfo;
 
 @Repository
-public interface FileInfoRepository extends JpaRepository<FileInfo, Long> {
+public interface FileInfoRepository extends JpaRepository<FileInfo, String> {
 
 }

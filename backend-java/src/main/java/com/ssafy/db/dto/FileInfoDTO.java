@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FileInfoDTO {
 
-	private Long id;
+	private String id;
 	private String fileName;
 	private byte[] data;
 	private String contentType;
 	
 	@Builder
-	public FileInfoDTO(Long id, String fileName, byte[] data, String contentType) {
+	public FileInfoDTO(String id, String fileName, byte[] data, String contentType) {
 		this.id = id;
 		this.fileName = fileName;
 		this.data = data;
