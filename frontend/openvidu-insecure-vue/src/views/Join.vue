@@ -1,64 +1,70 @@
 <template>
   <div>
-      <div id="join" v-if="!session">
-        <div id="join-dialog" class="jumbotron vertical-center">
-          <h1>Join a video session</h1>
-          <div class="form-group">
-            <p>
-              <label>Participant</label>
-              <input
-                v-model="myUserName"
-                class="form-control"
-                type="text"
-                required
-              />
-            </p>
-            <p>
-              <label>Session</label>
-              <input
-                v-model="mySessionId"
-                class="form-control"
-                type="text"
-                required
-              />
-            </p>
-            <p class="text-center">
-              <button class="btn btn-lg btn-success" @click="joinSession()">
-                Join!
-              </button>
-            </p>
-          </div>
+    <div id="join" v-if="!session">
+      <div id="join-dialog" class="jumbotron vertical-center">
+        <h1>Join a video session</h1>
+        <div class="form-group">
+          <p>
+            <label>Participant</label>
+            <input
+              v-model="myUserName"
+              class="form-control"
+              type="text"
+              required
+            />
+          </p>
+          <p>
+            <label>Session</label>
+            <input
+              v-model="mySessionId"
+              class="form-control"
+              type="text"
+              required
+            />
+          </p>
+          <p class="text-center">
+            <button class="btn btn-lg btn-success" @click="joinSession()">
+              Join!
+            </button>
+          </p>
         </div>
       </div>
+    </div>
 
-      <!-- 방이 있다면 -->
-      <div id="session" v-if="session">
-        <div id="session-header">
-          <h1 id="session-title">{{ mySessionId }}</h1>
-          <input
-            class="btn btn-large btn-danger"
-            type="button"
-            id="buttonLeaveSession"
-            @click="leaveSession"
-            value="Leave session"
-          />
-        </div>
-        <div id="main-video" class="col-md-6">
-          <user-video :stream-manager="mainStreamManager" />
-        </div>
-        <div id="video-container" class="col-md-6">
-          <user-video
-            :stream-manager="publisher"
-            @click.native="updateMainVideoStreamManager(publisher)"
-          />
-          <user-video
-            v-for="sub in subscribers"
-            :key="sub.stream.connection.connectionId"
-            :stream-manager="sub"
-            @click.native="updateMainVideoStreamManager(sub)"
-          />
-        </div>
+    <!-- 방이 있다면 -->
+    <div id="session" v-if="session">
+      <div id="session-header">
+        <h1 id="session-title">#{{ mySessionId }}</h1>
+        <input
+          type="button"
+          class="btn btn-info"
+          @click="copyTeamCode"
+          value="팀코드 복사"
+        />
+        <input
+          class="btn btn-large btn-danger"
+          type="button"
+          id="buttonLeaveSession"
+          @click="leaveSession"
+          value="Leave session"
+        />
       </div>
+      <div id="main-video" class="col-md-6">
+        <user-video :stream-manager="mainStreamManager" />
+      </div>
+      <div id="video-container" class="col-md-6">
+        <user-video
+          :stream-manager="publisher"
+          @click.native="updateMainVideoStreamManager(publisher)"
+        />
+        <user-video
+          v-for="sub in subscribers"
+          :key="sub.stream.connection.connectionId"
+          :stream-manager="sub"
+          @click.native="updateMainVideoStreamManager(sub)"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -76,7 +82,7 @@ export default {
   name: "Join",
 
   components: {
-    UserVideo
+    UserVideo,
   },
 
   data() {
@@ -160,7 +166,16 @@ export default {
 
       window.addEventListener("beforeunload", this.leaveSession);
     },
+    copyTeamCode() {
+      const copyText = this.mySessionId;
+      const text_team_code = document.createElement("input");
+      text_team_code.value = copyText;
+      document.body.append(text_team_code);
 
+      text_team_code.select();
+      document.execCommand("copy");
+      text_team_code.remove();
+    },
     leaveSession() {
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
@@ -258,6 +273,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
