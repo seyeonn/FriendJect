@@ -112,6 +112,15 @@ html {
   background-size: cover;
  }
 
+ .main_center {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #F9B225;
+  background-image: url("https://user-images.githubusercontent.com/16666658/152843758-267afbd9-3f8f-4fa7-840e-6538e469d93a.png");
+  background-size: cover;
+ }
+
 .logo {
  text-align: center;
  letter-spacing: 4px;

@@ -7,7 +7,6 @@
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
-          <!-- 이 부분에 if문 써서 컴포넌트로 각 4개의 방이 들어가야함.   -->
           <!-- <router-link :to="{ name: 'consult', params: { username: 'erina' }}">
             상담실
           </router-link> -->
@@ -24,7 +23,10 @@
             </button>
 
             <!-- Inactive components will be cached! -->
+            <button @click="exit">나가기 </button>
+
             <keep-alive>
+              
               <component :is="currentTab"> </component>
             </keep-alive>
           </div>
@@ -270,6 +272,7 @@ import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
 import KanbanBoard from "../components/projectroom/KanbanBoard.vue";
 import MeetingRoom from "./Meeting.vue";
 import StudyRoom from "./Studyroom.vue";
+import Center from '../components/layout/Center.vue'
 
 export default {
   name: "main",
@@ -285,8 +288,8 @@ export default {
       // openvidu end
 
       log: [],
-      currentTab: "Main",
-      tabs: ["Main", "ConsultRoom", "KanbanBoard", "MeetingRoom", "StudyRoom"],
+      currentTab: "Center",
+      tabs: ["Center", "ConsultRoom", "KanbanBoard", "MeetingRoom", "StudyRoom"],
     };
   },
   mounted() {
@@ -303,6 +306,7 @@ export default {
     MeetingRoom,
     StudyRoom,
     UserVideo,
+    Center
   },
   methods: {
     getLog: function() {
@@ -318,6 +322,12 @@ export default {
         })
         .catch();
     },
+
+    exit: function() {
+      this.currentTab = "Center";
+    },
+
+    // openvidu methods
 
     joinSession: function() {
       // --- Get an OpenVidu object ---
