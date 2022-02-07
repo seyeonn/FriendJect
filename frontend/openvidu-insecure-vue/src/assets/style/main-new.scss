@@ -19,19 +19,15 @@ html {
  -webkit-font-smoothing: antialiased;
 }
 
-body {
- font-family: $body-font;
- background-color: #F9B225;
- color: #505052;
-}
 
 .container {
  background-color: $bg-color;
  display: flex;
- max-width: 1600px;
- height: 100vh;
+ max-width: 100%;
+ height: 100%;
  overflow: hidden;
  margin: 0 auto;
+ padding:0;
 }
 
 .left-side {
@@ -106,6 +102,15 @@ body {
  background-color: #F9B225;
  background-image: url('https://user-images.githubusercontent.com/16666658/152679443-8c070b9c-e627-4037-8c89-50b824892178.png');
 }
+
+.main_study {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #F9B225;
+  background-image: url("https://i.imgur.com/GWmnN0N.png");
+  background-size: cover;
+ }
 
 .logo {
  text-align: center;
@@ -232,7 +237,7 @@ body {
 }
 
 .main-container {
- padding: 20px;
+ padding: 10px;
  flex-grow: 1;
  overflow: auto;
  background-color:#F9B225;
