@@ -1,6 +1,6 @@
 <template>
-  <body>
-    <div class="container" x-data="{ rightSide: false, leftSide: false }">
+  <div>
+    <div class="container" fluid x-data="{ rightSide: false, leftSide: false }">
       <div class="main">
         <div class="main-container">
           <!-- <img
@@ -251,7 +251,7 @@
         :class="{ active: rightSide || leftSide }"
       ></div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
