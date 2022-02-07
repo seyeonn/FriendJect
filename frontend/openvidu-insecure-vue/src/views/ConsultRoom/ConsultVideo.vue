@@ -1,7 +1,7 @@
 <template>
   <b-container class="consult-container">
     <div class="center">
-        비디오
+        
     </div>
   </b-container>
 </template>
