@@ -4,6 +4,7 @@ import Join from '../views/Join.vue';
 import Home from '../views/Home.vue';
 import Main from '../views/Main.vue';
 import Choice from '../views/Choice.vue';
+import KakaoLogin from "../views/KakaoRedirect.vue";
 
 //consult room
 import Consult from "../views/ConsultRoom/ConsultRoom.vue";
@@ -53,6 +54,11 @@ export const router = new VueRouter({
             path: '/studyroom',
             name : 'studyroom',
             component: Study,
+        },
+        {
+            path: "/kakao",
+            name: "kakao",
+            component: KakaoLogin,
         },
         {
             path: "/projectroom",
