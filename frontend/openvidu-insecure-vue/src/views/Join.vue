@@ -13,8 +13,14 @@
             {{ $route.params.myUserName }}
           </h5>
 
-          <div id="main-video" class="col-md-2">
+          <div id="main-video" class="col-md-6">
             <user-video :stream-manager="mainStreamManager" />
+          </div>
+          <div id="video-container" class="col-md-6">
+            <user-video
+              :stream-manager="publisher"
+              @click.native="updateMainVideoStreamManager(publisher)"
+            />
             <user-video
               v-for="sub in subscribers"
               :key="sub.stream.connection.connectionId"
@@ -261,7 +267,7 @@
 <script>
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
-import UserVideo from "../components/UserVideo";
+import UserVideo from "../components/UserVideo.vue";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -291,6 +297,7 @@ export default {
     };
   },
   mounted() {
+    // 여기가 유력하게 문제라고 생각함. (기존: mount)
     this.joinSession();
   },
   computed: {
@@ -329,7 +336,6 @@ export default {
     },
 
     // openvidu methods
-
     joinSession: function() {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
