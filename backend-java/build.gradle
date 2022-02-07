@@ -79,6 +79,9 @@ def buildTime() {
     return formattedDate
 }
 
+
+
+
 project.ext.set("build.date", buildTime())
 
 processResources {
@@ -128,6 +131,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-websocket")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE")
     testImplementation("org.springframework.security:spring-security-test")
@@ -183,7 +187,10 @@ dependencies {
     implementation("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
 
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    
+   	runtimeOnly("com.h2database:h2")
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6")
 }
 
 test {

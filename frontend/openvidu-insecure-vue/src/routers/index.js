@@ -3,9 +3,10 @@ import VueRouter from 'vue-router';
 import Join from '../views/Join.vue';
 import Home from '../views/Home.vue';
 import Main from '../views/Main.vue';
-// import Main from '../views/Main.vue';
+import MainNew from '../views/Main-new.vue';
+import Choice from '../views/Choice.vue';
 
-Vue.use(VueRouter);                                               
+Vue.use(VueRouter);                                                
 export const router = new VueRouter({                             
     mode: 'history',                                              
     routes:[                                                      
@@ -20,14 +21,20 @@ export const router = new VueRouter({
             component: Join,
         },
         {
+            path: '/choice',
+            name : 'choice',
+            component: Choice,
+        },
+        {
             path: '/main',
             name : 'main',
             component: Main,
         },
-        // {
-        //     path: '/meet',
-        //     name : 'meet',
-        //     component: Meeting,
-        // },
+        {
+            path: '/main-new',
+            name : 'main-new',
+            component: MainNew,
+        },
+        
     ]
 });

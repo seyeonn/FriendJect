@@ -21,6 +21,7 @@
         <div style="text-align:center;"><h1>3초만에 시작하기</h1></div>
         <div>
           여기에 카카오톡으로 로그인 연결
+          <button v-on:click="login"> 로그인 됐다고 가정 </button>
         </div>
         <!-- <div><small>Check out</small></div> -->
       </div>
@@ -30,10 +31,15 @@
 
 <script>
 export default {
-  name: "header",
+  methods: {
+    login: function() {
+      //모달 닫히는게 필요
+      this.$router.push('choice'); 
+    }
+  }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/style/modal.scss";
 </style>

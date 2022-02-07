@@ -8,12 +8,13 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.ssafy.api.response.FileRes;
+import com.ssafy.api.response.FileResMessage;
 
 @ControllerAdvice
 public class FileUploadExceptionAdvice extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(MaxUploadSizeExceededException.class)
-  public ResponseEntity<FileRes> handleMaxSizeException(MaxUploadSizeExceededException exc) {
-    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new FileRes("File too large!"));
+  public ResponseEntity<FileResMessage> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new FileResMessage("File too large!"));
   }
 }
