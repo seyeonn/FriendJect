@@ -22,10 +22,10 @@
             </button>
 
             <!-- Inactive components will be cached! -->
-            <component :is="currentTab"> </component>
-          
+            <keep-alive>
+              <component :is="currentTab"> </component>
+            </keep-alive>
           </div>
-
         </div>
       </div>
       <div class="right-side" :class="{ active: rightSide }">
@@ -264,18 +264,18 @@ export default {
   data() {
     return {
       log: [],
-      currentTab: 'Main',
-      tabs: ['Main', 'ConsultRoom', 'KanbanBoard']
+      currentTab: "Main",
+      tabs: ["Main", "ConsultRoom", "KanbanBoard"],
     };
   },
   computed: {
     currentTabComponent() {
-      return 'tab-' + this.currentTab.toLowerCase()
-    }
+      return "tab-" + this.currentTab.toLowerCase();
+    },
   },
   components: {
     ConsultRoom,
-    KanbanBoard
+    KanbanBoard,
   },
   methods: {
     getLog: function() {
