@@ -3,9 +3,8 @@ import VueRouter from 'vue-router';
 import Join from '../views/Join.vue';
 import Home from '../views/Home.vue';
 import Main from '../views/Main.vue';
-import MainNew from '../views/Main-new.vue';
 import Choice from '../views/Choice.vue';
-
+import Consult from "../views/ConsultRoom/ConsultRoom.vue";
 // project room
 import Project from "../views/Project.vue";
 import FileList from "../components/projectroom/FileList.vue";
@@ -37,9 +36,9 @@ export const router = new VueRouter({
             component: Main,
         },
         {
-            path: '/main-new',
-            name : 'main-new',
-            component: MainNew,
+            path: '/consult',
+            name : 'consult',
+            component: Consult,
         },
         {
             path: "/projectroom",
