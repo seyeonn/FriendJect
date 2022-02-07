@@ -4,6 +4,8 @@ import Join from '../views/Join.vue';
 import Home from '../views/Home.vue';
 import Main from '../views/Main.vue';
 import Choice from '../views/Choice.vue';
+
+//consult room
 import Consult from "../views/ConsultRoom/ConsultRoom.vue";
 
 // project room
@@ -14,6 +16,9 @@ import KanbanBoard from "../components/projectroom/KanbanBoard.vue";
 
 // meeting room
 import Meeting from '../views/Meeting.vue';
+
+// study room
+import Study from '../views/Studyroom.vue';
 
 Vue.use(VueRouter);                                                
 export const router = new VueRouter({                             
@@ -40,9 +45,14 @@ export const router = new VueRouter({
             component: Main,
         },
         {
-            path: '/consult',
-            name : 'consult',
+            path: '/consultroom',
+            name : 'consultroom',
             component: Consult,
+        },
+        {
+            path: '/studyroom',
+            name : 'studyroom',
+            component: Study,
         },
         {
             path: "/projectroom",
@@ -68,8 +78,8 @@ export const router = new VueRouter({
             ],
           },
           {
-            path: '/meeting',
-            name : 'meeting',
+            path: '/meetingroom',
+            name : 'meetingroom',
             component: Meeting,
         },
         
