@@ -130,6 +130,7 @@ export default {
       });
 
       window.addEventListener("beforeunload", this.leaveSession);
+      this.$router.push('choice'); 
     },
 
     leaveSession() {
