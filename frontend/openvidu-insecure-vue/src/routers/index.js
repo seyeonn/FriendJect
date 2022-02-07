@@ -35,6 +35,29 @@ export const router = new VueRouter({
             name : 'main-new',
             component: MainNew,
         },
+        {
+            path: "/projectroom",
+            name: "projectroom",
+            component: Project,
+            redirect: "/projectroom/board",
+            children: [
+              {
+                path: "files",
+                name: "fileList",
+                component: FileList,
+              },
+              {
+                path: "files",
+                name: "fileUpload",
+                component: FileUpload,
+              },
+              {
+                path: "board",
+                name: "kanbanBoard",
+                component: KanbanBoard,
+              },
+            ],
+          },
         
     ]
 });
