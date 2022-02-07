@@ -5,11 +5,15 @@ import Home from '../views/Home.vue';
 import Main from '../views/Main.vue';
 import Choice from '../views/Choice.vue';
 import Consult from "../views/ConsultRoom/ConsultRoom.vue";
+
 // project room
 import Project from "../views/Project.vue";
 import FileList from "../components/projectroom/FileList.vue";
 import FileUpload from "../components/projectroom/FileUpload.vue";
 import KanbanBoard from "../components/projectroom/KanbanBoard.vue";
+
+// meeting room
+import Meeting from '../views/Meeting.vue';
 
 Vue.use(VueRouter);                                                
 export const router = new VueRouter({                             
@@ -63,6 +67,11 @@ export const router = new VueRouter({
               },
             ],
           },
+          {
+            path: '/meeting',
+            name : 'meeting',
+            component: Meeting,
+        },
         
     ]
 });

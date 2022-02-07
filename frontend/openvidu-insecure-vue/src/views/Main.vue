@@ -258,6 +258,7 @@
 import axios from "axios";
 import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
 import KanbanBoard from "../components/projectroom/KanbanBoard.vue";
+import Meeting from './Meeting.vue'
 
 export default {
   name: "main",
@@ -265,7 +266,7 @@ export default {
     return {
       log: [],
       currentTab: "Main",
-      tabs: ["Main", "ConsultRoom", "KanbanBoard"],
+      tabs: ["Main", "ConsultRoom", "KanbanBoard", "Meeting"],
     };
   },
   computed: {
@@ -276,6 +277,8 @@ export default {
   components: {
     ConsultRoom,
     KanbanBoard,
+    Meeting,
+
   },
   methods: {
     getLog: function() {
