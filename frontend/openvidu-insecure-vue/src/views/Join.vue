@@ -1,64 +1,32 @@
 <template>
   <div>
-      <div id="join" v-if="!session">
-        <div id="join-dialog" class="jumbotron vertical-center">
-          <h1>Join a video session</h1>
-          <div class="form-group">
-            <p>
-              <label>Participant</label>
-              <input
-                v-model="myUserName"
-                class="form-control"
-                type="text"
-                required
-              />
-            </p>
-            <p>
-              <label>Session</label>
-              <input
-                v-model="mySessionId"
-                class="form-control"
-                type="text"
-                required
-              />
-            </p>
-            <p class="text-center">
-              <button class="btn btn-lg btn-success" @click="joinSession()">
-                Join!
-              </button>
-            </p>
-          </div>
-        </div>
+    <div id="session">
+      <div id="session-header">
+        <h1 id="session-title">{{ mySessionId }}</h1>
+        <input
+          class="btn btn-large btn-danger"
+          type="button"
+          id="buttonLeaveSession"
+          @click="leaveSession"
+          value="Leave session"
+        />
       </div>
-
-      <!-- 방이 있다면 -->
-      <div id="session" v-if="session">
-        <div id="session-header">
-          <h1 id="session-title">{{ mySessionId }}</h1>
-          <input
-            class="btn btn-large btn-danger"
-            type="button"
-            id="buttonLeaveSession"
-            @click="leaveSession"
-            value="Leave session"
-          />
-        </div>
-        <div id="main-video" class="col-md-6">
-          <user-video :stream-manager="mainStreamManager" />
-        </div>
-        <div id="video-container" class="col-md-6">
-          <user-video
-            :stream-manager="publisher"
-            @click.native="updateMainVideoStreamManager(publisher)"
-          />
-          <user-video
-            v-for="sub in subscribers"
-            :key="sub.stream.connection.connectionId"
-            :stream-manager="sub"
-            @click.native="updateMainVideoStreamManager(sub)"
-          />
-        </div>
+      <div id="main-video" class="col-md-6">
+        <user-video :stream-manager="mainStreamManager" />
       </div>
+      <div id="video-container" class="col-md-6">
+        <user-video
+          :stream-manager="publisher"
+          @click.native="updateMainVideoStreamManager(publisher)"
+        />
+        <user-video
+          v-for="sub in subscribers"
+          :key="sub.stream.connection.connectionId"
+          :stream-manager="sub"
+          @click.native="updateMainVideoStreamManager(sub)"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -76,7 +44,7 @@ export default {
   name: "Join",
 
   components: {
-    UserVideo
+    UserVideo,
   },
 
   data() {
@@ -92,8 +60,11 @@ export default {
     };
   },
 
+  mounted() {
+    this.joinSession();
+  },
   methods: {
-    joinSession() {
+    joinSession: function() {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -258,6 +229,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
