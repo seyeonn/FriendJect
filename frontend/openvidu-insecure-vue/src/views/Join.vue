@@ -7,29 +7,19 @@
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
-          <!-- <router-link :to="{ name: 'consult', params: { username: 'erina' }}">
-            상담실
-          </router-link> -->
-          <h5> 팀코드 : {{ $route.params.mySessionId }}, 접속자 : {{ $route.params.myUserName }}</h5>
-           
-          <div id="dynamic-component-demo" class="demo">
-            <button
-              v-for="tab in tabs"
-              :key="tab"
-              :class="['tab-button', { active: currentTab === tab }]"
-              @click="currentTab = tab"
-            >
-              {{ tab }}
-            </button>
+          <h5>
+            팀코드 : {{ $route.params.mySessionId }}, 접속자 :
+            {{ $route.params.myUserName }}
+          </h5>
 
-            <!-- Inactive components will be cached! -->
-            <button @click="exit">나가기 </button>
-
+          <!-- 네비게이션 부분 -->
+          <div> 
+            <button @click="exit">나가기</button>
             <keep-alive>
-              
-              <component :is="currentTab"> </component>
+              <component :is="currentTab" v-on:emitTab="changeTab"> </component>
             </keep-alive>
           </div>
+
         </div>
       </div>
       <div class="right-side" :class="{ active: rightSide }">
@@ -272,7 +262,7 @@ import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
 import KanbanBoard from "../components/projectroom/KanbanBoard.vue";
 import MeetingRoom from "./Meeting.vue";
 import StudyRoom from "./Studyroom.vue";
-import Center from '../components/layout/Center.vue'
+import Center from "../components/layout/Center.vue";
 
 export default {
   name: "main",
@@ -284,12 +274,10 @@ export default {
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
-      
       // openvidu end
 
       log: [],
       currentTab: "Center",
-      tabs: ["Center", "ConsultRoom", "KanbanBoard", "MeetingRoom", "StudyRoom"],
     };
   },
   mounted() {
@@ -306,9 +294,12 @@ export default {
     MeetingRoom,
     StudyRoom,
     UserVideo,
-    Center
+    Center,
   },
   methods: {
+    changeTab: function(value) {
+      this.currentTab = value;
+    },
     getLog: function() {
       console.log("상담 기록 조회");
       this.log = [];
