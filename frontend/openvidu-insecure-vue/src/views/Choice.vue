@@ -43,7 +43,7 @@ export default {
         joinSession() {
             //여기서 프롭스로 쟤네 전달
             console.log(this.mySessionId);
-            this.$router.push('join');
+            this.$router.push({ name: 'join', params: {"mySessionId" :this.mySessionId, "myUserName": this.myUserName} })
         }
     }
 }
