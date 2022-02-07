@@ -7,19 +7,29 @@
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
+
           <h5>
             팀코드 : {{ $route.params.mySessionId }}, 접속자 :
             {{ $route.params.myUserName }}
           </h5>
 
+          <div id="main-video" class="col-md-2">
+            <user-video :stream-manager="mainStreamManager" />
+            <user-video
+              v-for="sub in subscribers"
+              :key="sub.stream.connection.connectionId"
+              :stream-manager="sub"
+              @click.native="updateMainVideoStreamManager(sub)"
+            />
+          </div>
+
           <!-- 네비게이션 부분 -->
-          <div> 
+          <div>
             <button @click="exit">나가기</button>
             <keep-alive>
               <component :is="currentTab" v-on:emitTab="changeTab"> </component>
             </keep-alive>
           </div>
-
         </div>
       </div>
       <div class="right-side" :class="{ active: rightSide }">
