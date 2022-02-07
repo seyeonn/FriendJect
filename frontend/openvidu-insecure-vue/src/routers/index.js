@@ -6,6 +6,12 @@ import Main from '../views/Main.vue';
 import MainNew from '../views/Main-new.vue';
 import Choice from '../views/Choice.vue';
 
+// project room
+import Project from "../views/Project.vue";
+import FileList from "../components/projectroom/FileList.vue";
+import FileUpload from "../components/projectroom/FileUpload.vue";
+import KanbanBoard from "../components/projectroom/KanbanBoard.vue";
+
 Vue.use(VueRouter);                                                
 export const router = new VueRouter({                             
     mode: 'history',                                              
