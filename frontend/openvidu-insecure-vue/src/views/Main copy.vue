@@ -8,7 +8,12 @@
             style="width:100%; height:100%"
           /> -->
           <!-- 이 부분에 if문 써서 컴포넌트로 각 4개의 방이 들어가야함.   -->
+          <!-- <router-link :to="{ name: 'consult', params: { username: 'erina' }}">
+            상담실
+          </router-link> -->
+          
           <consult-room />
+          <Project />
         </div>
       </div>
       <div class="right-side" :class="{ active: rightSide }">
@@ -219,7 +224,7 @@
             <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
           </a>
 
-          <h1> 지난 상담내역보기 </h1>
+          <h1>지난 상담내역보기</h1>
           <!-- <div><small>Check out</small></div> -->
           {{ log }}
         </div>
@@ -240,29 +245,34 @@
 <script>
 import axios from "axios";
 import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
+import Project from "./Project.vue";
+
 export default {
   name: "main",
   data() {
     return {
-      log: []
-    }
+      log: [],
+    };
   },
   components: {
     ConsultRoom,
+    Project,
   },
   methods: {
     getLog: function() {
       console.log("상담 기록 조회");
       this.log = [];
       axios
-        .get(`http://localhost:9999/consultroom/consult?userId=ilove_13@naver.com`)
+        .get(
+          `http://localhost:9999/consultroom/consult?userId=ilove_13@naver.com`
+        )
         .then((response) => {
           console.log(response.data);
           this.log.push(response.data);
         })
         .catch();
     },
-  }
+  },
 };
 </script>
 
