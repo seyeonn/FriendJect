@@ -8,7 +8,7 @@
 - openVidu
 - BootstrapVue, Sass
 ### Back-end
-- Java 8, Spring Boot, Spring Data JPA
+- Java 8, Spring Boot, JPA, Spring Data JPA
 - MySQL 5.7
 - Postman
 ### DevOps
@@ -19,3 +19,4 @@
 - 송진섭 : 풀스택, Notion 담당
 - 안세연 : 풀스택, AWS 담당
 - 정채은 : 풀스택, Jira 담당
+# 개발 일정
