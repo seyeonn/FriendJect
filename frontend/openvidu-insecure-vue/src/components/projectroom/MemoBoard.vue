@@ -2,14 +2,26 @@
   <div class="container">
     <div class="row">
       <div class="col form-inline">
-        <b-form-input
-          id="input-2"
-          v-model="newTask"
-          required
-          placeholder="Enter Task"
-          @keyup.enter="add"
-        ></b-form-input>
-        <b-button @click="add" variant="primary" class="ml-3">Add</b-button>
+        <b-form inline>
+          <label class="sr-only" for="inline-form-input-name">Name</label>
+          <b-form-input
+            id="inline-form-input-name"
+            class="mb-2 mr-sm-2 mb-sm-0"
+            v-model="newTitle"
+            required
+            placeholder="Title"
+          ></b-form-input>
+          <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
+            <b-form-input
+              id="inline-form-input-username"
+              v-model="newContent"
+              required
+              placeholder="Content"
+              @keyup.enter="add"
+            ></b-form-input>
+          </b-input-group>
+          <b-button @click="add" variant="primary" class="ml-3">Save</b-button>
+        </b-form>
       </div>
     </div>
     <div class="row mt-5">
@@ -21,13 +33,15 @@
             class="list-group kanban-column"
             :list="arrTodo"
             group="tasks"
+            v-model="arrTodo"
           >
             <div
               class="list-group-item"
               v-for="element in arrTodo"
-              :key="element.name"
+              :key="element.id"
             >
-              {{ element.name }}
+              <h5>{{ element.title }}</h5>
+              <p>{{ element.content }}</p>
             </div>
           </draggable>
         </div>
@@ -40,14 +54,16 @@
           <draggable
             class="list-group kanban-column"
             :list="arrInProgress"
+            v-model="arrInProgress"
             group="tasks"
           >
             <div
               class="list-group-item"
               v-for="element in arrInProgress"
-              :key="element.name"
+              :key="element.id"
             >
-              {{ element.name }}
+              <h5>{{ element.title }}</h5>
+              <p>{{ element.content }}</p>
             </div>
           </draggable>
         </div>
@@ -60,14 +76,16 @@
           <draggable
             class="list-group kanban-column"
             :list="arrTested"
+            v-model="arrTested"
             group="tasks"
           >
             <div
               class="list-group-item"
               v-for="element in arrTested"
-              :key="element.name"
+              :key="element.id"
             >
-              {{ element.name }}
+              <h5>{{ element.title }}</h5>
+              <p>{{ element.content }}</p>
             </div>
           </draggable>
         </div>
@@ -80,14 +98,16 @@
           <draggable
             class="list-group kanban-column"
             :list="arrDone"
+            v-model="arrTodo"
             group="tasks"
           >
             <div
               class="list-group-item"
               v-for="element in arrDone"
-              :key="element.name"
+              :key="element.id"
             >
-              {{ element.name }}
+              <h5>{{ element.title }}</h5>
+              <p>{{ element.content }}</p>
             </div>
           </draggable>
         </div>
@@ -99,7 +119,11 @@
 <script>
 //import draggable
 import draggable from "vuedraggable";
-import { getMemoList } from "@/api/projectroom.js";
+import {
+  getMemoList,
+  registerMemo,
+  registerMemoList,
+} from "@/api/projectroom.js";
 
 export default {
   name: "memoboard",
@@ -111,6 +135,8 @@ export default {
     return {
       // for new tasks
       newTask: "",
+      newTitle: "",
+      newContent: "",
       // 4 arrays to keep track of our 4 statuses
       arrTodo: [],
       arrInProgress: [],
@@ -118,11 +144,52 @@ export default {
       arrDone: [],
     };
   },
+  watch: {
+    arrTodo: function() {
+      this.updateStatusList(this.arrTodo, "TODO");
+    },
+    arrInProgress: function() {
+      this.updateStatusList(this.arrInProgress, "INPROGRESS");
+    },
+    arrTested: function() {
+      this.updateStatusList(this.arrTested, "TESTING");
+    },
+    arrDone: function() {
+      this.updateStatusList(this.arrDone, "DONE");
+    },
+  },
   created() {
     getMemoList(
       "TODO",
       (response) => {
-        this.arrTodo = response.data.list;
+        this.arrTodo = response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    getMemoList(
+      "INPROGRESS",
+      (response) => {
+        this.arrInProgress = response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    getMemoList(
+      "TESTING",
+      (response) => {
+        this.arrTested = response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    getMemoList(
+      "DONE",
+      (response) => {
+        this.arrDone = response.data;
       },
       (error) => {
         console.log(error);
@@ -131,11 +198,21 @@ export default {
   },
   methods: {
     //add new tasks method
-    add: function() {
-      if (this.newTask) {
-        this.arrTodo.push({ name: this.newTask });
-        this.newTask = "";
+    add() {
+      if (this.newTitle && this.newContent) {
+        this.writeNewMemo();
       }
+    },
+    writeNewMemo() {
+      registerMemo({
+        title: this.newTitle,
+        content: this.newContent,
+        status: "TODO",
+      });
+      this.$router.go();
+    },
+    updateStatusList(arr, status) {
+      registerMemoList(arr, status);
     },
   },
 };
