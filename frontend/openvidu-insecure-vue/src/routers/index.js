@@ -11,6 +11,8 @@ import Consult from "../views/ConsultRoom/ConsultRoom.vue";
 
 // project room
 import Project from "../views/Project.vue";
+import MemoBoard from "../components/projectroom/MemoBoard.vue";
+import FileList from "../components/projectroom/FileList.vue";
 
 // meeting room
 import Meeting from "../views/Meeting.vue";
@@ -61,9 +63,22 @@ export const router = new VueRouter({
       path: "/projectroom",
       name: "projectroom",
       component: Project,
+      redirect: "/projectroom/memos",
+      children: [
+        {
+          path: "memos",
+          name: "memoboard",
+          component: MemoBoard,
+        },
+        {
+          path: "files",
+          name: "filelist",
+          component: FileList,
+        },
+      ],
     },
     {
-      path: "/meetingroom",
+      path: "meetingroom",
       name: "meetingroom",
       component: Meeting,
     },

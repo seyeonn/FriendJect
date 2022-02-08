@@ -2,6 +2,7 @@ import { projectRoomInstance } from "./index.js";
 
 const api = projectRoomInstance();
 
+// 자료실 APIs
 function getFileInfo(fileId, success, fail) {
   api
     .get(`files/${fileId}`)
@@ -26,5 +27,8 @@ function registerFile(file, success, fail) {
     .then(success)
     .catch(fail);
 }
+
+// 메모보드 APIs
+func;
 
 export { getFileInfo, getFileList, registerFile };
