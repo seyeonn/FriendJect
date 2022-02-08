@@ -34,12 +34,19 @@
 
 <script>
 export default {
+<<<<<<< HEAD
   methods: {
     login: function() {
       //모달 닫히는게 필요
       this.$router.push('choice'); 
     }
   }
+=======
+  name: "header",
+  data() {
+    return {};
+  },
+>>>>>>> feature/signup
 };
 </script>
 
