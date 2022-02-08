@@ -275,7 +275,7 @@ const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
-import KanbanBoard from "../components/projectroom/KanbanBoard.vue";
+import ProjectRoom from "./Project.vue";
 import MeetingRoom from "./Meeting.vue";
 import StudyRoom from "./Studyroom.vue";
 import Center from "../components/layout/Center.vue";
@@ -307,7 +307,7 @@ export default {
   },
   components: {
     ConsultRoom,
-    KanbanBoard,
+    ProjectRoom,
     MeetingRoom,
     StudyRoom,
     UserVideo,
