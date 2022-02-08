@@ -47,4 +47,11 @@ public class MemoServiceImpl implements MemoService {
 	public void deleteMemo(Long memoId) {
 		memoRepository.deleteById(memoId);
 	}
+
+	@Transactional
+	public void changeMemoStatus(Long memoId, MemoStatus memoStatus) {
+		Memo memo = memoRepository.findById(memoId).get();
+		memo.setStatus(memoStatus);
+		System.out.println(memo.getStatus());
+	}
 }
