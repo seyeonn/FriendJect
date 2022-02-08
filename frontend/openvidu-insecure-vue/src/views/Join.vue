@@ -46,25 +46,27 @@
             style="width:100%; height:100%"
           /> -->
 
-            <h5>팀코드 : {{ mySessionId }}</h5>
+            <h5>팀코드 : {{ mySessionId }} </h5>
+            <button @click="leaveSession" value="Leave session">세션 나가기</button>
             <input
               type="button"
               class="btn btn-info"
               @click="copyTeamCode"
               value="팀코드 복사"
             />
-            <div id="main-video" class="col-md-2">
+            <b-row>
               <!-- 방장 캠 -->
-              <user-video :stream-manager="mainStreamManager" />
+              <user-video :stream-manager="mainStreamManager" style="width:20%"/>
 
               <!-- 접속자 캠 -->
               <user-video
+                style="width:20%"
                 v-for="sub in subscribers"
                 :key="sub.stream.connection.connectionId"
                 :stream-manager="sub"
                 @click.native="updateMainVideoStreamManager(sub)"
               />
-            </div>
+            </b-row>
 
             <!-- <div id="video-container" class="col-md-6">
             <user-video
