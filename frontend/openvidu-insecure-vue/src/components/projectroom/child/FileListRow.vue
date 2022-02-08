@@ -26,7 +26,7 @@ export default {
     name: String,
     type: String,
     size: Number,
-    modifiedDate: Date,
+    modifiedDate: String,
   },
   created() {
     this.modifiedAt = timeForToday(this.modifiedDate);
