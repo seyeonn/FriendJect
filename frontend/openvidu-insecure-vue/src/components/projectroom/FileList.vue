@@ -76,26 +76,7 @@ export default {
       }
     );
   },
-  watch: {
-    sortedFiles() {
-      return this.files
-        .sort((a, b) => {
-          let dir = this.sortDir === "asc" ? 1 : -1;
-          if (a[this.sort] < b[this.sort]) {
-            return -1 * dir;
-          } else if (a[this.sort] > b[this.sort]) {
-            return 1 * dir;
-          } else {
-            return 0;
-          }
-        })
-        .filter((row, idx) => {
-          let s = this.page * this.pageSize;
-          let e = (this.page + 1) * this.pageSize;
-          return idx >= s && idx < e;
-        });
-    },
-  },
+  mounted() {},
   methods: {
     sortedFiles() {
       return this.files
