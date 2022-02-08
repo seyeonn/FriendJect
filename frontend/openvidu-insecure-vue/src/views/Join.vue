@@ -392,7 +392,7 @@ export default {
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
-      mySessionId: "1234",
+      mySessionId: "",
 
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
       myUserName: "Participant" + Math.floor(Math.random() * 100),
