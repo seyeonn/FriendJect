@@ -33,20 +33,27 @@
 
 <script>
 export default {
-    data() {
-        return {
-            myUserName: "",
-            mySessionId: "",
-        }
+  data() {
+    return {
+      myUserName: "",
+      mySessionId: "",
+    };
+  },
+  methods: {
+    joinSession() {
+      this.$store.commit("setSessionID", this.mySessionId);
+      console.log(this.mySessionId);
+      //여기서 프롭스로 쟤네 전달
+      this.$router.push({
+        name: "join",
+        params: {
+          mySessionId: this.mySessionId,
+          myUserName: this.myUserName,
+        },
+      });
     },
-    methods: {
-        joinSession() {
-            //여기서 프롭스로 쟤네 전달
-            console.log(this.mySessionId);
-            this.$router.push({ name: 'join', params: {"mySessionId" :this.mySessionId, "myUserName": this.myUserName} })
-        }
-    }
-}
+  },
+};
 </script>
 
 <style></style>
