@@ -1,44 +1,110 @@
 <template>
   <div>
+    <!-- 세션이 없다면 (접속 안한 상태) -->
     <div id="join" v-if="!session">
-      <div id="img-div">
-        <img src="resources/images/openvidu_grey_bg_transp_cropped.png" />
-      </div>
-      <div id="join-dialog" class="jumbotron vertical-center">
-        <h1>Join a video session</h1>
-        <div class="form-group">
-          <p>
-            <label>Participant</label>
-            <input
-              v-model="myUserName"
-              class="form-control"
-              type="text"
-              required
-            />
-          </p>
-          <p>
-            <label>Session</label>
-            <input
-              v-model="mySessionId"
-              class="form-control"
-              type="text"
-              required
-            />
-          </p>
-          <p class="text-center">
-            <button class="btn btn-lg btn-success" @click="joinSession()">
-              Join!
-            </button>
-          </p>
+        <div>
+          <div class="cards" style="width:100%;">
+            <article
+              class="information [ card ]"
+              style="width:40%; margin-right:10%"
+            >
+              <span class="tag">새 프로젝트 시작하기</span>
+              <h2 class="title">팀 생성</h2>
+              <p class="info" style="font-size:0.9rem;">
+                팀 참여코드는 자동으로 생성되고, 클립보드에 복사됩니다. <br>
+                팀 이름만 설정해보세요!
+              </p>
+              <b-input-group size="md">
+                <b-form-input
+                  v-model="teamName"
+                  class="form-control"
+                  type="text"
+                  
+                ></b-form-input>
+              </b-input-group>
+              <br />
+              <button class="button" @click="randomNumber">
+                <span>Create</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  width="24px"
+                  fill="none"
+                >
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path
+                    d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+
+            </article>
+
+            <article class="information [ card ]" style="width:40%">
+              <span class="tag">기존 프로젝트에 참여하기</span>
+              <h2 class="title">팀 코드로 참가</h2>
+              <p class="info" style="font-size:0.9rem;">
+                팀원에게 받은 고유코드를 입력하세요!
+              </p>
+
+              <b-input-group size="md">
+                <b-form-input
+                  v-model="mySessionId"
+                  class="form-control"
+                  type="text"
+                  required
+                ></b-form-input>
+              </b-input-group>
+              <br />
+              <button class="button" @click="joinSession">
+                <span>Join</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  width="24px"
+                  fill="none"
+                >
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path
+                    d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </article>
+          </div>
+
+          <div>
+            <h2 style="color:#3D3D3C; margin-left:10%">참여중인 프로젝트</h2>
+
+            <!-- 이부분 접속 했던 이력을 for 문으로 나타내기 -->
+            <div class="cards" style="width:100%;">
+              <article class="information [ card ]">
+                <dl class="details">
+                  <div>
+                    <dt>#2123</dt>
+                    <dd>[2팀] 콘푸로스트</dd>
+                  </div>
+                </dl>
+                <button
+                  class="button"
+                  style="background-color:#F9B225; color:white"
+                  
+                >
+                  접속하기
+                </button>
+              </article>
+            </div>
+          </div>
         </div>
-      </div>
     </div>
+
+    <!-- 세션이 있을때 (접속 한 상태) -->
     <div v-if="session">
-      <div
-        class="container"
-        fluid
-        x-data="{ rightSide: false, leftSide: false }"
-      >
+      <div class="container" fluid>
         <div class="main">
           <div class="main-container">
             <!-- <img
@@ -46,8 +112,10 @@
             style="width:100%; height:100%"
           /> -->
 
-            <h5>팀코드 : {{ mySessionId }} </h5>
-            <button @click="leaveSession" value="Leave session">세션 나가기</button>
+            <h5>팀코드 : {{ mySessionId }}</h5>
+            <button @click="leaveSession" value="Leave session">
+              세션 나가기
+            </button>
             <input
               type="button"
               class="btn btn-info"
@@ -56,7 +124,10 @@
             />
             <b-row>
               <!-- 방장 캠 -->
-              <user-video :stream-manager="mainStreamManager" style="width:20%"/>
+              <user-video
+                :stream-manager="mainStreamManager"
+                style="width:20%"
+              />
 
               <!-- 접속자 캠 -->
               <user-video
@@ -67,19 +138,6 @@
                 @click.native="updateMainVideoStreamManager(sub)"
               />
             </b-row>
-
-            <!-- <div id="video-container" class="col-md-6">
-            <user-video
-              :stream-manager="publisher"
-              @click.native="updateMainVideoStreamManager(publisher)"
-            />
-            <user-video
-              v-for="sub in subscribers"
-              :key="sub.stream.connection.connectionId"
-              :stream-manager="sub"
-              @click.native="updateMainVideoStreamManager(sub)"
-            />
-          </div> -->
 
             <!-- 네비게이션 부분 -->
             <div>
@@ -344,7 +402,9 @@ export default {
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
-      mySessionId: "1234",
+      mySessionId: "",
+      teamName: "",
+      // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
       myUserName: "Participant" + Math.floor(Math.random() * 100),
       // openvidu end
 
@@ -366,6 +426,11 @@ export default {
     Center,
   },
   methods: {
+    randomNumber: function() {
+      var num = Math.floor(Math.random() * 10000) + 1000;
+      this.mySessionId = num;
+      this.joinSession();
+    },
     changeTab: function(value) {
       this.currentTab = value;
     },

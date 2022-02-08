@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Join from "../views/Join.vue";
+import JoinTest from "../views/JoinTest.vue";
 import Home from "../views/Home.vue";
 import Main from "../views/Main.vue";
 import KakaoLogin from "../views/KakaoRedirect.vue";
@@ -32,6 +33,11 @@ export const router = new VueRouter({
       path: "/join",
       name: "join",
       component: Join,
+    },
+    {
+      path: "/jointest",
+      name: "join",
+      component: JoinTest,
     },
     {
       path: "/main",
