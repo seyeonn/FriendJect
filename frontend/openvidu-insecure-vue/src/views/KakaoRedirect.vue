@@ -14,12 +14,13 @@ export default {
   },
   methods: {
     ...mapActions(["setUserinfo"]),
-    kako_api: function () {
+    kako_api: function() {
       axios
         .post("http://localhost:8081/login", {
           code: this.$route.query.code,
         })
         .then((res) => {
+          alert("DB에 전송완료");
           this.setUserinfo({
             ...res.data,
           });
@@ -35,12 +36,14 @@ export default {
     },
   },
   mounted() {
-    this.kako_api();
+    //this.kako_api();
     // 여기서 choice , 즉 본인의 방을 생성하거나 참가하는 페이지로 이동합니다.
-    // 이때 카카오에서 받은 닉네임을 props 로 choice 에 넘겨주세요.
+    // 이때 카카오에서 받은 닉네임을 props 로 choice.vue 에 넘겨주세요.
     // choice 에서 넘겨받은 닉네임을 participant 에 input 값으로 지정해주세요.
     // 그러면 자동으로 닉네임 + 팀코드로 방에 접속됩니다.
-    this.$router.replace("/join");
+
+    console.log(this.$route.query.code);
+    //this.$router.replace("/choice");
   },
 };
 </script>
