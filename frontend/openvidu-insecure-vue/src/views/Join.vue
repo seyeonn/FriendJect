@@ -13,10 +13,10 @@
             {{ $route.params.myUserName }}
           </h5>
 
-          <div id="main-video" class="col-md-6">
+          <div id="main-video" class="col-md-2">
             <user-video :stream-manager="mainStreamManager" />
           </div>
-          <div id="video-container" class="col-md-6">
+          <!-- <div id="video-container" class="col-md-6">
             <user-video
               :stream-manager="publisher"
               @click.native="updateMainVideoStreamManager(publisher)"
@@ -27,7 +27,7 @@
               :stream-manager="sub"
               @click.native="updateMainVideoStreamManager(sub)"
             />
-          </div>
+          </div> -->
 
           <!-- 네비게이션 부분 -->
           <div>
