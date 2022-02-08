@@ -3,7 +3,7 @@
     <td>{{ this.name }}</td>
     <td>{{ this.type }}</td>
     <td>{{ this.returnSize }}</td>
-    <td>{{ this.createdAt }}</td>
+    <td>{{ this.modifiedAt }}</td>
   </tr>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     return {
       file: "",
       returnSize: "",
-      createdAt: "",
+      modifiedAt: "",
     };
   },
   props: {
@@ -26,10 +26,10 @@ export default {
     name: String,
     type: String,
     size: Number,
-    createdDate: String,
+    modifiedDate: Date,
   },
   created() {
-    this.createdAt = timeForToday(this.createdDate);
+    this.modifiedAt = timeForToday(this.modifiedDate);
     this.returnSize = returnFileSize(this.size);
   },
 
