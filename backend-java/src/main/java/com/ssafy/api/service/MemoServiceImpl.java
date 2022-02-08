@@ -28,9 +28,9 @@ public class MemoServiceImpl implements MemoService {
 		return memo.getId();
 	}
 
-	public List<MemoRes> findMemos(MemoStatus memoStatus) {
-		return null;
-//		return memoRepository.findAllByString(memoStatus);
+	public List<Memo> findMemos(MemoStatus memoStatus) {
+		List<Memo> memo = memoRepository.findByStatus(memoStatus);
+		return memo;
 	}
 
 	public Memo findOne(Long memoId) {

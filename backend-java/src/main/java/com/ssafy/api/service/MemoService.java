@@ -13,7 +13,7 @@ public interface MemoService {
 
 	Long save(MemoDTO memoInfo) throws IOException;
 
-	List<MemoRes> findMemos(MemoStatus memoStatus);
+	List<Memo> findMemos(MemoStatus memoStatus);
 
 	Memo findOne(Long memoId);
 
