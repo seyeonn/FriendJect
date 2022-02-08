@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,7 +46,7 @@ public class DocumentController {
 	
 	@GetMapping("/{id}")
 	public Map<String, Object> document(@PathVariable int id) {
-		var option = documentRepoisitory.findById(id);
+		Optional<Document> option = documentRepoisitory.findById(id);
 		if (!option.isPresent())
 			return null;
 		Document document = option.get();
@@ -69,7 +70,7 @@ public class DocumentController {
 	
 	@PutMapping("/{id}")
 	public Map<String, Object> update(@PathVariable int id, @RequestBody Map<String, Object> body) {
-		var option = documentRepoisitory.findById(id);
+		Optional<Document> option = documentRepoisitory.findById(id);
 		if (!option.isPresent())
 			return null;
 		Document document = option.get();
