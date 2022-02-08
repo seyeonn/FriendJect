@@ -1,13 +1,13 @@
 <template>
   <div>
-    <b-container fluid class="bv-example-row">
+    <b-container fluid class="bv-example-row" style="height:10%">
       <b-row>
         <b-col><img class="logo" src="@/assets/images/logo.png"/></b-col>
         <b-col cols="8"></b-col>
         <b-col>
           <b-button
             variant="outline-warning"
-            style="margin-top: 50px"
+            style="margin-top: 30px"
             href="#join"
             >로그인 또는 회원가입</b-button
           >
