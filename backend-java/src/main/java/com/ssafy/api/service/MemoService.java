@@ -11,7 +11,7 @@ import com.ssafy.db.entity.MemoStatus;
 
 public interface MemoService {
 
-	Long save(MemoDTO memoInfo) throws IOException;
+	Long save(MemoDTO memo) throws IOException;
 
 	List<Memo> findMemos(MemoStatus memoStatus);
 
@@ -20,5 +20,7 @@ public interface MemoService {
 	void updateMemo(Long memoId, MemoRegisterPostReq memoReq);
 
 	void deleteMemo(Long memoId);
+
+	void changeMemoStatus(Long id, MemoStatus memoStatus);
 
 }
