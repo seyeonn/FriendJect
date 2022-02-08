@@ -31,9 +31,14 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	@Override
 	public Studyroom getUserByUserId(String userid) {
 		return studyroomRepository.findByUserid(userid).get();
-
 	}
 
 
+	@Override
+	   public Studyroom saveTime(String userid, int time) {
+	      Studyroom user = getUserByUserId(userid);
+	      user.setTime(time);
+	      return studyroomRepository.save(user);
+	   }
 
 }
