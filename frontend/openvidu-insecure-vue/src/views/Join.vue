@@ -47,7 +47,12 @@
           /> -->
 
             <h5>팀코드 : {{ mySessionId }}</h5>
-
+            <input
+              type="button"
+              class="btn btn-info"
+              @click="copyTeamCode"
+              value="팀코드 복사"
+            />
             <div id="main-video" class="col-md-2">
               <!-- 방장 캠 -->
               <user-video :stream-manager="mainStreamManager" />
@@ -447,7 +452,18 @@ export default {
 
       window.addEventListener("beforeunload", this.leaveSession);
     },
+    copyTeamCode() {
+      const copyText = this.mySessionId;
+      console.log(copyText);
 
+      const text_team_code = document.createElement("input");
+      text_team_code.value = copyText;
+      document.body.append(text_team_code);
+
+      text_team_code.select();
+      document.execCommand("copy");
+      text_team_code.remove();
+    },
     leaveSession() {
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
