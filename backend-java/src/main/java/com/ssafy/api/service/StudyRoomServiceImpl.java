@@ -29,7 +29,7 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		}
 	}
 
-	/* userid로 user 조회 */
+	/* userid로 user 조회 - 데이터 return */
 	@Override
 	public Studyroom getUserByUserId(String userid) {
 		return studyroomRepository.findByUserid(userid).get();
