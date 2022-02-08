@@ -7,12 +7,16 @@
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
-
           <h5>
             팀코드 : {{ $route.params.mySessionId }}, 접속자 :
             {{ $route.params.myUserName }}
           </h5>
-
+          <input
+            type="button"
+            class="btn btn-info"
+            @click="copyTeamCode"
+            value="팀코드 복사"
+          />
           <div id="main-video" class="col-md-6">
             <user-video :stream-manager="mainStreamManager" />
           </div>
@@ -403,7 +407,18 @@ export default {
 
       window.addEventListener("beforeunload", this.leaveSession);
     },
+    copyTeamCode() {
+      const copyText = this.$store.state.mySessionId;
+      console.log(copyText);
 
+      const text_team_code = document.createElement("input");
+      text_team_code.value = copyText;
+      document.body.append(text_team_code);
+
+      text_team_code.select();
+      document.execCommand("copy");
+      text_team_code.remove();
+    },
     leaveSession() {
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();

@@ -7,6 +7,8 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     accessToken: "",
+    mySessionId: "",
+    myUserName: "",
     // user pk
     // id: "",
     //  user user_email
@@ -22,6 +24,9 @@ export const store = new Vuex.Store({
     setToken(state, newAccessToken) {
       localStorage.setItem("accessToken", newAccessToken);
       state.accessToken = newAccessToken;
+    },
+    setSessionID(state, newMySessionId) {
+      state.mySessionId = newMySessionId;
     },
     SET_USERINFO: function(state, userdata) {
       // state.id = userdata["id"];
