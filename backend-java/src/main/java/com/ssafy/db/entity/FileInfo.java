@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter @Setter
 @Table(name = "file")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class FileInfo {
+public class FileInfo extends BaseTimeEntity {
 	
 	@Id @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -42,5 +42,4 @@ public class FileInfo {
 		this.data = data;
 		this.contentType = contentType;
 	}
-	
 }

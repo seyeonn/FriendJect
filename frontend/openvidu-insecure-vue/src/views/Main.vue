@@ -257,10 +257,9 @@
 <script>
 import axios from "axios";
 import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
-import KanbanBoard from "../components/projectroom/KanbanBoard.vue";
-import MeetingRoom from './Meeting.vue'
-import StudyRoom from './Studyroom.vue'
-
+import ProjectRoom from "./Project.vue";
+import MeetingRoom from "./Meeting.vue";
+import StudyRoom from "./Studyroom.vue";
 
 export default {
   name: "main",
@@ -268,7 +267,7 @@ export default {
     return {
       log: [],
       currentTab: "Main",
-      tabs: ["Main", "ConsultRoom", "KanbanBoard", "MeetingRoom", "StudyRoom"],
+      tabs: ["Main", "ConsultRoom", "ProjectRoom", "MeetingRoom", "StudyRoom"],
     };
   },
   computed: {
@@ -278,10 +277,9 @@ export default {
   },
   components: {
     ConsultRoom,
-    KanbanBoard,
+    ProjectRoom,
     MeetingRoom,
-    StudyRoom
-
+    StudyRoom,
   },
   methods: {
     getLog: function() {
