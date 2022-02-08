@@ -11,9 +11,18 @@
               <span class="tag">새 프로젝트 시작하기</span>
               <h2 class="title">팀 생성</h2>
               <p class="info" style="font-size:0.9rem;">
-                팀 코드가 생성되고, 클립보드에 복사됩니다. 팀원에게 코드로
-                참여를 유도하세요!
+                팀 참여코드는 자동으로 생성되고, 클립보드에 복사됩니다. <br>
+                팀 이름만 설정해보세요!
               </p>
+              <b-input-group size="md">
+                <b-form-input
+                  v-model="teamName"
+                  class="form-control"
+                  type="text"
+                  
+                ></b-form-input>
+              </b-input-group>
+              <br />
               <button class="button" @click="randomNumber">
                 <span>Create</span>
                 <svg
@@ -31,14 +40,13 @@
                 </svg>
               </button>
 
-              <br />
             </article>
 
             <article class="information [ card ]" style="width:40%">
               <span class="tag">기존 프로젝트에 참여하기</span>
               <h2 class="title">팀 코드로 참가</h2>
               <p class="info" style="font-size:0.9rem;">
-                팀원에게 받은 코드를 입력하세요!
+                팀원에게 받은 고유코드를 입력하세요!
               </p>
 
               <b-input-group size="md">
@@ -71,6 +79,8 @@
 
           <div>
             <h2 style="color:#3D3D3C; margin-left:10%">참여중인 프로젝트</h2>
+
+            <!-- 이부분 접속 했던 이력을 for 문으로 나타내기 -->
             <div class="cards" style="width:100%;">
               <article class="information [ card ]">
                 <dl class="details">
@@ -393,7 +403,7 @@ export default {
       publisher: undefined,
       subscribers: [],
       mySessionId: "",
-
+      teamName: "",
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
       myUserName: "Participant" + Math.floor(Math.random() * 100),
       // openvidu end
