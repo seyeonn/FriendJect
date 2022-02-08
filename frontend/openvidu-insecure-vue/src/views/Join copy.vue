@@ -7,23 +7,33 @@
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
-          <!-- 이 부분에 if문 써서 컴포넌트로 각 4개의 방이 들어가야함.   -->
-          <!-- <router-link :to="{ name: 'consult', params: { username: 'erina' }}">
-            상담실
-          </router-link> -->
-          <div id="dynamic-component-demo" class="demo">
-            <button
-              v-for="tab in tabs"
-              :key="tab"
-              :class="['tab-button', { active: currentTab === tab }]"
-              @click="currentTab = tab"
-            >
-              {{ tab }}
-            </button>
 
-            <!-- Inactive components will be cached! -->
+          <h5>
+            팀코드 : {{ $route.params.mySessionId }}, 접속자 :
+            {{ $route.params.myUserName }}
+          </h5>
+
+          <div id="main-video" class="col-md-2">
+            <user-video :stream-manager="mainStreamManager" />
+          </div>
+          <!-- <div id="video-container" class="col-md-6">
+            <user-video
+              :stream-manager="publisher"
+              @click.native="updateMainVideoStreamManager(publisher)"
+            />
+            <user-video
+              v-for="sub in subscribers"
+              :key="sub.stream.connection.connectionId"
+              :stream-manager="sub"
+              @click.native="updateMainVideoStreamManager(sub)"
+            />
+          </div> -->
+
+          <!-- 네비게이션 부분 -->
+          <div>
+            <button @click="exit">나가기</button>
             <keep-alive>
-              <component :is="currentTab"> </component>
+              <component :is="currentTab" v-on:emitTab="changeTab"> </component>
             </keep-alive>
           </div>
         </div>
@@ -256,19 +266,39 @@
 
 <script>
 import axios from "axios";
+import { OpenVidu } from "openvidu-browser";
+import UserVideo from "../components/UserVideo.vue";
+
+axios.defaults.headers.post["Content-Type"] = "application/json";
+
+const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
+const OPENVIDU_SERVER_SECRET = "MY_SECRET";
+
 import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
 import ProjectRoom from "./Project.vue";
 import MeetingRoom from "./Meeting.vue";
 import StudyRoom from "./Studyroom.vue";
+import Center from "../components/layout/Center.vue";
 
 export default {
   name: "main",
   data() {
     return {
+      // openvidu start
+      OV: undefined,
+      session: undefined,
+      mainStreamManager: undefined,
+      publisher: undefined,
+      subscribers: [],
+      // openvidu end
+
       log: [],
-      currentTab: "Main",
-      tabs: ["Main", "ConsultRoom", "ProjectRoom", "MeetingRoom", "StudyRoom"],
+      currentTab: "Center",
     };
+  },
+  mounted() {
+    // 여기가 유력하게 문제라고 생각함. (기존: mount)
+    this.joinSession();
   },
   computed: {
     currentTabComponent() {
@@ -280,20 +310,193 @@ export default {
     ProjectRoom,
     MeetingRoom,
     StudyRoom,
+    UserVideo,
+    Center,
   },
   methods: {
+    changeTab: function(value) {
+      this.currentTab = value;
+    },
     getLog: function() {
       console.log("상담 기록 조회");
       this.log = [];
       axios
         .get(
-          `http://localhost:8081/consultroom/consult?userId=ilove_13@naver.com`
+          `http://localhost:9999/consultroom/consult?userId=ilove_13@naver.com`
         )
         .then((response) => {
           console.log(response.data);
           this.log.push(response.data);
         })
         .catch();
+    },
+
+    exit: function() {
+      this.currentTab = "Center";
+    },
+
+    // openvidu methods
+    joinSession: function() {
+      // --- Get an OpenVidu object ---
+      this.OV = new OpenVidu();
+
+      // --- Init a session ---
+      this.session = this.OV.initSession();
+
+      // --- Specify the actions when events take place in the session ---
+
+      // On every new Stream received...
+      this.session.on("streamCreated", ({ stream }) => {
+        const subscriber = this.session.subscribe(stream);
+        this.subscribers.push(subscriber);
+      });
+
+      // On every Stream destroyed...
+      this.session.on("streamDestroyed", ({ stream }) => {
+        const index = this.subscribers.indexOf(stream.streamManager, 0);
+        if (index >= 0) {
+          this.subscribers.splice(index, 1);
+        }
+      });
+
+      // On every asynchronous exception...
+      this.session.on("exception", ({ exception }) => {
+        console.warn(exception);
+      });
+
+      // --- Connect to the session with a valid user token ---
+
+      // 'getToken' method is simulating what your server-side should do.
+      // 'token' parameter should be retrieved and returned by your own backend
+      this.getToken(this.mySessionId).then((token) => {
+        this.session
+          .connect(token, { clientData: this.myUserName })
+          .then(() => {
+            // --- Get your own camera stream with the desired properties ---
+
+            let publisher = this.OV.initPublisher(undefined, {
+              audioSource: undefined, // The source of audio. If undefined default microphone
+              videoSource: undefined, // The source of video. If undefined default webcam
+              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+              publishVideo: true, // Whether you want to start publishing with your video enabled or not
+              resolution: "640x480", // The resolution of your video
+              frameRate: 30, // The frame rate of your video
+              insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+              mirror: false, // Whether to mirror your local video or not
+            });
+
+            this.mainStreamManager = publisher;
+            this.publisher = publisher;
+
+            // --- Publish your stream ---
+
+            this.session.publish(this.publisher);
+          })
+          .catch((error) => {
+            console.log(
+              "There was an error connecting to the session:",
+              error.code,
+              error.message
+            );
+          });
+      });
+
+      window.addEventListener("beforeunload", this.leaveSession);
+    },
+
+    leaveSession() {
+      // --- Leave the session by calling 'disconnect' method over the Session object ---
+      if (this.session) this.session.disconnect();
+
+      this.session = undefined;
+      this.mainStreamManager = undefined;
+      this.publisher = undefined;
+      this.subscribers = [];
+      this.OV = undefined;
+
+      window.removeEventListener("beforeunload", this.leaveSession);
+      this.$router.push("choice");
+    },
+
+    updateMainVideoStreamManager(stream) {
+      if (this.mainStreamManager === stream) return;
+      this.mainStreamManager = stream;
+    },
+
+    /**
+     * --------------------------
+     * SERVER-SIDE RESPONSIBILITY
+     * --------------------------
+     * These methods retrieve the mandatory user token from OpenVidu Server.
+     * This behavior MUST BE IN YOUR SERVER-SIDE IN PRODUCTION (by using
+     * the API REST, openvidu-java-client or openvidu-node-client):
+     *   1) Initialize a Session in OpenVidu Server	(POST /openvidu/api/sessions)
+     *   2) Create a Connection in OpenVidu Server (POST /openvidu/api/sessions/<SESSION_ID>/connection)
+     *   3) The Connection.token must be consumed in Session.connect() method
+     */
+
+    getToken(mySessionId) {
+      return this.createSession(mySessionId).then((sessionId) =>
+        this.createToken(sessionId)
+      );
+    },
+
+    // See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-openviduapisessions
+    createSession(sessionId) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post(
+            `${OPENVIDU_SERVER_URL}/openvidu/api/sessions`,
+            JSON.stringify({
+              customSessionId: sessionId,
+            }),
+            {
+              auth: {
+                username: "OPENVIDUAPP",
+                password: OPENVIDU_SERVER_SECRET,
+              },
+            }
+          )
+          .then((response) => response.data)
+          .then((data) => resolve(data.id))
+          .catch((error) => {
+            if (error.response.status === 409) {
+              resolve(sessionId);
+            } else {
+              console.warn(
+                `No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}`
+              );
+              if (
+                window.confirm(
+                  `No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}\n\nClick OK to navigate and accept it. If no certificate warning is shown, then check that your OpenVidu Server is up and running at "${OPENVIDU_SERVER_URL}"`
+                )
+              ) {
+                location.assign(`${OPENVIDU_SERVER_URL}/accept-certificate`);
+              }
+              reject(error.response);
+            }
+          });
+      });
+    },
+
+    // See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-openviduapisessionsltsession_idgtconnection
+    createToken(sessionId) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post(
+            `${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${sessionId}/connection`,
+            {},
+            {
+              auth: {
+                username: "OPENVIDUAPP",
+                password: OPENVIDU_SERVER_SECRET,
+              },
+            }
+          )
+          .then((response) => response.data)
+          .then((data) => resolve(data.token))
+          .catch((error) => reject(error.response));
+      });
     },
   },
 };
