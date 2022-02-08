@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import Join from "../views/Join.vue";
 import Home from "../views/Home.vue";
 import Main from "../views/Main.vue";
-import Choice from "../views/Choice.vue";
 import KakaoLogin from "../views/KakaoRedirect.vue";
 
 //consult room
@@ -31,11 +30,6 @@ export const router = new VueRouter({
       path: "/join",
       name: "join",
       component: Join,
-    },
-    {
-      path: "/choice",
-      name: "choice",
-      component: Choice,
     },
     {
       path: "/main",
