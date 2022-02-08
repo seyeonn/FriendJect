@@ -41,4 +41,11 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	      return studyroomRepository.save(user);
 	   }
 
+	@Override
+	   public String getStudyBest() {
+	      
+	      List<Studyroom> list = studyroomRepository.findAll(Sort.by(Sort.Direction.DESC, "time"));
+	      System.out.println(list.get(0).getUserid());
+	      return list.get(0).getUserid();
+	   }
 }
