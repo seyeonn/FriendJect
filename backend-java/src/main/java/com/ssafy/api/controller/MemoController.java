@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.api.request.MemoListRegisterPostReq;
 import com.ssafy.api.request.MemoRegisterPostReq;
 import com.ssafy.api.response.MemoRes;
 import com.ssafy.api.service.MemoService;
@@ -42,6 +44,31 @@ public class MemoController {
 			e.printStackTrace();
 			return ResponseEntity.status(417).body(BaseResponseBody.of(417, "failed"));
 		}	
+	}
+	
+	@PostMapping("/memo/list")
+	public ResponseEntity<? extends BaseResponseBody> uploadMemoList(@RequestBody List<MemoListRegisterPostReq> memoList, @RequestParam("status") MemoStatus memoStatus) throws IOException {
+		//try {
+			List<Memo> findMemos = memoService.findMemos(memoStatus);
+			
+			if (findMemos.size() < memoList.size()) { // memoStatus에 해당하는 메모 리스트가 줄어들었을 때
+				for (MemoListRegisterPostReq m : memoList) { 
+					boolean flag = false;
+					for (Memo memo : findMemos) {
+						if (memo.getId() == m.getId()) flag = true;
+					}
+					if (!flag) {
+						System.out.println(m.getId());
+						memoService.changeMemoStatus(m.getId(), memoStatus);
+						return ResponseEntity.status(200).body(BaseResponseBody.of(200, " is registered successfully"));
+					}
+				}
+			} 
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "ok"));
+		//} catch (IOException e) {
+		//	e.printStackTrace();
+		//	return ResponseEntity.status(417).body(BaseResponseBody.of(417, "failed"));
+		//}	
 	}
 	
 	@GetMapping("/memo")

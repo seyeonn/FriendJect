@@ -29,6 +29,40 @@ function registerFile(file, success, fail) {
 }
 
 // 메모보드 APIs
-func;
+function getMemoList(param, success, fail) {
+  api
+    .get(`memo`, {
+      params: {
+        status: param,
+      },
+    })
+    .then(success)
+    .catch(fail);
+}
 
-export { getFileInfo, getFileList, registerFile };
+function registerMemo(memo, success, fail) {
+  api
+    .post(`memo`, JSON.stringify(memo))
+    .then(success)
+    .catch(fail);
+}
+
+function registerMemoList(memolist, param, success, fail) {
+  api
+    .post(`memo/list`, JSON.stringify(memolist), {
+      params: {
+        status: param,
+      },
+    })
+    .then(success)
+    .catch(fail);
+}
+
+export {
+  getFileInfo,
+  getFileList,
+  registerFile,
+  getMemoList,
+  registerMemo,
+  registerMemoList,
+};
