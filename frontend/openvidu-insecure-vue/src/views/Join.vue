@@ -46,19 +46,25 @@
             style="width:100%; height:100%"
           /> -->
 
-            <h5>팀코드 : {{ mySessionId }} </h5>
-            <button @click="leaveSession" value="Leave session">세션 나가기</button>
-            <b-row>
-            <user-video :stream-manager="mainStreamManager" style="width:20%"/>
-               <user-video
-                  style="width:20%"
-                  v-for="sub in subscribers"
-                  :key="sub.stream.connection.connectionId"
-                  :stream-manager="sub"
-                  @click.native="updateMainVideoStreamManager(sub)"
-              />
-            </b-row>
+            <h5>팀코드 : {{ mySessionId }}</h5>
+            <input
+              type="button"
+              class="btn btn-info"
+              @click="copyTeamCode"
+              value="팀코드 복사"
+            />
+            <div id="main-video" class="col-md-2">
+              <!-- 방장 캠 -->
+              <user-video :stream-manager="mainStreamManager" />
 
+              <!-- 접속자 캠 -->
+              <user-video
+                v-for="sub in subscribers"
+                :key="sub.stream.connection.connectionId"
+                :stream-manager="sub"
+                @click.native="updateMainVideoStreamManager(sub)"
+              />
+            </div>
 
             <!-- <div id="video-container" class="col-md-6">
             <user-video
@@ -447,7 +453,18 @@ export default {
 
       window.addEventListener("beforeunload", this.leaveSession);
     },
+    copyTeamCode() {
+      const copyText = this.mySessionId;
+      console.log(copyText);
 
+      const text_team_code = document.createElement("input");
+      text_team_code.value = copyText;
+      document.body.append(text_team_code);
+
+      text_team_code.select();
+      document.execCommand("copy");
+      text_team_code.remove();
+    },
     leaveSession() {
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
