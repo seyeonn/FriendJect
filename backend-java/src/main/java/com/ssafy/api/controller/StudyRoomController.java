@@ -47,5 +47,16 @@ public class StudyRoomController {
 
 	}
 
-	
+	// userid를 찾아서 return된 객체의 time 컬럼에 데이터 저장
+	   @PutMapping("/saveTime")
+	   @ApiOperation(value="time 등록 서비스")
+	   public ResponseEntity<String> regTime(@RequestBody @ApiParam(value = "학습 시간.", required = true)Studyroom entryuser) throws Exception {
+	      logger.info("학습 시간  등록 - 호출");
+
+	      if (studyroomService.saveTime(entryuser.getUserid(), entryuser.getTime()) != null) {
+	         return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	      }
+	      return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	   }
+
 }
