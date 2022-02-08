@@ -55,10 +55,6 @@ public class FileController {
   public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
 	  FileInfo FileInfo = storageService.findOne(fileId);
 
-	  System.out.println("======================");
-	  System.out.println(FileInfo.getData());
-	  System.out.println(FileInfo.getFileName());
-	  System.out.println("======================");
 	  return ResponseEntity.ok()
         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + FileInfo.getId() + "\"")
         .body(FileInfo.getData());
@@ -74,10 +70,13 @@ public class FileController {
 							          .toUriString();
 
 		      return new FileRes(
+		    		  file.getId(),
 		    		  file.getFileName(),
 			          fileDownloadUri,
+			          // 업로더 반환
 			          file.getContentType(),
-			          Long.valueOf(file.getData().length));
+			          Long.valueOf(file.getData().length),
+			          file.getModifiedDate());
 	    }).collect(Collectors.toList());
 
 	    return ResponseEntity.status(HttpStatus.OK).body(files);
