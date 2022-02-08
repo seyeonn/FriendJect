@@ -65,6 +65,7 @@
                 @click.native="updateMainVideoStreamManager(sub)"
               />
             </div>
+
             <!-- <div id="video-container" class="col-md-6">
             <user-video
               :stream-manager="publisher"
@@ -80,7 +81,7 @@
 
             <!-- 네비게이션 부분 -->
             <div>
-              <button @click="exit">나가기</button>
+              <button @click="exit">각 방 나가기</button>
               <keep-alive>
                 <component :is="currentTab" v-on:emitTab="changeTab">
                 </component>
@@ -179,7 +180,7 @@
             </div>
           </div>
 
-          <div style="text-align: center" v-on:click="getLog">
+          <div style="text-align:center;" v-on:click="getLog">
             <a href="#consultLog"> <div>상담내역보기</div> </a>
           </div>
 
@@ -363,10 +364,10 @@ export default {
     Center,
   },
   methods: {
-    changeTab: function (value) {
+    changeTab: function(value) {
       this.currentTab = value;
     },
-    getLog: function () {
+    getLog: function() {
       console.log("상담 기록 조회");
       this.log = [];
       axios
@@ -380,12 +381,12 @@ export default {
         .catch();
     },
 
-    exit: function () {
+    exit: function() {
       this.currentTab = "Center";
     },
 
     // openvidu methods
-    joinSession: function () {
+    joinSession: function() {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -475,7 +476,6 @@ export default {
       this.OV = undefined;
 
       window.removeEventListener("beforeunload", this.leaveSession);
-      this.$router.push("choice");
     },
 
     updateMainVideoStreamManager(stream) {

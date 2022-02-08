@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +21,7 @@ import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/studyroom")
+@CrossOrigin("http://localhost:8081")
 public class StudyRoomController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -29,8 +31,7 @@ public class StudyRoomController {
 	@Autowired
 	StudyRoomService studyroomService;
 
-
-
+	
 	// db에 이미 있는 userid이면 생성 x
 	// url 입장하면 entryuser 감지 및 데이터베이스에 등록
 	@PostMapping
@@ -44,9 +45,9 @@ public class StudyRoomController {
 		}
 		else
 			return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
-
 	}
 
+	
 	// userid를 찾아서 return된 객체의 time 컬럼에 데이터 저장
 	   @PutMapping("/saveTime")
 	   @ApiOperation(value="time 등록 서비스")
