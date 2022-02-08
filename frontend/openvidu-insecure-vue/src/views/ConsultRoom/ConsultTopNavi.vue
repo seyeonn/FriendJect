@@ -43,7 +43,7 @@ export default {
     solutionBook: function() {
       console.log("책 조회");
       axios
-        .get(`http://localhost:9999/consultroom/book`)
+        .get(`http://localhost:8081/consultroom/book`)
         .then((response) => {
           console.log(response.data.text);
           this.solution = response.data.text;

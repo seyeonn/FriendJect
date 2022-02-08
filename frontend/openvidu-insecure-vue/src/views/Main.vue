@@ -287,7 +287,7 @@ export default {
       this.log = [];
       axios
         .get(
-          `http://localhost:9999/consultroom/consult?userId=ilove_13@naver.com`
+          `http://localhost:8081/consultroom/consult?userId=ilove_13@naver.com`
         )
         .then((response) => {
           console.log(response.data);
