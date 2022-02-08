@@ -35,10 +35,6 @@ public class FileController {
   FileInfoService storageService;
   
   @PostMapping("/files")
-  @ApiResponses({
-      @ApiResponse(code = 200, message = "성공"),
-      @ApiResponse(code = 417, message = "업로드 실패"),
-  })
   public ResponseEntity<? extends BaseResponseBody> uploadMultipleFiles(@RequestParam("file") MultipartFile file) {
 	  String message = "";
 	  try {
@@ -46,6 +42,8 @@ public class FileController {
 		message = "Uploaded the file successfully: " + file.getOriginalFilename();
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, message));
 	} catch (IOException e) {
+		// TODO
+		// 파일 사이즈 예외
 		e.printStackTrace();
 		return ResponseEntity.status(417).body(BaseResponseBody.of(417, message));
 	}	
