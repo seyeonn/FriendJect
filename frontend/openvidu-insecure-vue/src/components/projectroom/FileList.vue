@@ -1,10 +1,6 @@
 <template>
   <div id="app" class="grid">
     <h1><b>File Table</b> 📄</h1>
-    <hr />
-    <!-- 파일 업로드 컴포넌트 -->
-    <file-upload></file-upload>
-    <hr />
     <label>Files per page</label>
     <select v-model="pageSizeModel">
       <option value="3">3</option>
@@ -53,14 +49,12 @@
 </template>
 <script>
 import FileListRow from "@/components/projectroom/child/FileListRow";
-import FileUpload from "@/components/projectroom/FileUpload";
 import { getFileList } from "@/api/projectroom.js";
 
 export default {
   name: "fileList",
   components: {
     FileListRow,
-    FileUpload,
   },
   data() {
     return {
