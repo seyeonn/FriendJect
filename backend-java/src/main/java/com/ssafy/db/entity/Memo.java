@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter @Setter
 @Table(name = "memo")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Memo extends BaseEntity {
+public class Memo {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "memo_id")
