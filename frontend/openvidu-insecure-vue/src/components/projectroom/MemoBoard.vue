@@ -1,9 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container board__container">
     <div class="row">
       <div class="col form-inline">
         <b-form inline>
-          <label class="sr-only" for="inline-form-input-name">Name</label>
           <b-form-input
             id="inline-form-input-name"
             class="mb-2 mr-sm-2 mb-sm-0"
@@ -118,6 +117,7 @@
 
 <script>
 //import draggable
+
 import draggable from "vuedraggable";
 import {
   getMemoList,
@@ -162,7 +162,7 @@ export default {
     getMemoList(
       "TODO",
       (response) => {
-        this.arrTodo = response.data;
+        this.arrTodo = response.data.data;
       },
       (error) => {
         console.log(error);
@@ -171,7 +171,7 @@ export default {
     getMemoList(
       "INPROGRESS",
       (response) => {
-        this.arrInProgress = response.data;
+        this.arrInProgress = response.data.data;
       },
       (error) => {
         console.log(error);
@@ -180,7 +180,7 @@ export default {
     getMemoList(
       "TESTING",
       (response) => {
-        this.arrTested = response.data;
+        this.arrTested = response.data.data;
       },
       (error) => {
         console.log(error);
@@ -189,7 +189,7 @@ export default {
     getMemoList(
       "DONE",
       (response) => {
-        this.arrDone = response.data;
+        this.arrDone = response.data.data;
       },
       (error) => {
         console.log(error);
@@ -218,9 +218,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* light stylings for the kanban columns */
 .kanban-column {
   min-height: 300px;
+}
+
+.board__container {
+  padding-right: 0;
 }
 </style>
