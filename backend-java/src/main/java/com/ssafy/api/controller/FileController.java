@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,6 @@ import com.ssafy.api.service.FileInfoService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.FileInfo;
 
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
 @RestController
 @RequestMapping("projectroom")
 @CrossOrigin("http://localhost:8081")
@@ -35,49 +33,44 @@ public class FileController {
   @Autowired
   FileInfoService storageService;
   
-  @PostMapping("/files")
-  public ResponseEntity<? extends BaseResponseBody> uploadMultipleFiles(@RequestParam("file") MultipartFile file) {
-	  String message = "";
-	  try {
-		storageService.save(file);
-		message = "Uploaded the file successfully: " + file.getOriginalFilename();
-		return ResponseFactory.ok();
-	} catch (IOException e) {
-		// TODO
-		// 파일 사이즈 예외
-		e.printStackTrace();
-		return ResponseFactory.noContent();
-	}	
-  }
+  	@PostMapping("/files")
+  	public ResponseEntity<? extends BaseResponseBody> uploadMultipleFiles(@RequestParam("file") MultipartFile file) {
+		try {
+			storageService.save(file);
+			return ResponseFactory.ok();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return ResponseFactory.forbidden();
+		}
+	}
   
-  @GetMapping("/files/{fileId}")
-  public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
-	  FileInfo FileInfo = storageService.findOne(fileId);
-
-	  return ResponseEntity.ok()
-        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + FileInfo.getId() + "\"")
-        .body(FileInfo.getData());
-  }
+  	@GetMapping("/files/{fileId}")
+  	public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
+		FileInfo fileInfo = storageService.findOne(fileId);
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileInfo.getId() + "\"")
+				.body(fileInfo.getData());
+  	}
 
 	@GetMapping("/files")
-	public ResponseEntity<List<FileRes>> getFileList() {
+	public ResponseEntity<? extends BaseResponseBody> getFileList() {
 		List<FileRes> files = storageService.findFiles().map(file -> {
 		      String fileDownloadUri = ServletUriComponentsBuilder
 							          .fromCurrentContextPath()
 							          .path("/files/")
 							          .path(file.getId())
 							          .toUriString();
-
+	
 		      return new FileRes(
-		    		  file.getId(),
-		    		  file.getFileName(),
-			          fileDownloadUri,
-			          // 업로더 반환
-			          file.getContentType(),
-			          Long.valueOf(file.getData().length),
-			          file.getModifiedDate());
-	    }).collect(Collectors.toList());
-
-	    return ResponseEntity.status(HttpStatus.OK).body(files);
+					    		  file.getId(),
+					    		  file.getFileName(),
+						          fileDownloadUri,
+						          // 업로더 반환
+						          file.getContentType(),
+						          Long.valueOf(file.getData().length),
+						          file.getModifiedDate());
+				    			}).collect(Collectors.toList());
+	
+		return ResponseFactory.ok(files);
 	}
 }
