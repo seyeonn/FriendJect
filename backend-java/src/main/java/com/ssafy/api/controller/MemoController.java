@@ -28,14 +28,19 @@ import com.ssafy.db.dto.MemoDTO;
 import com.ssafy.db.entity.Memo;
 import com.ssafy.db.entity.MemoStatus;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
-@RequestMapping("projectroom")
+@RequestMapping("/projectroom")
+@Api(value = "메모보드", tags = {"프로젝트실"})
 @CrossOrigin("http://localhost:8081")
 public class MemoController {
 	@Autowired
 	MemoService memoService;
 	
 	@PostMapping("/memo")
+	@ApiOperation(value = "메모 개별 작성", notes = "<strong> 메모 </strong> 를 작성한다. ") 
 	public ResponseEntity<? extends BaseResponseBody> uploadMemo(@RequestBody MemoDTO memoInfo) {
 		try {
 			Long id = memoService.save(memoInfo);
@@ -47,6 +52,7 @@ public class MemoController {
 	}
 	
 	@PostMapping("/memo/list")
+	@ApiOperation(value = "메모 리스트 작성", notes = "<strong> 메모를 리스트로 </strong> 작성한다. ") 
 	public ResponseEntity<? extends BaseResponseBody> uploadMemoList(@RequestBody List<MemoListRegisterPostReq> memoList, @RequestParam("status") MemoStatus memoStatus) throws IOException {
 		//try {
 			List<Memo> findMemos = memoService.findMemos(memoStatus);
@@ -72,6 +78,7 @@ public class MemoController {
 	}
 	
 	@GetMapping("/memo")
+	@ApiOperation(value = "메모 조회", notes = "<strong> 메모를 조회 </strong> 한다. ") 
 	public ResponseEntity<List<MemoRes>> getMemoList(@RequestParam("status") MemoStatus memoStatus) {
 		List<Memo> findMemos = memoService.findMemos(memoStatus);
 		List<MemoRes> memoRes = findMemos.stream()
@@ -82,6 +89,7 @@ public class MemoController {
 	}
 	
 	@GetMapping("/memo/{memoId}")
+	@ApiOperation(value = "메모 상세 조회", notes = "<strong> 특정 메모를 조회 </strong> 한다. ") 
 	public ResponseEntity<MemoRes> getMemo(@PathVariable Long memoId) {
 
 		Memo memo = memoService.findOne(memoId);
@@ -90,6 +98,7 @@ public class MemoController {
 	}
 	
 	@PutMapping("/memo/{memoId}")
+	@ApiOperation(value = "메모 수정", notes = "<strong> 특정 메모를 수정 </strong> 한다. ") 
 	public ResponseEntity<? extends BaseResponseBody> updateMemo(@PathVariable Long memoId, @RequestBody MemoRegisterPostReq memoReq) {
 		// TODO : 존재하지 않는 메모 에러처리
 		
@@ -99,6 +108,7 @@ public class MemoController {
 	}
 	
 	@DeleteMapping("/memo/{memoId}")
+	@ApiOperation(value = "메모 삭제", notes = "<strong> 특정 메모를 삭제 </strong> 한다. ") 
 	public ResponseEntity<? extends BaseResponseBody> deleteMemo(@PathVariable Long memoId) {
 
 		memoService.deleteMemo(memoId);
