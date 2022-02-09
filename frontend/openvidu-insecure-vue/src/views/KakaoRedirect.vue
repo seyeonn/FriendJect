@@ -44,6 +44,7 @@ export default {
 
     console.log(this.$route.query.code);
     //this.$router.replace("/choice");
+    this.$router.replace("/join");
   },
 };
 </script>
