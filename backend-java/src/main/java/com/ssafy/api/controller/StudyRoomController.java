@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiParam;
 @CrossOrigin("http://localhost:8081")
 public class StudyRoomController {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(KakaoController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
