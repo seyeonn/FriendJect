@@ -21,6 +21,8 @@ buildscript{
         classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVer}"
         //[끝] 
         classpath "com.github.node-gradle:gradle-node-plugin:3.1.0"
+       	// 스웨거
+        implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
     }
 }
 
