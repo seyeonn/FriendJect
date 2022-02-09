@@ -5,10 +5,12 @@ import com.ssafy.db.entity.MemoStatus;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class MemoDTO {
+	private Long id;
 	private String title;
 	private String content;
 	private MemoStatus status;

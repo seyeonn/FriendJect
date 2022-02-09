@@ -1,60 +1,67 @@
 <template>
-  <div id="app" class="grid">
-    <h1><b>File Table</b> 📄</h1>
-    <label>Files per page</label>
-    <select v-model="pageSizeModel">
-      <option value="3">3</option>
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="25">25</option>
-    </select>
-    <table>
-      <thead>
-        <tr>
-          <th :class="{ sorted: sort === 'name' }" @click="sortBy('name')">
-            Name
-          </th>
-          <th :class="{ sorted: sort === 'type' }" @click="sortBy('type')">
-            Uploader
-          </th>
-          <th :class="{ sorted: sort === 'size' }" @click="sortBy('size')">
-            Size
-          </th>
-          <th
-            :class="{ sorted: sort === 'updatedAt' }"
-            @click="sortBy('updatedAt')"
-          >
-            Updated
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <file-list-row
-          v-for="(file, index) in sortedFiles()"
-          :key="index"
-          v-bind="file"
-        ></file-list-row>
-      </tbody>
-    </table>
+  <b-row>
+    <b-col cols="8"
+      ><div id="app" class="grid">
+        <h1><b>File Table</b> 📄</h1>
+        <label>Files per page</label>
+        <select v-model="pageSizeModel">
+          <option value="3">3</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+        </select>
+        <table>
+          <thead>
+            <tr>
+              <th :class="{ sorted: sort === 'name' }" @click="sortBy('name')">
+                Name
+              </th>
+              <th :class="{ sorted: sort === 'type' }" @click="sortBy('type')">
+                Uploader
+              </th>
+              <th :class="{ sorted: sort === 'size' }" @click="sortBy('size')">
+                Size
+              </th>
+              <th
+                :class="{ sorted: sort === 'updatedAt' }"
+                @click="sortBy('updatedAt')"
+              >
+                Updated
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <file-list-row
+              v-for="(file, index) in sortedFiles()"
+              :key="index"
+              v-bind="file"
+            ></file-list-row>
+          </tbody>
+        </table>
 
-    <div class="controls">
-      <button class="btn btn-sm" :disabled="!hasPage(-1)" @click="prevPage">
-        ←
-      </button>
-      <button class="btn btn-sm" :disabled="!hasPage(1)" @click="nextPage">
-        →
-      </button>
-    </div>
-  </div>
+        <div class="controls">
+          <button class="btn btn-sm" :disabled="!hasPage(-1)" @click="prevPage">
+            ←
+          </button>
+          <button class="btn btn-sm" :disabled="!hasPage(1)" @click="nextPage">
+            →
+          </button>
+        </div>
+      </div>
+    </b-col>
+    <b-col cols="4"><file-upload /> </b-col>
+  </b-row>
 </template>
 <script>
 import FileListRow from "@/components/projectroom/child/FileListRow";
+import FileUpload from "@/components/projectroom/FileUpload.vue";
 import { getFileList } from "@/api/projectroom.js";
 
 export default {
   name: "fileList",
   components: {
     FileListRow,
+    FileUpload,
   },
   data() {
     return {
