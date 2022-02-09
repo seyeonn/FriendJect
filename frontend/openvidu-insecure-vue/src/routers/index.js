@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Join from "../views/Join.vue";
+import JoinTest from "../views/JoinTest.vue";
 import Home from "../views/Home.vue";
 import Main from "../views/Main.vue";
 import KakaoLogin from "../views/KakaoRedirect.vue";
@@ -10,6 +11,8 @@ import Consult from "../views/ConsultRoom/ConsultRoom.vue";
 
 // project room
 import Project from "../views/Project.vue";
+import MemoBoard from "../components/projectroom/MemoBoard.vue";
+import FileList from "../components/projectroom/FileList.vue";
 
 // meeting room
 import Meeting from "../views/Meeting.vue";
@@ -30,6 +33,11 @@ export const router = new VueRouter({
       path: "/join",
       name: "join",
       component: Join,
+    },
+    {
+      path: "/jointest",
+      name: "join",
+      component: JoinTest,
     },
     {
       path: "/main",
@@ -55,9 +63,22 @@ export const router = new VueRouter({
       path: "/projectroom",
       name: "projectroom",
       component: Project,
+      redirect: "/projectroom/memos",
+      children: [
+        {
+          path: "memos",
+          name: "memoboard",
+          component: MemoBoard,
+        },
+        {
+          path: "files",
+          name: "filelist",
+          component: FileList,
+        },
+      ],
     },
     {
-      path: "/meetingroom",
+      path: "meetingroom",
       name: "meetingroom",
       component: Meeting,
     },
