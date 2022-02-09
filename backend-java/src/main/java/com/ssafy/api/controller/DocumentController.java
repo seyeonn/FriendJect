@@ -20,9 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.db.entity.Document;
 import com.ssafy.db.repository.DocumentRepository;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.var;
 
+@Api(value = "회의록 CRUD", tags = {"회의실"})
 @RestController
 @AllArgsConstructor
 @RequestMapping("/meetingroom/document")
@@ -32,6 +35,7 @@ public class DocumentController {
 	DocumentRepository documentRepoisitory;
 	
 	@GetMapping
+	@ApiOperation(value = "회의록 조회", notes = "<strong> 회의록 전체 </strong> 를 조회한다. ") 
 	public List<Map<String, Object>> list() {
 		List<Map<String, Object>> result = new ArrayList<>();
 		documentRepoisitory.findAll().forEach(documentList -> {
@@ -45,6 +49,7 @@ public class DocumentController {
 	}
 	
 	@GetMapping("/{id}")
+	@ApiOperation(value = "회의록 상세 조회", notes = "<strong> 글 Id로 </strong> 상세 회의록을 조회한다. ")
 	public Map<String, Object> document(@PathVariable int id) {
 		Optional<Document> option = documentRepoisitory.findById(id);
 		if (!option.isPresent())
@@ -59,6 +64,7 @@ public class DocumentController {
 	}
 	
 	@PostMapping
+	@ApiOperation(value = "회의록 작성", notes = "<strong> 새로운 회의록 </strong> 을 작성한다. ")
 	public int post(@RequestBody Map<String, Object> body) {
 		return documentRepoisitory.save(Document.builder()
 				.title(body.get("title").toString())
@@ -69,6 +75,7 @@ public class DocumentController {
 	
 	
 	@PutMapping("/{id}")
+	@ApiOperation(value = "회의록 수정", notes = "<strong> 글 Id로 </strong> 회의록을 수정한다. ")
 	public Map<String, Object> update(@PathVariable int id, @RequestBody Map<String, Object> body) {
 		Optional<Document> option = documentRepoisitory.findById(id);
 		if (!option.isPresent())
@@ -81,6 +88,7 @@ public class DocumentController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "회의록 삭제", notes = "<strong> 글 Id로 </strong> 회의록을 삭제한다. ")
 	public void delete(@PathVariable int id) {
 		documentRepoisitory.deleteById(id);
 	}

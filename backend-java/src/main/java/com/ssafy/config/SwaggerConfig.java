@@ -3,10 +3,13 @@ package com.ssafy.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
+import springfox.documentation.service.Contact;
 import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -27,17 +30,18 @@ import static com.google.common.collect.Lists.newArrayList;
 public class SwaggerConfig {
 
     @Bean
-    public Docket api() {
+    public Docket consultApi() {
         return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.ant("/api/**"))
+                .paths(PathSelectors.regex("/(consultroom|studyroom|projectroom|meetingroom|login)/.+"))
                 .build()
+                .apiInfo(apiInfo())
                 .securityContexts(newArrayList(securityContext()))
                 .securitySchemes(newArrayList(apiKey()))
                 ;
     }
-
+    
     private ApiKey apiKey() {
         return new ApiKey(SECURITY_SCHEMA_NAME, "Authorization", "header");
     }
@@ -64,6 +68,17 @@ public class SwaggerConfig {
         return UiConfigurationBuilder.builder()
 //                .supportedSubmitMethods(newArrayList("get").toArray(new String[0])) // try it 기능 활성화 범위
 //                .operationsSorter(METHOD)
+        		
+                .build();
+    }
+    
+    private ApiInfo apiInfo(){
+        return new ApiInfoBuilder()
+                .title("프렌젝트 API 문서")
+                .description("프렌젝트 API v1")
+                .version("1.0")
+                .contact(new Contact("frienject", "http://i6b202.p.ssafy.io/", "jh15501551@gmail.com"))
+                
                 .build();
     }
 }
