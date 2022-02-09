@@ -39,6 +39,9 @@
         fluid
         x-data="{ rightSide: false, leftSide: false }"
       >
+        <div>
+          <left-bar></left-bar>
+        </div>
         <div class="main">
           <div class="main-container">
             <!-- <img
@@ -46,8 +49,10 @@
             style="width:100%; height:100%"
           /> -->
 
-            <h5>팀코드 : {{ mySessionId }} </h5>
-            <button @click="leaveSession" value="Leave session">세션 나가기</button>
+            <h5>팀코드 : {{ mySessionId }}</h5>
+            <button @click="leaveSession" value="Leave session">
+              세션 나가기
+            </button>
             <input
               type="button"
               class="btn btn-info"
@@ -56,7 +61,10 @@
             />
             <b-row>
               <!-- 방장 캠 -->
-              <user-video :stream-manager="mainStreamManager" style="width:20%"/>
+              <user-video
+                :stream-manager="mainStreamManager"
+                style="width:20%"
+              />
 
               <!-- 접속자 캠 -->
               <user-video
@@ -329,10 +337,11 @@ const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
-import ProjectRoom from "./Project.vue";
+import ProjectRoom from "../components/projectroom/MemoBoard.vue";
 import MeetingRoom from "./Meeting.vue";
 import StudyRoom from "./Studyroom.vue";
 import Center from "../components/layout/Center.vue";
+import LeftBar from "../components/layout/LeftTempBar.vue";
 
 export default {
   name: "main",
@@ -364,6 +373,7 @@ export default {
     StudyRoom,
     UserVideo,
     Center,
+    LeftBar,
   },
   methods: {
     changeTab: function(value) {

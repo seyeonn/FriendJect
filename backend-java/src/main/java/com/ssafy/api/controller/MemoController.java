@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.api.request.MemoListRegisterPostReq;
 import com.ssafy.api.request.MemoRegisterPostReq;
 import com.ssafy.api.response.MemoRes;
+import com.ssafy.api.response.ResponseFactory;
 import com.ssafy.api.service.MemoService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.dto.MemoDTO;
@@ -39,10 +40,10 @@ public class MemoController {
 	public ResponseEntity<? extends BaseResponseBody> uploadMemo(@RequestBody MemoDTO memoInfo) {
 		try {
 			Long id = memoService.save(memoInfo);
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, id +" is registered successfully"));
+			return ResponseFactory.ok();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return ResponseEntity.status(417).body(BaseResponseBody.of(417, "failed"));
+			return ResponseFactory.forbidden();
 		}	
 	}
 	
@@ -60,11 +61,11 @@ public class MemoController {
 					if (!flag) {
 						System.out.println(m.getId());
 						memoService.changeMemoStatus(m.getId(), memoStatus);
-						return ResponseEntity.status(200).body(BaseResponseBody.of(200, " is registered successfully"));
+						return ResponseFactory.ok();
 					}
 				}
 			} 
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "ok"));
+			return ResponseFactory.ok();
 		//} catch (IOException e) {
 		//	e.printStackTrace();
 		//	return ResponseEntity.status(417).body(BaseResponseBody.of(417, "failed"));
@@ -95,7 +96,7 @@ public class MemoController {
 		
 		memoService.updateMemo(memoId, memoReq);
 		
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "수정 완료"));
+		return ResponseFactory.ok();
 	}
 	
 	@DeleteMapping("/memo/{memoId}")
@@ -103,7 +104,7 @@ public class MemoController {
 
 		memoService.deleteMemo(memoId);
 		
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "삭제 완료"));
+		return ResponseFactory.ok();
 	}
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.response.ResponseFactory;
 import com.ssafy.api.service.ConsultService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.*;
@@ -65,7 +66,7 @@ public class ConsultController {
 			@RequestBody @ApiParam(value="상담기록 저장", required = true) ConsultLog consultlog) throws Exception {
 		
 		Optional<ConsultLog> consultLog = Optional.ofNullable(consultService.setConsultLog(consultlog));
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+		return ResponseFactory.ok();
 	}
 	
 	
