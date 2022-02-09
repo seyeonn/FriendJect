@@ -62,7 +62,6 @@ public class StudyRoomController {
 	      return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	   }
 
-
 	   @GetMapping
 	   @ApiOperation(value="어제의 학습왕 조회")
 	   public ResponseEntity<String> getStudyBest(){
