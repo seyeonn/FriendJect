@@ -257,9 +257,10 @@
 <script>
 import axios from "axios";
 import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
-import ProjectRoom from "./Project.vue";
+import ProjectRoom from "../components/projectroom/MemoBoard.vue";
 import MeetingRoom from "./Meeting.vue";
 import StudyRoom from "./Studyroom.vue";
+import LeftBar from "../components/layout/LeftTempBar.vue";
 
 export default {
   name: "main",
@@ -280,6 +281,7 @@ export default {
     ProjectRoom,
     MeetingRoom,
     StudyRoom,
+    LeftBar,
   },
   methods: {
     getLog: function() {

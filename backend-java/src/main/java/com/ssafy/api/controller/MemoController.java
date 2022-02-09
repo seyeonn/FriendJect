@@ -1,9 +1,11 @@
 package com.ssafy.api.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.api.request.MemoListRegisterPostReq;
 import com.ssafy.api.request.MemoRegisterPostReq;
 import com.ssafy.api.response.MemoRes;
+import com.ssafy.api.response.ResponseFactory;
 import com.ssafy.api.service.MemoService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.dto.MemoDTO;
@@ -44,67 +47,60 @@ public class MemoController {
 	public ResponseEntity<? extends BaseResponseBody> uploadMemo(@RequestBody MemoDTO memoInfo) {
 		try {
 			Long id = memoService.save(memoInfo);
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, id +" is registered successfully"));
+			return ResponseFactory.ok();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return ResponseEntity.status(417).body(BaseResponseBody.of(417, "failed"));
+			return ResponseFactory.forbidden();
 		}	
 	}
 	
 	@PostMapping("/memo/list")
 	@ApiOperation(value = "메모 리스트 작성", notes = "<strong> 메모를 리스트로 </strong> 작성한다. ") 
 	public ResponseEntity<? extends BaseResponseBody> uploadMemoList(@RequestBody List<MemoListRegisterPostReq> memoList, @RequestParam("status") MemoStatus memoStatus) throws IOException {
-		//try {
-			List<Memo> findMemos = memoService.findMemos(memoStatus);
-			
-			if (findMemos.size() < memoList.size()) { // memoStatus에 해당하는 메모 리스트가 줄어들었을 때
-				for (MemoListRegisterPostReq m : memoList) { 
-					boolean flag = false;
-					for (Memo memo : findMemos) {
-						if (memo.getId() == m.getId()) flag = true;
-					}
-					if (!flag) {
-						System.out.println(m.getId());
-						memoService.changeMemoStatus(m.getId(), memoStatus);
-						return ResponseEntity.status(200).body(BaseResponseBody.of(200, " is registered successfully"));
-					}
+		List<Memo> findMemos = memoService.findMemos(memoStatus);
+		
+		if (findMemos.size() < memoList.size()) { // memoStatus에 해당하는 메모 리스트가 줄어들었을 때
+			for (MemoListRegisterPostReq m : memoList) { 
+				boolean flag = false;
+				for (Memo memo : findMemos) {
+					if (memo.getId() == m.getId()) flag = true;
 				}
-			} 
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "ok"));
-		//} catch (IOException e) {
-		//	e.printStackTrace();
-		//	return ResponseEntity.status(417).body(BaseResponseBody.of(417, "failed"));
-		//}	
+				if (!flag) {
+					memoService.changeMemoStatus(m.getId(), memoStatus);
+					return ResponseFactory.ok();
+				}
+			}
+		} 
+		return ResponseFactory.badRequest();
 	}
 	
 	@GetMapping("/memo")
 	@ApiOperation(value = "메모 조회", notes = "<strong> 메모를 조회 </strong> 한다. ") 
-	public ResponseEntity<List<MemoRes>> getMemoList(@RequestParam("status") MemoStatus memoStatus) {
+	public ResponseEntity<? extends BaseResponseBody> getMemoList(@RequestParam("status") MemoStatus memoStatus) {
 		List<Memo> findMemos = memoService.findMemos(memoStatus);
 		List<MemoRes> memoRes = findMemos.stream()
 				.map(m -> new MemoRes(m))
 				.collect(Collectors.toList());
 
-		return ResponseEntity.status(HttpStatus.OK).body(memoRes);
+		return ResponseFactory.ok(memoRes);
 	}
 	
 	@GetMapping("/memo/{memoId}")
 	@ApiOperation(value = "메모 상세 조회", notes = "<strong> 특정 메모를 조회 </strong> 한다. ") 
-	public ResponseEntity<MemoRes> getMemo(@PathVariable Long memoId) {
+	public ResponseEntity<? extends BaseResponseBody> getMemo(@PathVariable Long memoId) {
 
 		Memo memo = memoService.findOne(memoId);
 		MemoRes memoRes = new MemoRes(memo);
-		return ResponseEntity.status(HttpStatus.OK).body(memoRes);
+		return ResponseFactory.ok(memoRes);
 	}
 	
 	@PutMapping("/memo/{memoId}")
 	@ApiOperation(value = "메모 수정", notes = "<strong> 특정 메모를 수정 </strong> 한다. ") 
 	public ResponseEntity<? extends BaseResponseBody> updateMemo(@PathVariable Long memoId, @RequestBody MemoRegisterPostReq memoReq) {
-		// TODO : 존재하지 않는 메모 에러처리
 		
 		memoService.updateMemo(memoId, memoReq);
 		
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "수정 완료"));
+		return ResponseFactory.ok();
 	}
 	
 	@DeleteMapping("/memo/{memoId}")
@@ -113,7 +109,7 @@ public class MemoController {
 
 		memoService.deleteMemo(memoId);
 		
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "삭제 완료"));
+		return ResponseFactory.ok();
 	}
 	
 }
