@@ -1,23 +1,29 @@
 <template>
   <div class="main_study" style="height:100%">
     <div id="stopwatch" style="margin-top: 170px;">
-        <!-- 스톱워치 기능 개발 -->
-          <div class="stopwatch">{{formattedElapsedTime}} &nbsp;&nbsp;</div>
-          <div class="watch">
-          <button class="w-btn w-btn-indigo" type="button" @click="start">Start</button>
-          <button class="w-btn w-btn-green" type="button" @click="stop">Stop</button>
-          <button class="w-btn w-btn-green2" type="button" @click="save">Save</button>
-          </div>
-        </div>
-         <!-- 어제의 학습왕 조회 -->
-        <div class="studybest">{{studybest}}</div>
-        
-        <div class="comment">
-          <h3>{{ value }}</h3>
-          <input type="text" v-model=' value '>
-          <button @click=' setDefault() '>기본값</button>
-        </div>
-        <h1>왜 안됌</h1>
+      <!-- 스톱워치 기능 개발 -->
+      <div class="stopwatch">{{ formattedElapsedTime }} &nbsp;&nbsp;</div>
+      <div class="watch">
+        <button class="w-btn w-btn-indigo" type="button" @click="start">
+          Start
+        </button>
+        <button class="w-btn w-btn-green" type="button" @click="stop">
+          Stop
+        </button>
+        <button class="w-btn w-btn-green2" type="button" @click="save">
+          Save
+        </button>
+      </div>
+    </div>
+    <!-- 어제의 학습왕 조회 -->
+    <div class="studybest">{{ studybest }}</div>
+
+    <div class="comment">
+      <h3>{{ value }}</h3>
+      <input type="text" v-model="value" />
+      <button @click="setDefault()">기본값</button>
+    </div>
+    <h1>왜 안됌</h1>
   </div>
 </template>
 
@@ -36,7 +42,7 @@ export default {
         time: 0,
       },
       studybest: "",
-      value: ""
+      value: "",
     };
   },
   created() {
@@ -57,7 +63,7 @@ export default {
 
     // 어제의 학습왕 조회
     axios
-      .get(`http://localhost:8080/studyroom`)
+      .get(`http://localhost:8081/studyroom`)
       .then((response) => {
         console.log("어제의 학습왕은?");
         console.log(response.data);
@@ -116,9 +122,9 @@ export default {
         }
       );
     },
-    setDefault: function(){
+    setDefault: function() {
       this.value = "default";
-    }
+    },
   },
 };
 
