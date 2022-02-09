@@ -23,6 +23,10 @@ public class ResponseFactory {
     	return ResponseEntity.status(HttpStatus.NO_CONTENT).body(BaseResponseBody.of(204, "존재하지 않음", new EmptyDTO(true)));
     }
     
+    public static ResponseEntity<? extends BaseResponseBody> badRequest() {
+    	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(BaseResponseBody.of(400, "잘못된 요청", new EmptyDTO(true)));
+    }
+    
     public static ResponseEntity<? extends BaseResponseBody> unauthorized() {
     	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(BaseResponseBody.of(401, "권한이 없음", new EmptyDTO(true)));
     }
