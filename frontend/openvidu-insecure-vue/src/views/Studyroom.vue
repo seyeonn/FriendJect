@@ -11,6 +11,13 @@
         </div>
          <!-- 어제의 학습왕 조회 -->
         <div class="studybest">{{studybest}}</div>
+        
+        <div class="comment">
+          <h3>{{ value }}</h3>
+          <input type="text" v-model=' value '>
+          <button @click=' setDefault() '>기본값</button>
+        </div>
+        <h1>왜 안됌</h1>
   </div>
 </template>
 
@@ -29,6 +36,7 @@ export default {
         time: 0,
       },
       studybest: "",
+      value: ""
     };
   },
   created() {
@@ -108,6 +116,9 @@ export default {
         }
       );
     },
+    setDefault: function(){
+      this.value = "default";
+    }
   },
 };
 
