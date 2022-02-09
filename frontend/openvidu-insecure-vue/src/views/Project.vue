@@ -5,7 +5,7 @@
         <left-bar />
       </b-col>
       <b-col cols="10" sm="8">
-        <b-row style="height:30%; padding-top:1%"> Openvidu cameras </b-row>
+        <!-- <b-row style="height:30%; padding-top:1%"> Openvidu cameras </b-row> -->
         <router-view></router-view>
       </b-col>
     </b-row>
@@ -18,6 +18,7 @@ import FileUpload from "@/components/projectroom/FileUpload.vue";
 import LeftBar from "../components/layout/LeftTempBar.vue";
 
 export default {
+  name: "projectroom",
   components: { FileList, FileUpload, LeftBar },
 };
 </script>
