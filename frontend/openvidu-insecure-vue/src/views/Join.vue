@@ -2,104 +2,101 @@
   <div>
     <!-- 세션이 없다면 (접속 안한 상태) -->
     <div id="join" v-if="!session">
+      <div>
+        <div class="cards" style="width:100%;">
+          <article
+            class="information [ card ]"
+            style="width:40%; margin-right:10%"
+          >
+            <span class="tag">새 프로젝트 시작하기</span>
+            <h2 class="title">팀 생성</h2>
+            <p class="info" style="font-size:0.9rem;">
+              팀 참여코드는 자동으로 생성되고, 클립보드에 복사됩니다. <br />
+              팀 이름만 설정해보세요!
+            </p>
+            <b-input-group size="md">
+              <b-form-input
+                v-model="teamName"
+                class="form-control"
+                type="text"
+              ></b-form-input>
+            </b-input-group>
+            <br />
+            <button class="button" @click="randomNumber">
+              <span>Create</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 0 24 24"
+                width="24px"
+                fill="none"
+              >
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path
+                  d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          </article>
+
+          <article class="information [ card ]" style="width:40%">
+            <span class="tag">기존 프로젝트에 참여하기</span>
+            <h2 class="title">팀 코드로 참가</h2>
+            <p class="info" style="font-size:0.9rem;">
+              팀원에게 받은 고유코드를 입력하세요!
+            </p>
+
+            <b-input-group size="md">
+              <b-form-input
+                v-model="mySessionId"
+                class="form-control"
+                type="text"
+                required
+              ></b-form-input>
+            </b-input-group>
+            <br />
+            <button class="button" @click="joinSession">
+              <span>Join</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 0 24 24"
+                width="24px"
+                fill="none"
+              >
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path
+                  d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          </article>
+        </div>
+
         <div>
+          <h2 style="color:#3D3D3C; margin-left:10%">참여중인 프로젝트</h2>
+
+          <!-- 이부분 접속 했던 이력을 for 문으로 나타내기 -->
           <div class="cards" style="width:100%;">
-            <article
-              class="information [ card ]"
-              style="width:40%; margin-right:10%"
-            >
-              <span class="tag">새 프로젝트 시작하기</span>
-              <h2 class="title">팀 생성</h2>
-              <p class="info" style="font-size:0.9rem;">
-                팀 참여코드는 자동으로 생성되고, 클립보드에 복사됩니다. <br>
-                팀 이름만 설정해보세요!
-              </p>
-              <b-input-group size="md">
-                <b-form-input
-                  v-model="teamName"
-                  class="form-control"
-                  type="text"
-                  
-                ></b-form-input>
-              </b-input-group>
-              <br />
-              <button class="button" @click="randomNumber">
-                <span>Create</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 0 24 24"
-                  width="24px"
-                  fill="none"
-                >
-                  <path d="M0 0h24v24H0V0z" fill="none" />
-                  <path
-                    d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </button>
-
-            </article>
-
-            <article class="information [ card ]" style="width:40%">
-              <span class="tag">기존 프로젝트에 참여하기</span>
-              <h2 class="title">팀 코드로 참가</h2>
-              <p class="info" style="font-size:0.9rem;">
-                팀원에게 받은 고유코드를 입력하세요!
-              </p>
-
-              <b-input-group size="md">
-                <b-form-input
-                  v-model="mySessionId"
-                  class="form-control"
-                  type="text"
-                  required
-                ></b-form-input>
-              </b-input-group>
-              <br />
-              <button class="button" @click="joinSession">
-                <span>Join</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 0 24 24"
-                  width="24px"
-                  fill="none"
-                >
-                  <path d="M0 0h24v24H0V0z" fill="none" />
-                  <path
-                    d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"
-                    fill="currentColor"
-                  />
-                </svg>
+            <article class="information [ card ]">
+              <dl class="details">
+                <div>
+                  <dt>#2123</dt>
+                  <dd>[2팀] 콘푸로스트</dd>
+                </div>
+              </dl>
+              <button
+                class="button"
+                style="background-color:#F9B225; color:white"
+              >
+                접속하기
               </button>
             </article>
-          </div>
-
-          <div>
-            <h2 style="color:#3D3D3C; margin-left:10%">참여중인 프로젝트</h2>
-
-            <!-- 이부분 접속 했던 이력을 for 문으로 나타내기 -->
-            <div class="cards" style="width:100%;">
-              <article class="information [ card ]">
-                <dl class="details">
-                  <div>
-                    <dt>#2123</dt>
-                    <dd>[2팀] 콘푸로스트</dd>
-                  </div>
-                </dl>
-                <button
-                  class="button"
-                  style="background-color:#F9B225; color:white"
-                  
-                >
-                  접속하기
-                </button>
-              </article>
-            </div>
           </div>
         </div>
+      </div>
     </div>
 
     <!-- 세션이 있을때 (접속 한 상태) -->
@@ -387,10 +384,11 @@ const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
-import ProjectRoom from "./Project.vue";
+import ProjectRoom from "../components/projectroom/MemoBoard.vue";
 import MeetingRoom from "./Meeting.vue";
 import StudyRoom from "./Studyroom.vue";
 import Center from "../components/layout/Center.vue";
+import LeftBar from "../components/layout/LeftTempBar.vue";
 
 export default {
   name: "main",
@@ -424,6 +422,7 @@ export default {
     StudyRoom,
     UserVideo,
     Center,
+    LeftBar,
   },
   methods: {
     randomNumber: function() {
