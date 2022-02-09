@@ -11,7 +11,7 @@
         </div>
          <!-- 어제의 학습왕 조회 -->
         <div class="studybest">{{studybest}}</div>
-
+        
         <div class="comment">
           <h3>{{ value }}</h3>
           <input type="text" v-model=' value '>
@@ -164,11 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
 <style scoped>
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-.comment {
-  font-size: 46px;
-  color: black;
-  
-}
 .studybest {
   font-size: 46px;
   margin-top: -100;
