@@ -20,9 +20,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepositorySupport userRepositorySupport;
 	
-	@Autowired
-	PasswordEncoder passwordEncoder;
-	
+//	@Autowired
+//	PasswordEncoder passwordEncoder;
+//	
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
 		User user = new User();
@@ -33,9 +33,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserByUserId(String userId) {
+	public User findByUserEmail(String userEmail) {
 		// 디비에 유저 정보 조회 (userId 를 통한 조회).
-		User user = userRepositorySupport.findUserByUserId(userId).get();
+		User user = userRepositorySupport.findByUserEmail(userEmail).get();
 		return user;
 	}
 }
