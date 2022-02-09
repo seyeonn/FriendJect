@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ssafy.api.response.FileRes;
+import com.ssafy.api.response.ResponseFactory;
 import com.ssafy.api.service.FileInfoService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.FileInfo;
@@ -40,12 +41,12 @@ public class FileController {
 	  try {
 		storageService.save(file);
 		message = "Uploaded the file successfully: " + file.getOriginalFilename();
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200, message));
+		return ResponseFactory.ok();
 	} catch (IOException e) {
 		// TODO
 		// 파일 사이즈 예외
 		e.printStackTrace();
-		return ResponseEntity.status(417).body(BaseResponseBody.of(417, message));
+		return ResponseFactory.noContent();
 	}	
   }
   

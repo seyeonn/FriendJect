@@ -1,5 +1,6 @@
 <template>
   <div class="main_center" style="height:100%">
+    <h1>test</h1>
     <b-row>
       <b-col class="box" style="margin-right:10%">
         <button @click="setTab('StudyRoom')">Study</button>
