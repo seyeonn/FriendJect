@@ -75,8 +75,8 @@ export default {
   created() {
     getFileList(
       (response) => {
-        console.log(response.data);
-        this.files = response.data;
+        console.log(response.data.data);
+        this.files = response.data.data;
       },
       (error) => {
         console.log(error);
