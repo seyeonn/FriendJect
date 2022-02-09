@@ -23,9 +23,12 @@ import com.ssafy.api.service.FileInfoService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.FileInfo;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@Api(value = "자료실", tags = {"프로젝트실"})
 @RestController
 @RequestMapping("projectroom")
 @CrossOrigin("http://localhost:8081")
@@ -34,6 +37,7 @@ public class FileController {
   @Autowired
   FileInfoService storageService;
   
+  @ApiOperation(value = "파일 업로드", notes = "<strong> 파일을 업로드 </strong> 한다. ") 
   @PostMapping("/files")
   public ResponseEntity<? extends BaseResponseBody> uploadMultipleFiles(@RequestParam("file") MultipartFile file) {
 	  String message = "";
@@ -49,6 +53,7 @@ public class FileController {
 	}	
   }
   
+  @ApiOperation(value = "파일 다운로드", notes = "<strong> 특정 파일을 다운로드 </strong> 한다. ") 
   @GetMapping("/files/{fileId}")
   public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
 	  FileInfo FileInfo = storageService.findOne(fileId);
@@ -59,6 +64,7 @@ public class FileController {
   }
 
 	@GetMapping("/files")
+	@ApiOperation(value = "파일 목록 조회", notes = "<strong> 업로드된 파일 전체 </strong> 를 조회한다. ") 
 	public ResponseEntity<List<FileRes>> getFileList() {
 		List<FileRes> files = storageService.findFiles().map(file -> {
 		      String fileDownloadUri = ServletUriComponentsBuilder
