@@ -162,7 +162,7 @@ export default {
     getMemoList(
       "TODO",
       (response) => {
-        this.arrTodo = response.data;
+        this.arrTodo = response.data.data;
       },
       (error) => {
         console.log(error);
@@ -171,7 +171,7 @@ export default {
     getMemoList(
       "INPROGRESS",
       (response) => {
-        this.arrInProgress = response.data;
+        this.arrInProgress = response.data.data;
       },
       (error) => {
         console.log(error);
@@ -180,7 +180,7 @@ export default {
     getMemoList(
       "TESTING",
       (response) => {
-        this.arrTested = response.data;
+        this.arrTested = response.data.data;
       },
       (error) => {
         console.log(error);
@@ -189,7 +189,7 @@ export default {
     getMemoList(
       "DONE",
       (response) => {
-        this.arrDone = response.data;
+        this.arrDone = response.data.data;
       },
       (error) => {
         console.log(error);

@@ -1,9 +1,11 @@
 package com.ssafy.api.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +39,7 @@ public class MemoController {
 	MemoService memoService;
 	
 	@PostMapping("/memo")
-	public ResponseEntity<? extends BaseResponseBody> uploadMemo(@RequestBody MemoDTO memoInfo) {
+	public ResponseEntity<? extends BaseResponseBody> uploadMemo(@RequestBody @Valid MemoDTO memoInfo) {
 		try {
 			Long id = memoService.save(memoInfo);
 			return ResponseFactory.ok();
@@ -49,50 +51,44 @@ public class MemoController {
 	
 	@PostMapping("/memo/list")
 	public ResponseEntity<? extends BaseResponseBody> uploadMemoList(@RequestBody List<MemoListRegisterPostReq> memoList, @RequestParam("status") MemoStatus memoStatus) throws IOException {
-		//try {
-			List<Memo> findMemos = memoService.findMemos(memoStatus);
-			
-			if (findMemos.size() < memoList.size()) { // memoStatus에 해당하는 메모 리스트가 줄어들었을 때
-				for (MemoListRegisterPostReq m : memoList) { 
-					boolean flag = false;
-					for (Memo memo : findMemos) {
-						if (memo.getId() == m.getId()) flag = true;
-					}
-					if (!flag) {
-						System.out.println(m.getId());
-						memoService.changeMemoStatus(m.getId(), memoStatus);
-						return ResponseFactory.ok();
-					}
+		List<Memo> findMemos = memoService.findMemos(memoStatus);
+		
+		if (findMemos.size() < memoList.size()) { // memoStatus에 해당하는 메모 리스트가 줄어들었을 때
+			for (MemoListRegisterPostReq m : memoList) { 
+				boolean flag = false;
+				for (Memo memo : findMemos) {
+					if (memo.getId() == m.getId()) flag = true;
 				}
-			} 
-			return ResponseFactory.ok();
-		//} catch (IOException e) {
-		//	e.printStackTrace();
-		//	return ResponseEntity.status(417).body(BaseResponseBody.of(417, "failed"));
-		//}	
+				if (!flag) {
+					System.out.println(m.getId());
+					memoService.changeMemoStatus(m.getId(), memoStatus);
+					return ResponseFactory.ok();
+				}
+			}
+		} 
+		return ResponseFactory.badRequest();
 	}
 	
 	@GetMapping("/memo")
-	public ResponseEntity<List<MemoRes>> getMemoList(@RequestParam("status") MemoStatus memoStatus) {
+	public ResponseEntity<? extends BaseResponseBody> getMemoList(@RequestParam("status") MemoStatus memoStatus) {
 		List<Memo> findMemos = memoService.findMemos(memoStatus);
 		List<MemoRes> memoRes = findMemos.stream()
 				.map(m -> new MemoRes(m))
 				.collect(Collectors.toList());
 
-		return ResponseEntity.status(HttpStatus.OK).body(memoRes);
+		return ResponseFactory.ok(memoRes);
 	}
 	
 	@GetMapping("/memo/{memoId}")
-	public ResponseEntity<MemoRes> getMemo(@PathVariable Long memoId) {
+	public ResponseEntity<? extends BaseResponseBody> getMemo(@PathVariable Long memoId) {
 
 		Memo memo = memoService.findOne(memoId);
 		MemoRes memoRes = new MemoRes(memo);
-		return ResponseEntity.status(HttpStatus.OK).body(memoRes);
+		return ResponseFactory.ok(memoRes);
 	}
 	
 	@PutMapping("/memo/{memoId}")
 	public ResponseEntity<? extends BaseResponseBody> updateMemo(@PathVariable Long memoId, @RequestBody MemoRegisterPostReq memoReq) {
-		// TODO : 존재하지 않는 메모 에러처리
 		
 		memoService.updateMemo(memoId, memoReq);
 		
