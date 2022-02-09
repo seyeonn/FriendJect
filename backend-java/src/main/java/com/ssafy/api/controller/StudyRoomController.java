@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.api.service.StudyRoomService;
 import com.ssafy.db.entity.Studyroom;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/studyroom")
+@Api(value = "열람실", tags = {"열람실"})
 @CrossOrigin("http://localhost:8081")
 public class StudyRoomController {
 

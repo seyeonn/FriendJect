@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.service.ConsultService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.*;
@@ -26,10 +27,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
+
 @RestController
-@RequestMapping("consultroom")
+@RequestMapping("/consultroom")
 @CrossOrigin("http://localhost:8081")
-@Api("상담실 컨트롤러 API V1")
+@Api(value = "상담실", tags = {"상담실"})
 public class ConsultController {
 	
 	@Autowired
@@ -37,6 +39,13 @@ public class ConsultController {
 	
 	
 	@GetMapping("/book")
+	@ApiOperation(value = "해결의 책", notes = "<strong>아이디와 패스워드</strong>를 통해 로그인 한다.")
+	@ApiResponses({
+        @ApiResponse(code = 200, message = "성공", response = UserLoginPostRes.class),
+        @ApiResponse(code = 401, message = "인증 실패", response = BaseResponseBody.class),
+        @ApiResponse(code = 404, message = "사용자 없음", response = BaseResponseBody.class),
+        @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
+    })
 	public SolutionBook book() throws Exception {
 		//랜덤 숫자 리턴
 		Random rand = new Random();
