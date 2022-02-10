@@ -7,10 +7,8 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     accessToken: "",
-    // user pk
-    // id: "",
-    //  user user_email
     userEmail: "",
+    myUserName: "",
   },
   getters: {
     isLogin: function(state) {
@@ -24,13 +22,13 @@ export const store = new Vuex.Store({
       state.accessToken = newAccessToken;
     },
     SET_USERINFO: function(state, userdata) {
-      // state.id = userdata["id"];
       state.userEmail = userdata["userEmail"];
+      state.myUserName = userdata["nickName"];
     },
   },
   actions: {
-    setUserinfo: function({ commit }, userEmail) {
-      commit("SET_USERINFO", userEmail);
+    setUserinfo: function({ commit }, userdata) {
+      commit("SET_USERINFO", userdata);
     },
   },
 });
