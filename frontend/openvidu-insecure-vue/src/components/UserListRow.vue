@@ -1,9 +1,9 @@
 <template>
   <div class="user">
+    <!-- user profile_url api로 추가 예정 -->
     <img src="https://randomuser.me/api/portraits/men/1.jpg" class="user-img" />
     <div class="username">
       {{ clientData }}
-      <div class="user-status"></div>
     </div>
   </div>
 </template>
@@ -11,11 +11,7 @@
 <script>
 export default {
   name: "UserListRow",
-  data() {
-    return {
-      sub: "",
-    };
-  },
+
   props: {
     streamManager: Object,
   },
