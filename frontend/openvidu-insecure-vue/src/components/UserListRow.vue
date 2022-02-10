@@ -2,7 +2,7 @@
   <div class="user">
     <img src="https://randomuser.me/api/portraits/men/1.jpg" class="user-img" />
     <div class="username">
-      {{ sub }}
+      {{ clientData }}
       <div class="user-status"></div>
     </div>
   </div>
@@ -10,8 +10,28 @@
 
 <script>
 export default {
+  name: "UserListRow",
+  data() {
+    return {
+      sub: "",
+    };
+  },
   props: {
-    // connection: "",
+    streamManager: Object,
+  },
+
+  computed: {
+    clientData() {
+      const { clientData } = this.getConnectionData();
+      return clientData;
+    },
+  },
+
+  methods: {
+    getConnectionData() {
+      const { connection } = this.streamManager.stream;
+      return JSON.parse(connection.data);
+    },
   },
 };
 </script>
