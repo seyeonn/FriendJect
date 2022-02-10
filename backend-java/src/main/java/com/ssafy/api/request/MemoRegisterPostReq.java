@@ -12,5 +12,4 @@ import lombok.Setter;
 public class MemoRegisterPostReq {
 	String title;
 	String content;
-	MemoStatus status;
 }
