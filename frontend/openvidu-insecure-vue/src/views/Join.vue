@@ -375,6 +375,7 @@
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/UserVideo.vue";
 
@@ -402,14 +403,15 @@ export default {
       mySessionId: "",
       teamName: "",
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      // myUserName: "Participant" + Math.floor(Math.random() * 100),
+      // myUserName: "",
       // openvidu end
-
       log: [],
       currentTab: "Center",
     };
   },
   computed: {
+    ...mapState(["myUserName"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
@@ -451,6 +453,9 @@ export default {
 
     // openvidu methods
     joinSession: function() {
+      //myUserName 불러오기
+      // this.myUserName = this.$store.state.myUserName;
+
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
