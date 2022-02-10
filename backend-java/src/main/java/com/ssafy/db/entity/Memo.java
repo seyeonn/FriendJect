@@ -51,8 +51,9 @@ public class Memo {
 	 * 메모 수정
 	 */
 	public void change(MemoRegisterPostReq memoReq) {
+		
 		this.setTitle(memoReq.getTitle());
 		this.setContent(memoReq.getContent());
-		this.setStatus(memoReq.getStatus());
+		this.setStatus(this.getStatus());
 	}
 }
