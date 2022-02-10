@@ -1,15 +1,8 @@
 <template>
-  <b-row>
-    <b-col cols="8"
-      ><div id="app" class="grid">
-        <h1><b>File Table</b> 📄</h1>
-        <label>Files per page</label>
-        <select v-model="pageSizeModel">
-          <option value="3">3</option>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="25">25</option>
-        </select>
+  <b-row class="m-5">
+    <b-col cols="7 mt-5 ml-5"
+      ><div id="app" class="grid p-8">
+        <h3><b>File Table</b> 📄</h3>
         <table>
           <thead>
             <tr>
@@ -49,7 +42,10 @@
         </div>
       </div>
     </b-col>
-    <b-col cols="4"><file-upload /> </b-col>
+    <b-col cols="4 p-5 center" class="rounded border border-warning m-4"
+      ><h4><b>파일 올리기</b>👇</h4>
+      <file-upload />
+    </b-col>
   </b-row>
 </template>
 <script>
@@ -69,7 +65,7 @@ export default {
       sort: "updatedAt",
       sortDir: "desc",
       page: 0,
-      pageSize: 5,
+      pageSize: 10,
     };
   },
   created() {
