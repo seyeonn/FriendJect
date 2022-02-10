@@ -1,7 +1,7 @@
 <template>
   <div class="container board__container">
     <div class="row">
-      <div class="col form-inline">
+      <div class="col">
         <b-form>
           <b-form-input
             id="inline-form-input-name"
