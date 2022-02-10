@@ -249,19 +249,12 @@
 
           <div class="side-wrapper contacts">
             <div class="side-title">접속 중인 팀원</div>
-            <div v-for="sub in subscribers" :key="sub.stream">
-              {{ sub.stream.connection.connectionId }}
-            </div>
-            <div class="user">
-              <img
-                src="https://pbs.twimg.com/profile_images/2452384114/noplz47r59v1uxvyg8ku.png"
-                class="user-img"
-              />
-              <div class="username">
-                {{ myUserName }}
-                <div class="user-status"></div>
-              </div>
-            </div>
+            <user-list-row
+              v-for="sub in subscribers"
+              :key="sub.stream.connection.data"
+              :stream-manager="sub"
+              @click.native="updateMainVideoStreamManager(sub)"
+            />
           </div>
         </div>
 
@@ -329,6 +322,8 @@ export default {
       // 비디오, 마이크 온/오프
       videoEnabled: true,
       audioEnabled: true,
+
+      subList: [],
     };
   },
   computed: {
