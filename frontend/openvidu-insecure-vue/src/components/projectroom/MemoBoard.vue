@@ -2,7 +2,7 @@
   <div class="container board__container">
     <div class="row">
       <div class="col form-inline">
-        <b-form inline>
+        <b-form>
           <b-form-input
             id="inline-form-input-name"
             class="mb-2 mr-sm-2 mb-sm-0"
@@ -209,7 +209,7 @@ export default {
         content: this.newContent,
         status: "TODO",
       });
-      this.$router.go();
+      this.$router.push({ name: "memoboard" });
     },
     updateStatusList(arr, status) {
       registerMemoList(arr, status);
