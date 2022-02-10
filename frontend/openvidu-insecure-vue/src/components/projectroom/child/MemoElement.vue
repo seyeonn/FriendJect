@@ -4,12 +4,15 @@
       <div>
         <h3 class="title">
           {{ this.title
-          }}<button class="memo__btns modify" @click="updateMemoForm">m</button
-          ><button class="memo__btns delete" @click="removeMemo">X</button>
+          }}<button class="memo__btns modify" @click="updateMemoForm">
+            <b-icon icon="pencil-fill"></b-icon></button
+          ><button class="memo__btns delete" @click="removeMemo">
+            <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+          </button>
         </h3>
       </div>
       <div>
-        <p class="description">{{ this.content }}</p>
+        <h6 class="description memo__content">{{ this.content }}</h6>
       </div>
     </div>
     <div v-show="isShow">
@@ -109,45 +112,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$page-bg: #282f32;
-$bright-blue: #68b3ff;
-$light-gray: #999;
-//$curve: cubic-bezier(0, 0, 0.52, 1.11);
-$curve: linear;
-.title {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-.description {
-  font-size: 0.7rem;
-}
-
-input[type="text"] {
-  width: 100%;
-  padding-left: 0;
-  background: none;
-  border: none;
-  border-bottom: 1px solid $light-gray;
-}
-.memo__register {
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-}
-.memo__register__btn {
-  color: white;
-  background: #f9b225;
-  padding: 0.3em 0.4em;
-  font-size: 1em;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  justify-content: flex-end;
-}
-* :focus {
-  outline-color: transparent;
-  outline-style: none;
-}
+@import "@/assets/style/projectroom/memoElement.scss";
 </style>
 <style scoped>
 button {
@@ -164,7 +129,7 @@ button {
 .modify {
   position: absolute;
   color: rgb(64, 148, 106);
-  right: 25px;
+  right: 30px;
   font-size: 11px;
 }
 .delete {
@@ -172,5 +137,9 @@ button {
   color: rgb(255, 0, 0);
   right: 12px;
   font-size: 11px;
+}
+h6 :not(.memo__content) {
+  height: 3rem;
+  margin-bottom: 0;
 }
 </style>
