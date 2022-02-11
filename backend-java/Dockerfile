@@ -12,4 +12,4 @@ FROM openjdk:8-jre-slim
 COPY --from=builder /backend-java/build/libs/*.jar app.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "./app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
