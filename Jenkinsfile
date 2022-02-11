@@ -11,8 +11,8 @@ pipeline {
 		stage('Docker build') { 
 			agent any
 			steps {
-				sh 'docker build -t frontend:latest /var/jenkins_home/workspace/friendject-jenkins-cicd/frontend/openvidu-insecure-vue' 
-				sh 'docker build -t backend:latest /var/jenkins_home/workspace/friendject-jenkins-cicd/backend' 
+				sh 'docker build -t frontend:latest /var/jenkins_home/workspace/friendject/frontend/openvidu-insecure-vue' 
+				sh 'docker build -t backend:latest /var/jenkins_home/workspace/friendject/backend' 
 			}
 		}
 		stage('Docker run') {
@@ -34,7 +34,7 @@ pipeline {
 				sh 'docker run -d --name frontend \
 				-p 80:80 \
 				-p 443:443 \
-				-v /home/ubuntu/sslkey/:/var/jenkins_home/workspace/friendject-jenkins-cicd/sslkey/ \
+				-v /home/ubuntu/sslkey/:/var/jenkins_home/workspace/friendject/sslkey/ \
 				-v /etc/localtime:/etc/localtime:ro \
 				--network friendjectcicdnetwork \
 				frontend:latest'
