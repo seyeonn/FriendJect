@@ -11,7 +11,7 @@ pipeline {
 		stage('Docker build') { 
 			agent any
 			steps {
-				sh 'docker build -t frontend:latest /var/jenkins_home/workspace/friendject-jenkins-cicd/frontend' 
+				sh 'docker build -t frontend:latest /var/jenkins_home/workspace/friendject-jenkins-cicd/frontend/openvidu-insecure-vue' 
 				sh 'docker build -t backend:latest /var/jenkins_home/workspace/friendject-jenkins-cicd/backend' 
 			}
 		}
