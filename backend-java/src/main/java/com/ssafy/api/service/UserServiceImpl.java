@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
-import com.ssafy.db.repository.UserRepositorySupport;
 
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -15,9 +14,7 @@ import com.ssafy.db.repository.UserRepositorySupport;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
-	
-	@Autowired
-	UserRepositorySupport userRepositorySupport;
+
 	
 //	@Autowired
 //	PasswordEncoder passwordEncoder;
@@ -34,7 +31,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByUserEmail(String userEmail) {
 		// 디비에 유저 정보 조회 (userId 를 통한 조회).
-		User user = userRepositorySupport.findByUserEmail(userEmail).get();
+		User user = userRepository.findByUserEmail(userEmail).get();
 		return user;
 	}
 }
