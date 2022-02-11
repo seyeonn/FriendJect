@@ -1,13 +1,13 @@
-# build stage
-FROM node:14 AS build
-WORKDIR /app
-COPY package* ./
+FROM node:lts-alpine as build-stage
+WORKDIR /homepage
+
+COPY . .
 RUN npm install
-COPY public ./public
-COPY src ./src
-# COPY .env* ./
 RUN npm run build
 
-# production stage
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
+FROM nginx:stable-alpine as production-stage
+
+COPY --from=build-stage ./homepage/dist /usr/share/nginx/html/homepage
+
+EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
