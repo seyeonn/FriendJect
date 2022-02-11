@@ -1,15 +1,15 @@
- FROM openjdk:8 AS build
-WORKDIR /app
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
-COPY src src
-RUN chmod +x gradlew
-RUN ["./gradlew", "clean", "build", "--stacktrace", "--exclude-task", "test"]
+FROM openjdk:8 AS builder
+WORKDIR /backend
+COPY . .
+RUN chmod +x ./gradlew
 
-# 2. 빌드 된 파일을 배포용 이미지에 복사
+RUN rm -rf module-api/src/test
+RUN rm -rf module-web/src/test
+RUN ./gradlew :module-web:clean build
+RUN ls module-web/build/libs
+
 FROM openjdk:8-jre-slim
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=builder /backend/module-web/build/libs/*.jar app.jar
+
 EXPOSE 8080
-ENTRYPOINT java -jar app.jar
+ENTRYPOINT ["java", "-jar", "./app.jar"]
