@@ -296,7 +296,7 @@ const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
 import ProjectRoom from "./Project.vue";
 import MeetingRoom from "./Meeting.vue";
-import StudyRoom from "./Studyroom.vue";
+import StudyRoom from "./Studyroom/Studyroom.vue";
 import Center from "../components/layout/Center.vue";
 import UserListRow from "../components/UserListRow.vue";
 
