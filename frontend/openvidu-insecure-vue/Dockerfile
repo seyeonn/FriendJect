@@ -1,12 +1,12 @@
 FROM node:lts-alpine as build-stage
-WORKDIR /homepage
+WORKDIR /app
 
 COPY . .
 RUN npm install
 RUN npm run build
 
 FROM nginx:alpine
-COPY --from=build-stage ./homepage/dist /usr/share/nginx/html/homepage
+COPY --from=build-stage /app/dist /var/www/html/dist
 
 EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]
