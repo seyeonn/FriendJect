@@ -34,7 +34,7 @@ pipeline {
 				sh 'docker run -d --name frontend \
 				-p 80:80 \
 				-p 443:443 \
-				-v /home/ubuntu/sslkey/:/var/jenkins_home/workspace/friendject/sslkey/ \
+				-v /home/ubuntu/etc/letsencrypt/live/i6b202.p.ssafy.io/:/etc/letsencrypt/live/i6b202.p.ssafy.io \
 				-v /etc/localtime:/etc/localtime:ro \
 				--network friendjectcicd \
 				frontend:latest'
