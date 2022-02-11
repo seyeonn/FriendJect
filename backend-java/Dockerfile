@@ -1,7 +1,15 @@
-FROM openjdk:8
+ FROM openjdk:8 AS build
+WORKDIR /app
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
+RUN chmod +x gradlew
+RUN ["./gradlew", "clean", "build", "--stacktrace", "--exclude-task", "test"]
 
-ARG JAR_FILE
-COPY build/libs/ssafy-web-project-1.0-SNAPSHOT.jar app.jar
-ENTRYPOINT ["java", \
- "-jar", \
- "/app.jar"]
+# 2. 빌드 된 파일을 배포용 이미지에 복사
+FROM openjdk:8-jre-slim
+COPY --from=build /app/build/libs/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT java -jar app.jar
