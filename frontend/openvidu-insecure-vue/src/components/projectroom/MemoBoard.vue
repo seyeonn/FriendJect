@@ -1,32 +1,31 @@
 <template>
   <div class="container board__container">
     <div class="row">
-      <div class="col form-inline">
-        <b-form>
+      <div class="col">
+        <b-form class="add__task__container">
           <b-form-input
             id="inline-form-input-name"
-            class="mb-2 mr-sm-2 mb-sm-0"
+            class="mb-2 mr-sm-2 mb-sm-0 add__task__input"
             v-model="newTitle"
             required
             placeholder="Title"
           ></b-form-input>
-          <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
+          <b-input-group class="mb-2 mr-sm-2 mb-sm-0 add__task__input">
             <b-form-input
-              id="inline-form-input-username"
               v-model="newContent"
               required
               placeholder="Content"
               @keyup.enter="add"
             ></b-form-input>
           </b-input-group>
-          <b-button @click="add" variant="primary" class="ml-3">Save</b-button>
+          <b-button @click="add" class="mt-3 add__task__btn">Save</b-button>
         </b-form>
       </div>
     </div>
     <div class="row mt-5">
       <div class="col-3">
         <div class="p-2 alert alert-secondary">
-          <h3>To do</h3>
+          <h3 class="title">To do</h3>
           <!-- Backlog draggable component. Pass arrBackLog to list prop -->
           <draggable
             class="list-group kanban-column"
@@ -34,21 +33,19 @@
             group="tasks"
             v-model="arrTodo"
           >
-            <div
+            <memo-element
               class="list-group-item"
               v-for="element in arrTodo"
               :key="element.id"
-            >
-              <h5>{{ element.title }}</h5>
-              <p>{{ element.content }}</p>
-            </div>
+              v-bind="element"
+            ></memo-element>
           </draggable>
         </div>
       </div>
 
       <div class="col-3">
         <div class="p-2 alert alert-primary">
-          <h3>In Progress</h3>
+          <h3 class="title">In Progress</h3>
           <!-- In Progress draggable component. Pass arrInProgress to list prop -->
           <draggable
             class="list-group kanban-column"
@@ -56,21 +53,19 @@
             v-model="arrInProgress"
             group="tasks"
           >
-            <div
+            <memo-element
               class="list-group-item"
               v-for="element in arrInProgress"
               :key="element.id"
-            >
-              <h5>{{ element.title }}</h5>
-              <p>{{ element.content }}</p>
-            </div>
+              v-bind="element"
+            ></memo-element>
           </draggable>
         </div>
       </div>
 
       <div class="col-3">
         <div class="p-2 alert alert-warning">
-          <h3>Testing</h3>
+          <h3 class="title">Testing</h3>
           <!-- Testing draggable component. Pass arrTested to list prop -->
           <draggable
             class="list-group kanban-column"
@@ -78,36 +73,32 @@
             v-model="arrTested"
             group="tasks"
           >
-            <div
+            <memo-element
               class="list-group-item"
               v-for="element in arrTested"
               :key="element.id"
-            >
-              <h5>{{ element.title }}</h5>
-              <p>{{ element.content }}</p>
-            </div>
+              v-bind="element"
+            ></memo-element>
           </draggable>
         </div>
       </div>
 
       <div class="col-3">
         <div class="p-2 alert alert-success">
-          <h3>Done</h3>
+          <h3 class="title">Done</h3>
           <!-- Done draggable component. Pass arrDone to list prop -->
           <draggable
             class="list-group kanban-column"
             :list="arrDone"
-            v-model="arrTodo"
+            v-model="arrDone"
             group="tasks"
           >
-            <div
+            <memo-element
               class="list-group-item"
               v-for="element in arrDone"
               :key="element.id"
-            >
-              <h5>{{ element.title }}</h5>
-              <p>{{ element.content }}</p>
-            </div>
+              v-bind="element"
+            ></memo-element>
           </draggable>
         </div>
       </div>
@@ -116,20 +107,20 @@
 </template>
 
 <script>
-//import draggable
-
 import draggable from "vuedraggable";
 import {
   getMemoList,
   registerMemo,
   registerMemoList,
 } from "@/api/projectroom.js";
+import MemoElement from "@/components/projectroom/child/MemoElement.vue";
 
 export default {
   name: "memoboard",
   components: {
     //import draggable as a component
     draggable,
+    MemoElement,
   },
   data() {
     return {
@@ -221,10 +212,45 @@ export default {
 <style scoped>
 /* light stylings for the kanban columns */
 .kanban-column {
-  min-height: 300px;
+  min-height: 400px;
 }
 
 .board__container {
   padding-right: 0;
+}
+.add__task__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  width: 30rem;
+  height: 10rem;
+  margin: auto;
+  background: #a8a8a8;
+  border: #000013 0.2rem solid;
+  border-radius: 0.2rem;
+  padding: 0.4rem;
+}
+.add__task__input {
+  align-items: flex-start;
+}
+.add__task__btn {
+  align-self: center;
+  background-color: #ffcb1e;
+  padding: 0 1rem;
+  height: 2.8rem;
+  width: 10rem;
+  margin-top: 0.6rem;
+  border: none;
+}
+.list-group-item {
+  padding: 8px 12px;
+  margin: 0;
+}
+</style>
+<style lang="scss" scoped>
+.title {
+  font-size: 1.7rem;
+  font-weight: bold;
 }
 </style>
