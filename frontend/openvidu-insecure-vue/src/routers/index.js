@@ -18,7 +18,7 @@ import FileList from "../components/projectroom/FileList.vue";
 import Meeting from "../views/Meeting.vue";
 
 // study room
-import Study from "../views/Studyroom.vue";
+import Study from "../views/Studyroom/Studyroom.vue";
 
 Vue.use(VueRouter);
 export const router = new VueRouter({
