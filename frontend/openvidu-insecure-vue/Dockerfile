@@ -5,8 +5,9 @@ COPY . .
 RUN npm install
 RUN npm run build
 
-FROM nginx:stable-alpine as production-stage
-
+FROM nginx:alpine
+RUN rm /etc/nginx/conf.d/default.conf
+COPY ./homepage.conf /etc/nginx/conf.d/homepage.conf
 COPY --from=build-stage ./homepage/dist /usr/share/nginx/html/homepage
 
 EXPOSE 3000
