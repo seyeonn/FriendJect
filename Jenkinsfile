@@ -34,13 +34,13 @@ pipeline {
 				sh 'docker run -d --name frontend \
 				-p 80:80 \
 				-p 443:443 \
-				-v /home/ubuntu/sslkey/:/var/jenkins_home/workspace/friendject/sslkey/ \
+				-v /home/ubuntu/sslkey/:/var/jenkins_home/workspace/friendject-jenkins-cicd/sslkey/ \
 				-v /etc/localtime:/etc/localtime:ro \
-				--network friendjectcicdnetwork \
+				--network friendjectcicd \
 				frontend:latest'
 
 				sh 'docker run -d --name backend \
-		--network friendjectcicdnetwork backend:latest'
+		--network friendjectcicd backend:latest'
 			}
 		}
 	}
