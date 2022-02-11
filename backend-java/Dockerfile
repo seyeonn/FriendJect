@@ -3,7 +3,7 @@ WORKDIR /backend
 COPY . .
 RUN chmod +x ./gradlew
 
-RUN ./gradlew :module-web:clean build
+RUN ./gradlew clean build
 
 FROM adoptopenjdk:8-jdk
 COPY --from=builder /backend/build/libs/*.jar app.jar
