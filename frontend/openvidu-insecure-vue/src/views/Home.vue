@@ -111,6 +111,9 @@
     </div>
     <!-- <img src="@/assets/images/main.png" style="height:600px;" /> -->
     <div style="height:400px; background-color:#F9E7AD;"></div>
+    <div class="typing-demo">
+      비대면 프로젝트도 대면처럼.
+    </div>
   </div>
 </template>
 
