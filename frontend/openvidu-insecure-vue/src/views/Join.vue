@@ -124,7 +124,7 @@
               <user-video
                 :stream-manager="mainStreamManager"
                 style="width:20%"
-              />
+              ></user-video>
 
               <!-- 접속자 캠 -->
               <user-video
@@ -139,6 +139,12 @@
             <!-- 네비게이션 부분 -->
             <div>
               <button @click="exit">각 방 나가기</button>
+              <button type="button" id="camera" @click="videoOnAndOff()">
+                비디오 끄기
+              </button>
+              <button type="button" id="mute" @click="audioOnAndOff()">
+                음소거
+              </button>
               <keep-alive>
                 <component :is="currentTab" v-on:emitTab="changeTab">
                 </component>
@@ -242,108 +248,13 @@
           </div>
 
           <div class="side-wrapper contacts">
-            <div class="side-title">CONTACTS</div>
-            <div class="user">
-              <img
-                src="https://randomuser.me/api/portraits/men/1.jpg"
-                class="user-img"
-              />
-              <div class="username">
-                Andrei Mashrin
-                <div class="user-status"></div>
-              </div>
-            </div>
-            <div class="user">
-              <img
-                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=046c29138c1335ef8edee7daf521ba50"
-                class="user-img"
-              />
-              <div class="username">
-                Aryn Jacobssen
-                <div class="user-status offline"></div>
-              </div>
-            </div>
-            <div class="user">
-              <img
-                src="https://images.unsplash.com/photo-1575084713138-342cae5f8d00?ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80"
-                class="user-img"
-              />
-              <div class="username">
-                Carole Landu
-                <div class="user-status offline"></div>
-              </div>
-            </div>
-            <div class="user">
-              <img
-                src="https://images.pexels.com/photos/598745/pexels-photo-598745.jpeg?h=350&auto=compress&cs=tinysrgb"
-                class="user-img"
-              />
-              <div class="username">
-                Chineze Afa
-                <div class="user-status"></div>
-              </div>
-            </div>
-            <div class="user">
-              <img
-                src="https://pbs.twimg.com/profile_images/2452384114/noplz47r59v1uxvyg8ku.png"
-                class="user-img"
-              />
-              <div class="username">
-                Mok Kwang
-                <div class="user-status"></div>
-              </div>
-            </div>
-            <div class="user">
-              <img
-                src="https://randomuser.me/api/portraits/women/63.jpg"
-                class="user-img"
-              />
-              <div class="username">
-                Naomi Yepes
-                <div class="user-status"></div>
-              </div>
-            </div>
-            <div class="user">
-              <img
-                src="https://images.unsplash.com/photo-1476493279419-b785d41e38d8?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=61eaea85f1aa3d065400179c78163f15"
-                class="user-img"
-              />
-              <div class="username">
-                Shaamikh Ale
-                <div class="user-status"></div>
-              </div>
-            </div>
-            <div class="user">
-              <img
-                src="https://m.media-amazon.com/images/M/MV5BMjI4NDcyNjQxNl5BMl5BanBnXkFtZTgwMzI4OTM3NjM@._V1_UY256_CR13,0,172,256_AL_.jpg"
-                class="user-img"
-              />
-              <div class="username">
-                Sofia Alcocer
-                <div class="user-status idle"></div>
-              </div>
-            </div>
-            <div class="user">
-              <img
-                src="https://images.unsplash.com/photo-1509380836717-c4320ccf1a6f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=e01c8c45a063daaf6d6e571a32bd6c90"
-                class="user-img"
-              />
-              <div class="username">
-                Wen Yahui
-                <div class="user-status"></div>
-              </div>
-            </div>
-            <div class="user">
-              <img
-                src="https://pbs.twimg.com/profile_images/737221709267374081/sdwta9Oh.jpg"
-                alt=""
-                class="user-img"
-              />
-              <div class="username">
-                Leslee Moss
-                <div class="user-status idle"></div>
-              </div>
-            </div>
+            <div class="side-title">접속 중인 팀원</div>
+            <user-list-row
+              v-for="sub in subscribers"
+              :key="sub.stream.connection.data"
+              :stream-manager="sub"
+              @click.native="updateMainVideoStreamManager(sub)"
+            />
           </div>
         </div>
 
@@ -379,7 +290,6 @@ import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/UserVideo.vue";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
-
 const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
@@ -388,6 +298,7 @@ import ProjectRoom from "./Project.vue";
 import MeetingRoom from "./Meeting.vue";
 import StudyRoom from "./Studyroom/Studyroom.vue";
 import Center from "../components/layout/Center.vue";
+import UserListRow from "../components/UserListRow.vue";
 
 export default {
   name: "main",
@@ -407,6 +318,12 @@ export default {
 
       log: [],
       currentTab: "Center",
+
+      // 비디오, 마이크 온/오프
+      videoEnabled: true,
+      audioEnabled: true,
+
+      subList: [],
     };
   },
   computed: {
@@ -421,6 +338,7 @@ export default {
     StudyRoom,
     UserVideo,
     Center,
+    UserListRow,
   },
   methods: {
     randomNumber: function() {
@@ -621,6 +539,24 @@ export default {
           .then((data) => resolve(data.token))
           .catch((error) => reject(error.response));
       });
+    },
+    videoOnAndOff() {
+      this.videoEnabled = !this.videoEnabled;
+      this.publisher.publishVideo(this.videoEnabled);
+      if (!this.videoEnabled) {
+        document.getElementById("camera").innerText = "비디오 켜기";
+      } else {
+        document.getElementById("camera").innerText = "비디오 끄기";
+      }
+    },
+    audioOnAndOff() {
+      this.audioEnabled = !this.audioEnabled;
+      this.publisher.publishAudio(this.audioEnabled);
+      if (!this.audioEnabled) {
+        document.getElementById("mute").innerText = "음소거 해제";
+      } else {
+        document.getElementById("mute").innerText = "음소거";
+      }
     },
   },
 };
