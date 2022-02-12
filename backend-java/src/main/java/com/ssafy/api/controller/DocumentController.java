@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,8 @@ public class DocumentController {
 	@ApiOperation(value = "회의록 조회", notes = "<strong> 회의록 전체 </strong> 를 조회한다. ") 
 	public List<Map<String, Object>> list() {
 		List<Map<String, Object>> result = new ArrayList<>();
-		documentRepoisitory.findAll().forEach(documentList -> {
+		Sort sort = Sort.by(Sort.Direction.DESC, "id"); 
+		documentRepoisitory.findAll(sort).forEach(documentList -> {
 			Map<String, Object> obj = new HashMap<>();
 			obj.put("id", documentList.getId());
 			obj.put("title", documentList.getTitle());
