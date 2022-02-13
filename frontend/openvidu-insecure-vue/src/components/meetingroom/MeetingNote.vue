@@ -128,7 +128,7 @@ export default {
         this.editable = false
         axios({
             method: 'get',
-            url: `http://localhost:8080/meetingroom/document/${targetId}`,
+            url: `http://localhost:8081/meetingroom/document/${targetId}`,
         })
             .then(res => {
                 console.log(res)
@@ -156,7 +156,7 @@ export default {
         if (documentItem.title && documentItem.content) {
           axios({
             method:'post',
-            url: 'http://localhost:8080/meetingroom/document/',
+            url: 'http://localhost:8081/meetingroom/document/',
             data: documentItem,
           })
             .then(res => {
@@ -176,7 +176,7 @@ export default {
       if (documentItem.title && documentItem.content) {
         axios({
           method:'put',
-          url: `http://localhost:8080/meetingroom/document/${targetId}`,
+          url: `http://localhost:8081/meetingroom/document/${targetId}`,
           data: documentItem,
         })
           .then(res => {
@@ -192,7 +192,7 @@ export default {
       deleteDocument: function(targetId) {
         axios({
           method:'delete',
-          url: `http://localhost:8080/meetingroom/document/${targetId}`,
+          url: `http://localhost:8081/meetingroom/document/${targetId}`,
         })
           .then(res => {
             console.log(res.data + "번 글 삭제완료")
