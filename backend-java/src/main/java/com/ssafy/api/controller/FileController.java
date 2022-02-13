@@ -47,7 +47,7 @@ public class FileController {
 		}
 	}
   
-  @GetMapping("/files/{fileId}")
+  	@GetMapping("/files/{fileId}")
 	public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
 		FileInfo fileInfo = storageService.findOne(fileId);
 		return ResponseEntity.ok()
