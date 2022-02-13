@@ -30,7 +30,13 @@ public class IceBrakingServiceImpl implements IceBrakingService{
 		// 랜덤으로 5개의 번호 추출
 		for (int i = 0; i < questionNo.length; i++) {
 			questionNo[i] = (int)(Math.random()*50)+1;	
-			System.out.println(questionNo);
+			
+			// 중복 제거를 위한 for문
+			for(int j =0; j<i; j++) {
+				if(questionNo[i] == questionNo[j])
+					i--;
+			}
+			
 			questions.add(icebrakingRepository.findByNo(questionNo[i]));
 		}
 		
