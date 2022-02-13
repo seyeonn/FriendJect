@@ -15,7 +15,9 @@
         <div class="timer">
         
         </div>
-        
+        <div v-for="question in questions" :key="question">
+          {{ questions }}
+        </div>
       </div>
     </div>
     </div>
@@ -40,15 +42,31 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       currentTab: "Center",
+      questions: [],
     };
   },
   methods: {
     setTab: function(tab) {
       this.$emit("emitTab", tab);
+    },
+    // 아이스 브레이킹 질문 랜덤 조회
+    icebraking() {
+      console.log("아이스 브레이킹");
+      axios
+        .get(`http://localhost:8081/icebraking/questions`)
+        .then((response) => {
+          console.log(response.data.question);
+          this.questions = response.data.question;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
