@@ -36,7 +36,7 @@ export const router = new VueRouter({
     },
     {
       path: "/jointest",
-      name: "join",
+      name: "jointest",
       component: JoinTest,
     },
     {
