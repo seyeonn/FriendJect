@@ -21,6 +21,7 @@
     <!-- 어제의 학습왕 조회 -->
     <div class="studybest">{{ studybest }}</div>
 
+    <!-- 상태 메세지 등록 및 수정 -->
     <div class="comment" style="margin-top: 160px; margin-left: 122px;">
       <span  v-show=!showInput>{{ com }}</span>
       <input type="text" v-show=showInput v-model="value" class="input_comment"/>
@@ -125,17 +126,37 @@ export default {
         ({ data }) => {
           console.log(data);
           this.userid = data;
+          alert("저장이 완료되었습니다.");
         },
         (error) => {
           console.log(error);
         }
       );
     },
+    // 상태 메세지 등록 및 수정
     setDefault() {
       console.log(this.value);
       this.com = this.value;
       this.regOrEdit = "수정";
     },
+    // 오늘의 학습왕 12시 정각에 실행
+    // studyb() {
+    //   var today = new Date();
+    //   var c_hour = today.getHours();
+    //   var c_min = today.getMinutes();
+    //   var c_sec = today.getSeconds();
+
+    //   if(c_hour == 0 && c_min == 0 && c_sec == 0) {
+    //     axios
+    //   .get(`http://localhost:8081/studyroom`)
+    //   .then((response) => {
+    //     console.log("어제의 학습왕은?");
+    //     console.log(response.data);
+    //     this.studybest = response.data;
+    //   })
+    //   .catch();
+    //   }
+    // },
   },
 };
 
@@ -239,16 +260,16 @@ document.addEventListener("DOMContentLoaded", () => {
 .w-btn-white {
   padding: 6px 12px;
   background-color: rgba(234, 237, 240, 0.712);
-  color: #ebb24a;
+  color: #F9B225;
 }
 
 .w-btn-white-outline {
   border: 3px solid rgba(234, 237, 240, 0.712);
-  color: #ebb24a;
+  color: #F9B225;
 }
 
 .w-btn-white-outline:hover {
-  color: #ebb24a;
+  color: #F9B225;
   background: rgba(234, 237, 240, 0.712);
 }
 
