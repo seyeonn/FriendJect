@@ -9,4 +9,11 @@ function socialLogin(code, success, fail) {
     .catch(fail);
 }
 
-export { socialLogin };
+function hello(success, fail) {
+  api
+    .get(`hello`)
+    .then(success)
+    .catch(fail);
+}
+
+export { socialLogin, hello };

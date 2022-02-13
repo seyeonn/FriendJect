@@ -5,13 +5,15 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-import axios from "axios";
+import { mapState } from "vuex";
+// import axios from "axios";
 import { socialLogin } from "@/api/social.js";
+import userStore from "@/store/userStore.js";
+
 export default {
-  components: {
-    ...mapState(["accessToken"]),
-  },
+  // components: {
+  //   ...mapState(["accessToken"]),
+  // },
   data() {
     return {
       kakaoId: "",
@@ -20,28 +22,31 @@ export default {
       profileUrl: "",
     };
   },
-  methods: {
-    ...mapActions(["setUserinfo"]),
-    kakao_api: function() {
-      axios
-        .post("http://localhost:8081/login", {
-          code: this.$route.query.code,
-        })
-        .then((res) => {
-          alert("DB에 전송완료");
-          this.setUserinfo({
-            ...res.data,
-          });
-          console.log(this.$store.getters.isLogin);
-          if (this.$store.getters.isLogin == true) {
-            this.$store.commit("setToken", res.data.accessToken);
-          }
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+  // methods: {
+  //   ...mapActions(["setUserinfo"]),
+  //   kakao_api: function() {
+  //     axios
+  //       .post("http://localhost:8081/login", {
+  //         code: this.$route.query.code,
+  //       })
+  //       .then((res) => {
+  //         alert("DB에 전송완료");
+  //         this.setUserinfo({
+  //           ...res.data,
+  //         });
+  //         console.log(this.$store.getters.isLogin);
+  //         if (this.$store.getters.isLogin == true) {
+  //           this.$store.commit("setToken", res.data.accessToken);
+  //         }
+  //         console.log(res.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   },
+  // },
+  computed: {
+    ...mapState(userStore, ["isLogin", "isLoginError", "userInfo", "test"]),
   },
   created() {
     //this.kako_api();
@@ -55,15 +60,20 @@ export default {
       (response) => {
         // response.data.data = kakaoId, nickname, email, profileUrl 반환
         console.log(response.data.data);
+
         this.kakaoId = response.data.data.kakaoId;
         this.nickname = response.data.data.nickname;
         this.email = response.data.data.email;
         this.profileUrl = response.data.data.profileUrl;
-
         //this.$router.replace("/choice");
+        this.userInfo = {
+          kakaoId: this.kakaoId,
+          nickname: this.nickname,
+          email: this.email,
+          profileUrl: this.profileUrl,
+        };
         this.$router.push({
           name: "join",
-          query: { nickname: this.nickname },
         });
       },
       (error) => {

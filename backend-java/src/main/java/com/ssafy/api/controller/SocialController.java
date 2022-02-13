@@ -46,4 +46,9 @@ public class SocialController {
 		System.out.println(userDetails.getUsername());
 		model.addAttribute("username", userDetails.getUsername()); 
 	}
+	
+	@GetMapping("hello")
+	public String hello() {
+		return "test";
+	}
 }
