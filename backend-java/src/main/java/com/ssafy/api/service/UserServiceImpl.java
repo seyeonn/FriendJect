@@ -83,17 +83,17 @@ public class UserServiceImpl implements UserService {
             userRepository.save(kakaoUser);
         }
 
-        System.out.println("====================================");
         System.out.println(username);
-        System.out.println("====================================");
         // 로그인 처리
         Authentication kakaoUsernamePassword = new UsernamePasswordAuthenticationToken(username, password);
         System.out.println(kakaoUsernamePassword);
         //  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { 로 진행됨
-
-//        Authentication authentication = authenticationManager.authenticate(kakaoUsernamePassword);
-        //SecurityContextHolder.getContext().setAuthentication(authentication);
         
+        Authentication authentication = authenticationManager.authenticate(kakaoUsernamePassword);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        System.out.println("====================================");
+        System.out.println(authentication.isAuthenticated());
+        System.out.println("====================================");
         return kakaoUser;
     }
 

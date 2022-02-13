@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +18,7 @@ import com.ssafy.api.response.ResponseFactory;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.KakaoUserInfo;
+import com.ssafy.db.entity.UserDetailsImpl;
 
 @RestController
 @RequestMapping
@@ -37,4 +40,10 @@ public class SocialController {
 		
 		return ResponseFactory.ok(userRes);
     }
+	
+	@GetMapping("/")
+	public void test(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+		System.out.println(userDetails.getUsername());
+		model.addAttribute("username", userDetails.getUsername()); 
+	}
 }

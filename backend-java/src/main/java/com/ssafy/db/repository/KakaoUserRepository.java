@@ -9,5 +9,6 @@ import com.ssafy.db.entity.KakaoUserInfo;
 
 @Repository
 public interface KakaoUserRepository  extends JpaRepository<KakaoUserInfo, Long> {
+	Optional<KakaoUserInfo> findByEmail(String email);
     Optional<KakaoUserInfo> findByKakaoId(Long kakaoId);
 }

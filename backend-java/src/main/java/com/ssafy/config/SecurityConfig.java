@@ -36,9 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 ////    @Autowired
 ////    private SsafyUserDetailService ssafyUserDetailService;
 ////    
-////    @Autowired
-////    private UserService userService;
-////    
+//    @Autowired
+//    private UserService userService;
+//    
     // Password 인코딩 방식에 BCrypt 암호화 방식 사용
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -74,18 +74,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	http.csrf().disable(); 
     	http.headers().frameOptions().disable(); 
     	http.authorizeRequests() 
-    	// image 폴더를 login 없이 허용 
     	.antMatchers("/images/**").permitAll() 
-    	// css 폴더를 login 없이 허용 
     	.antMatchers("/css/**").permitAll() 
-    	// 회원 관리 URL 전부를 login 없이 허용 
     	.antMatchers("/login/**").permitAll() 
-    	// h2-console URL을 login 없이 허용 
-    	.antMatchers("/h2-console/**").permitAll() 
-    	// 어떤 요청이든 로그인 과정이 없으면 로그인을 하게 한다 
     	.and()
     	.authorizeRequests()
-        .antMatchers("/login/kakao").authenticated()
+        .antMatchers("/login/kakao").permitAll()
+        .antMatchers("/**").authenticated()
     	// 그 외 모든 요청은 인증과정 필요 
     	.anyRequest().permitAll() 
 //    	.formLogin() // 로그인 페이지에 대해서는 허용
@@ -93,10 +88,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    	.loginProcessingUrl("/login/kakao") // 로그인 에러 위치 
 //    	.defaultSuccessUrl("/") // 로그인한 후 이동할 페이지 
 //    	.permitAll() 
-//    	.and() 
-//    	.logout() // 로그아웃 기능 허용 
-//    	.logoutUrl("/user/logout") 
-//    	.permitAll() 
+    	.and() 
+    	.logout() // 로그아웃 기능 허용 
+    	.logoutUrl("/user/logout") 
+    	.permitAll() 
     	.and() 
     	.exceptionHandling()
     	.and().cors().configurationSource(corsConfigurationSource()).and();
