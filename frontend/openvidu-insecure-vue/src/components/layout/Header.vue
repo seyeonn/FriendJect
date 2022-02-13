@@ -4,7 +4,12 @@
       <b-row>
         <b-col><img class="logo" src="@/assets/images/logo.png"/></b-col>
         <b-col cols="8"></b-col>
-        <b-col>
+        <b-col v-if="loginSuccess">
+          <b-button variant="outline-warning" style="margin-top: 30px" href="/"
+            >로그아웃</b-button
+          >
+        </b-col>
+        <b-col v-else>
           <b-button
             variant="outline-warning"
             style="margin-top: 30px"
@@ -34,6 +39,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      loginSuccess: false,
+    };
+  },
   methods: {
     login: function() {
       //모달 닫히는게 필요
