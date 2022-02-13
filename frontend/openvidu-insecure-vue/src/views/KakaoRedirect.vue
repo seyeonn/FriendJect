@@ -1,20 +1,28 @@
 <template>
   <div>
-    <h1>kakao Redirect 화면입니다.</h1>
+    <!-- <h1>kakao Redirect 화면입니다.</h1> -->
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
 import axios from "axios";
-
+import { socialLogin } from "@/api/social.js";
 export default {
   components: {
     ...mapState(["accessToken"]),
   },
+  data() {
+    return {
+      kakaoId: "",
+      nickname: "",
+      email: "",
+      profileUrl: "",
+    };
+  },
   methods: {
     ...mapActions(["setUserinfo"]),
-    kako_api: function() {
+    kakao_api: function() {
       axios
         .post("http://localhost:8081/login", {
           code: this.$route.query.code,
@@ -35,16 +43,33 @@ export default {
         });
     },
   },
-  mounted() {
+  created() {
     //this.kako_api();
     // 여기서 choice , 즉 본인의 방을 생성하거나 참가하는 페이지로 이동합니다.
     // 이때 카카오에서 받은 닉네임을 props 로 choice.vue 에 넘겨주세요.
     // choice 에서 넘겨받은 닉네임을 participant 에 input 값으로 지정해주세요.
     // 그러면 자동으로 닉네임 + 팀코드로 방에 접속됩니다.
-
     console.log(this.$route.query.code);
-    //this.$router.replace("/choice");
-    this.$router.replace("/join");
+    socialLogin(
+      this.$route.query.code,
+      (response) => {
+        // response.data.data = kakaoId, nickname, email, profileUrl 반환
+        console.log(response.data.data);
+        this.kakaoId = response.data.data.kakaoId;
+        this.nickname = response.data.data.nickname;
+        this.email = response.data.data.email;
+        this.profileUrl = response.data.data.profileUrl;
+
+        //this.$router.replace("/choice");
+        this.$router.push({
+          name: "join",
+          query: { nickname: this.nickname },
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
 };
 </script>

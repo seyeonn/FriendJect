@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "자료실", tags = {"프로젝트실"})
 @RestController
 @RequestMapping("projectroom")
-@CrossOrigin("http://localhost:8083")
+@CrossOrigin("http://localhost:8081")
 public class FileController {
 
   @Autowired

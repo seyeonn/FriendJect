@@ -313,7 +313,7 @@ export default {
       mySessionId: "",
       teamName: "",
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      myUserName: this.$route.query.nickname + Math.floor(Math.random() * 100),
       // openvidu end
 
       log: [],
