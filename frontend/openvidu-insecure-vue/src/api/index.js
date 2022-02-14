@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL, PJT_BASE_URL, STU_BASE_URL } from "@/config";
+import { API_BASE_URL, PJT_BASE_URL, STU_BASE_URL, ICE_BASE_URL } from "@/config";
 
 // axios 객체 생성
 function apiInstance() {
@@ -29,4 +29,13 @@ function studyRoomInstance() {
   });
   return instance;
 }
-export { apiInstance, projectRoomInstance, studyRoomInstance };
+function icebreakingInstance() {
+  const instance = axios.create({
+    baseURL: ICE_BASE_URL,
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  return instance;
+}
+export { apiInstance, projectRoomInstance, studyRoomInstance, icebreakingInstance };
