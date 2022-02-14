@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.db.entity.Questions;
-import com.ssafy.db.repository.IceBrakingRepository;
+import com.ssafy.db.repository.IceBreakingRepository;
 
-@Service("icebrakingService")
+@Service("icebreakingService")
 @Transactional
-public class IceBrakingServiceImpl implements IceBrakingService{
+public class IceBreakingServiceImpl implements IceBreakingService{
 
 	@Autowired
-	IceBrakingRepository icebrakingRepository;
+	IceBreakingRepository icebreakingRepository;
 	
 	@Override
 	public List<Questions> getQuestions() throws Exception {
@@ -37,7 +37,7 @@ public class IceBrakingServiceImpl implements IceBrakingService{
 					i--;
 			}
 			
-			questions.add(icebrakingRepository.findByNo(questionNo[i]));
+			questions.add(icebreakingRepository.findByNo(questionNo[i]));
 		}
 		
 		System.out.println("Questions: " + questions);
