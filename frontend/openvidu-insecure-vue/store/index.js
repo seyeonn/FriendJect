@@ -9,6 +9,8 @@ export const store = new Vuex.Store({
     accessToken: "",
     userEmail: "",
     myUserName: "",
+    message: "",
+    messageList: [],
   },
   getters: {
     isLogin: function(state) {

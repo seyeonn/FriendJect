@@ -368,6 +368,12 @@
           "
           :class="{ active: rightSide || leftSide }"
         ></div>
+        <!-- chat -->
+        <chat
+          :session="session"
+          :team-name="teamName"
+          :chat-list="chatList"
+        ></chat>
       </div>
     </div>
   </div>
@@ -384,6 +390,7 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
 const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
+import Chat from "./Chat.vue";
 import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
 import ProjectRoom from "./Project.vue";
 import MeetingRoom from "./Meeting.vue";
@@ -402,21 +409,22 @@ export default {
       subscribers: [],
       mySessionId: "",
       teamName: "",
-      // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
-      // myUserName: "Participant" + Math.floor(Math.random() * 100),
-      // myUserName: "",
       // openvidu end
       log: [],
       currentTab: "Center",
+
+      chatList: [],
     };
   },
   computed: {
+    // 카카오 닉네임
     ...mapState(["myUserName"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
   },
   components: {
+    Chat,
     ConsultRoom,
     ProjectRoom,
     MeetingRoom,
@@ -451,11 +459,12 @@ export default {
       this.currentTab = "Center";
     },
 
+    pushMessage(message) {
+      this.chatList.push(JSON.parse(message));
+    },
+
     // openvidu methods
     joinSession: function() {
-      //myUserName 불러오기
-      // this.myUserName = this.$store.state.myUserName;
-
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -484,6 +493,12 @@ export default {
       });
 
       // --- Connect to the session with a valid user token ---
+
+      // 메세지 수신(보통 세션 커넥트 전)
+
+      this.session.on("signal:my-chat", (event) => {
+        this.pushMessage(event.data);
+      });
 
       // 'getToken' method is simulating what your server-side should do.
       // 'token' parameter should be retrieved and returned by your own backend
@@ -519,13 +534,10 @@ export default {
             );
           });
       });
-
       window.addEventListener("beforeunload", this.leaveSession);
     },
     copyTeamCode() {
       const copyText = this.mySessionId;
-      console.log(copyText);
-
       const text_team_code = document.createElement("input");
       text_team_code.value = copyText;
       document.body.append(text_team_code);
@@ -634,4 +646,5 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style/main-new.scss";
 @import "@/assets/style/consultLog_modal.scss";
+@import "@/assets/style/chat.scss";
 </style>
