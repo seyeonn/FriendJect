@@ -18,7 +18,7 @@
         </button>
       </div>
     </div>
-    <!-- 어제의 학습왕 조회 -->
+    <!-- 오늘의 학습왕 조회 -->
     <div class="studybest">{{ studybest }}</div>
 
     <!-- 상태 메세지 등록 및 수정 -->
@@ -71,28 +71,15 @@ export default {
       }
     );
 
-    // 어제의 학습왕 조회
+    // 오늘의 학습왕 조회
     axios
       .get(`http://localhost:8081/studyroom`)
       .then((response) => {
-        console.log("어제의 학습왕은?");
+        console.log("오늘의 학습왕은?");
         console.log(response.data);
         this.studybest = response.data;
       })
       .catch();
-  },
-  mounted() {
-    // getStudyBest(
-    //         console.log("getstudyBest"),
-    //         ({ data }) => {
-    //           console.log("오늘의 학습왕은?");
-    //           console.log(data);
-    //           this.studybest = data;
-    //         },
-    //         (error) => {
-    //           console.log(error);
-    //         },
-    //       );
   },
   // 스톱워치 설정
   computed: {
@@ -127,6 +114,15 @@ export default {
           console.log(data);
           this.userid = data;
           alert("저장이 완료되었습니다.");
+
+      axios
+      .get(`http://localhost:8081/studyroom`)
+      .then((response) => {
+        console.log("오늘의 학습왕은?");
+        console.log(response.data);
+        this.studybest = response.data;
+      })
+      .catch();
         },
         (error) => {
           console.log(error);
@@ -139,24 +135,6 @@ export default {
       this.com = this.value;
       this.regOrEdit = "수정";
     },
-    // 오늘의 학습왕 12시 정각에 실행
-    // studyb() {
-    //   var today = new Date();
-    //   var c_hour = today.getHours();
-    //   var c_min = today.getMinutes();
-    //   var c_sec = today.getSeconds();
-
-    //   if(c_hour == 0 && c_min == 0 && c_sec == 0) {
-    //     axios
-    //   .get(`http://localhost:8081/studyroom`)
-    //   .then((response) => {
-    //     console.log("어제의 학습왕은?");
-    //     console.log(response.data);
-    //     this.studybest = response.data;
-    //   })
-    //   .catch();
-    //   }
-    // },
   },
 };
 
