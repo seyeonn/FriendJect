@@ -28,13 +28,15 @@ public class IceBreakingServiceImpl implements IceBreakingService{
 		List<Questions> questions = new ArrayList<Questions>();
 		
 		// 랜덤으로 5개의 번호 추출
-		for (int i = 0; i < questionNo.length; i++) {
+		t:for (int i = 0; i < questionNo.length; i++) {
 			questionNo[i] = (int)(Math.random()*50)+1;	
 			
 			// 중복 제거를 위한 for문
 			for(int j =0; j<i; j++) {
-				if(questionNo[i] == questionNo[j])
+				if(questionNo[i] == questionNo[j]) {
 					i--;
+					continue t;
+				}
 			}
 			
 			questions.add(icebreakingRepository.findByNo(questionNo[i]));
