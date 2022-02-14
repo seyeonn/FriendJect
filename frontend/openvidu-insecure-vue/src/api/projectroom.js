@@ -58,6 +58,20 @@ function registerMemoList(memolist, param, success, fail) {
     .catch(fail);
 }
 
+function modifyMemo(memoId, memo, success, fail) {
+  api
+    .put(`/memo/${memoId}`, JSON.stringify(memo))
+    .then(success)
+    .catch(fail);
+}
+
+function deleteMemo(memoId, success, fail) {
+  api
+    .delete(`memo/${memoId}`)
+    .then(success)
+    .fail(fail);
+}
+
 export {
   getFileInfo,
   getFileList,
@@ -65,4 +79,6 @@ export {
   getMemoList,
   registerMemo,
   registerMemoList,
+  modifyMemo,
+  deleteMemo,
 };

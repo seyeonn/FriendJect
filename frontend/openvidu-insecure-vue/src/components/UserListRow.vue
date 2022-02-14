@@ -1,21 +1,16 @@
 <template>
-  <div v-if="streamManager">
-    <ov-video :stream-manager="streamManager"></ov-video>
-    <div>
-      <p>{{ clientData }}</p>
+  <div class="user">
+    <!-- user profile_url api로 추가 예정 -->
+    <img src="https://randomuser.me/api/portraits/men/1.jpg" class="user-img" />
+    <div class="username">
+      {{ clientData }}
     </div>
   </div>
 </template>
 
 <script>
-import OvVideo from "./OvVideo";
-
 export default {
-  name: "UserVideo",
-
-  components: {
-    OvVideo,
-  },
+  name: "UserListRow",
 
   props: {
     streamManager: Object,
@@ -36,3 +31,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/style/main-new.scss";
+</style>
