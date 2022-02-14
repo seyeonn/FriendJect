@@ -19,8 +19,10 @@
         </div>
        <div id="demo"></div>
         </div>
+        <div class="icequestion">
         <div v-for="question in questions" :key="question">
-          {{ questions }}
+          - {{ question }}
+        </div>
         </div>
       </div>
     </div>
@@ -70,11 +72,16 @@ export default {
     // 아이스 브레이킹 질문 랜덤 조회
     icebreaking() {
       console.log("아이스 브레이킹");
+      this.questions = [];
       axios
         .get(`http://localhost:8081/icebreaking/questions`)
         .then((response) => {
-          console.log(response.data.question);
-          this.questions = response.data.question;
+          console.log(response.data);
+
+          for(var i=0; i<5; i++){
+            this.questions.push(response.data[i].question);
+          }
+          
         })
         .catch((err) => {
           console.log(err);
@@ -120,6 +127,12 @@ export default {
 <style>
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+.icequestion {
+  margin-left: 285px;
+  width: 200px;
+  margin-top: -100px;
+  font-size: 14px;
+}
 .timer {
   margin-top: 210px;
   margin-left: -5px;
