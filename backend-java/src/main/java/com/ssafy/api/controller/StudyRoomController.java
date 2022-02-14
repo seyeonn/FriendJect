@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,16 +64,13 @@ public class StudyRoomController {
 	   }
 
 	   @GetMapping
-	   @ApiOperation(value="어제의 학습왕 조회")
+	   @ApiOperation(value="오늘의 학습왕 조회")
 	   public ResponseEntity<String> getStudyBest(){
-	      logger.info("어제의 학습왕  - 호출");
+	      logger.info("오늘의 학습왕  - 호출");
 	      
 	      //데이터베이스 time desc 조회 userid 반환
 	      String studybest = studyroomService.getStudyBest();
 	      System.out.println(studybest);
 	      return new ResponseEntity<String>(studybest, HttpStatus.OK);
-	      // 12시 정각되면 딱 한번 실행되어야 함.
-	      // 12시 되면 db도 비어주기
-	      // 팀코드 내에서 userid 찾기 해야함.
 	   }
 }
