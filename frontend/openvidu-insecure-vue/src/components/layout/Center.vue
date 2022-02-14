@@ -2,12 +2,12 @@
   <div class="main_center" style="height:100%">
     <div>
     <!-- 아이스 브레이킹 -->
-    <div @click="icebraking">
-      <a href="#icebraking"><img src="https://i.imgur.com/TsyLttq.png" style="width: 15%; margin-left: 500px;"/></a>
+    <div @click="icebreaking">
+      <a href="#icebreaking"><img src="https://i.imgur.com/Lc6TLfM.png" style="width: 15%; margin-left: 500px;"/></a>
     </div>
 
     <!-- 아이스 브레이킹 모달창 -->
-    <div id="icebraking" class="modal-window">
+    <div id="icebreaking" class="modal-window">
       <div>
         <a href="#" title="Close" class="modal-close">
             <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
@@ -68,10 +68,10 @@ export default {
       this.$emit("emitTab", tab);
     },
     // 아이스 브레이킹 질문 랜덤 조회
-    icebraking() {
+    icebreaking() {
       console.log("아이스 브레이킹");
       axios
-        .get(`http://localhost:8081/icebraking/questions`)
+        .get(`http://localhost:8081/icebreaking/questions`)
         .then((response) => {
           console.log(response.data.question);
           this.questions = response.data.question;
@@ -114,7 +114,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/style/icebraking.scss";
+@import "@/assets/style/icebreaking.scss";
 </style>
 
 <style>
