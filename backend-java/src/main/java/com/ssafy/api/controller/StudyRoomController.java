@@ -36,7 +36,7 @@ public class StudyRoomController {
 	
 	// db에 이미 있는 userid이면 생성 x
 	// url 입장하면 entryuser 감지 및 데이터베이스에 등록
-	@PostMapping
+	@PostMapping("/entry")
 	@ApiOperation(value="member 등록 서비스")
 	public ResponseEntity<String> regMember(@RequestBody @ApiParam(value = "유저 정보.", required = true)Studyroom entryUser) throws Exception {
 		logger.info("insetMember - 호출");

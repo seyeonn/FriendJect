@@ -32,7 +32,7 @@
 
 <script>
 import axios from "axios";
-import { regMember, regTime } from "@/api/member";
+import { regMember, regTime } from "@/api/studyroom";
 import StudyroomPlayer from "./StudyroomPlayer.vue";
 
 export default {
