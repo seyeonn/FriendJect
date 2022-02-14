@@ -4,12 +4,7 @@
       <b-row>
         <b-col><img class="logo" src="@/assets/images/logo.png"/></b-col>
         <b-col cols="8"></b-col>
-        <b-col v-if="loginSuccess">
-          <b-button variant="outline-warning" style="margin-top: 30px" href="/"
-            >로그아웃</b-button
-          >
-        </b-col>
-        <b-col v-else>
+        <b-col>
           <b-button
             variant="outline-warning"
             style="margin-top: 30px"
@@ -26,7 +21,7 @@
         <div style="text-align: center"><h1>3초만에 시작하기</h1></div>
         <div style="text-align: center; margin-top: 50px">
           <a
-            href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=8115a87101ffedb86a86de451bbe426d&redirect_uri=http://localhost:8080/kakao"
+            href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e1a7f29f3266d25acd09415836291442&redirect_uri=http://i6b202.p.ssafy.io:8080/kakao"
           >
             <img alt="kakao-button" src="@/assets/images/kakao_login.png" />
           </a>
@@ -39,15 +34,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-      loginSuccess: false,
-    };
-  },
   methods: {
     login: function() {
       //모달 닫히는게 필요
-      // this.$router.push("join");
+      this.$router.push("join");
     },
   },
 };

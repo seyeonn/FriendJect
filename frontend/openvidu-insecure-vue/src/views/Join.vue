@@ -299,9 +299,11 @@ import MeetingRoom from "./Meeting.vue";
 import StudyRoom from "./Studyroom/Studyroom.vue";
 import Center from "../components/layout/Center.vue";
 import UserListRow from "../components/UserListRow.vue";
+import { mapState } from "vuex";
+import userStore from "@/store/userStore.js";
 
 export default {
-  name: "main",
+  name: "join",
   data() {
     return {
       // openvidu start
@@ -313,7 +315,7 @@ export default {
       mySessionId: "",
       teamName: "",
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
-      myUserName: this.$route.query.nickname + Math.floor(Math.random() * 100),
+      myUserName: "nickname" + Math.floor(Math.random() * 100),
       // openvidu end
 
       log: [],
@@ -327,6 +329,8 @@ export default {
     };
   },
   computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
@@ -339,6 +343,9 @@ export default {
     UserVideo,
     Center,
     UserListRow,
+  },
+  created() {
+    console.log("login: ", this.isLogin);
   },
   methods: {
     randomNumber: function() {
