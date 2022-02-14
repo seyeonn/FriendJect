@@ -192,7 +192,7 @@
                 alt=""
                 class="account-profile"
               />
-              <span>▼</span>
+              <a href="#profileModal"> <b-icon-pencil-square></b-icon-pencil-square></a>
             </span>
           </div>
           <div class="side-wrapper stories">
@@ -268,6 +268,26 @@
             <h1>지난 상담내역보기</h1>
             <!-- <div><small>Check out</small></div> -->
             {{ log }}
+          </div>
+        </div>
+        <!-- 프로필 편집모달 -->
+        <div id="profileModal" class="modal-window">
+          <div>
+            <a href="#" title="Close" class="modal-close">
+              <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
+            </a>
+
+            <h1>프로필 편집</h1>
+            <img
+                  src=""
+                  alt=""
+                  class="user-img"
+                  @error="replaceImg"
+            />
+            <input id="input" @change="onInputImage" type="file" accept="image/*">
+            <button class="btn" @click="onChangProfile">변경</button>
+            <button class="btn" @click="onDeleteProfile">삭제</button>
+            
           </div>
         </div>
 
@@ -565,6 +585,42 @@ export default {
         document.getElementById("mute").innerText = "음소거";
       }
     },
+
+    //프로필 이미지
+    replaceImg: function(event) {
+      event.target.src = "https://user-images.githubusercontent.com/83205029/153914730-ac2988f7-745d-4e3a-89a4-38d506117607.png"
+    },
+    onInputImage: function(file) {
+        this.image = file.target.files[0]
+        console.log(this.image)
+
+      },
+      onChangProfile: function() {
+        const frm = new FormData() 
+        frm.append('filename', this.image)
+        axios.patch('http://localhost:8081/profile/iu123@gmail.com', frm,{
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+            ).then(res => {
+                console.log(res)
+                
+            })
+            .catch(err => {
+                console.log(err)
+            })
+      },
+      onDeleteProfile: function() {
+        axios.patch('http://localhost:8081/profile/empty/iu123@gmail.com'
+            ).then(res => {
+                console.log(res)
+                
+            })
+            .catch(err => {
+                console.log(err)
+            })
+      },
   },
 };
 </script>
