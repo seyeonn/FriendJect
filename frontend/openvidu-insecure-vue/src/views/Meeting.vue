@@ -1,28 +1,33 @@
 <template>
-  <div>
-    <meeting-note
-      :documetns="allDocuments"
-      :profile="userProfile"
-    ></meeting-note>
-  </div>
+  <b-container fluid class="p-1" style="background-color:white; height:100%">
+    <div>
+      <b-tabs content-class="m-3" fill>
+        <b-tab title="화이트보드" active class="shadow-sm p-3 mb-5 bg-white rounded">
+          <white-board></white-board>
+        </b-tab>
+        <b-tab title="회의록">
+          <meeting-note :documetns="allDocuments" :profile="userProfile"></meeting-note>
+        </b-tab>
+      </b-tabs>
+    </div>
+  </b-container>
 </template>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 import axios from "axios";
 import MeetingNote from "../components/meetingroom/MeetingNote.vue";
+import WhiteBoard from "../components/meetingroom/WhiteBoard.vue";
 
 export default {
   components: {
-    MeetingNote,
+    MeetingNote, 
+    WhiteBoard,
   },
   data() {
     return {
       // 회의록 전체 글
       allDocuments: [],
 
-      // 유저프로필사진url
-      userProfile: "",
     };
   },
   methods: {
@@ -40,24 +45,9 @@ export default {
           console.log(err);
         });
     },
-    // db에서 유저프로필url 가져오기
-    getUserInfo: function() {
-      axios({
-        method: "get",
-        url: "http://localhost:8081/profile/1",
-      })
-        .then((res) => {
-          console.log(res);
-          this.userProfile = res.data.profile;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
   },
   created: function() {
     this.getAllDocuments();
-    this.getUserInfo();
   },
 };
 </script>
