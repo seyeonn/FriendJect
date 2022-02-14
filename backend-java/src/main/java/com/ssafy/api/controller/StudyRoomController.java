@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/studyroom")
 @Api(value = "열람실", tags = {"열람실"})
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin("*")
 public class StudyRoomController {
 
 	private static final Logger logger = LoggerFactory.getLogger(KakaoController.class);
