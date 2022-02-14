@@ -119,14 +119,14 @@ dependencies {
     implementation("org.apache.commons:commons-collections4:4.4")
     implementation("org.apache.commons:commons-lang3:3.9")
 
-    implementation("com.querydsl:querydsl-jpa:${querydslVer}")
-    implementation("com.querydsl:querydsl-apt:${querydslVer}")
+    //implementation("com.querydsl:querydsl-jpa:${querydslVer}")
+    //implementation("com.querydsl:querydsl-apt:${querydslVer}")
     
 	//spring security
-    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.7.RELEASE'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE'
-    testImplementation 'org.springframework.security:spring-security-test'
+    //implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.7.RELEASE'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+	//implementation 'org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE'
+    //testImplementation 'org.springframework.security:spring-security-test'
 
     //STOMP 웹소캣 서버 사이드 테스트를 위한 의존성 추가
     implementation("org.springframework.boot:spring-boot-starter-mustache")
