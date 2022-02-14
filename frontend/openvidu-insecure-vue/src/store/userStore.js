@@ -3,7 +3,7 @@ const userStore = {
   state: {
     isLogin: false,
     isLoginError: false,
-    userInfo: [],
+    userInfo: null,
   },
   getters: {
     checkUserInfo: function(state) {
@@ -22,6 +22,11 @@ const userStore = {
       state.userInfo = userInfo;
     },
   },
-  actions: {},
+  actions: {
+    set_user_info({ commit }, userInfo) {
+      console.log("tst");
+      commit("SET_USER_INFO", userInfo);
+    },
+  },
 };
 export default userStore;
