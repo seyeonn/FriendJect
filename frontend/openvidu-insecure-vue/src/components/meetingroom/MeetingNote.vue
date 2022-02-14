@@ -22,7 +22,7 @@
         <b-col sm="7">
           <div class="form" v-if="postable">
             <div class="mt-3_2">
-              <h3>Add an Meetingnote</h3>
+              <h3>Add Meetingnote</h3>
             </div>
             <div>
               <div>
@@ -35,7 +35,7 @@
 
           <div class="form" v-if="editable">
             <div class="panel-heading mt-3_2">
-              <h3>Edit an Meetingnote</h3>
+              <h3>Edit Meetingnote</h3>
             </div>
             <div class="panel-body">
               <div>
