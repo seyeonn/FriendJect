@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.ssafy.db.entity.Questions;
 
 @Repository
-public interface IceBrakingRepository extends JpaRepository<Questions, Long>{
+public interface IceBreakingRepository extends JpaRepository<Questions, Long>{
 
 	Questions findByNo(int no);
 

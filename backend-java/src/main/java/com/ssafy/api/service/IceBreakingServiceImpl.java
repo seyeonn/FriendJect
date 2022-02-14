@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.db.entity.Questions;
-import com.ssafy.db.repository.IceBrakingRepository;
+import com.ssafy.db.repository.IceBreakingRepository;
 
-@Service("icebrakingService")
+@Service("icebreakingService")
 @Transactional
-public class IceBrakingServiceImpl implements IceBrakingService{
+public class IceBreakingServiceImpl implements IceBreakingService{
 
 	@Autowired
-	IceBrakingRepository icebrakingRepository;
+	IceBreakingRepository icebreakingRepository;
 	
 	@Override
 	public List<Questions> getQuestions() throws Exception {
@@ -28,16 +28,18 @@ public class IceBrakingServiceImpl implements IceBrakingService{
 		List<Questions> questions = new ArrayList<Questions>();
 		
 		// 랜덤으로 5개의 번호 추출
-		for (int i = 0; i < questionNo.length; i++) {
+		t:for (int i = 0; i < questionNo.length; i++) {
 			questionNo[i] = (int)(Math.random()*50)+1;	
 			
 			// 중복 제거를 위한 for문
 			for(int j =0; j<i; j++) {
-				if(questionNo[i] == questionNo[j])
+				if(questionNo[i] == questionNo[j]) {
 					i--;
+					continue t;
+				}
 			}
 			
-			questions.add(icebrakingRepository.findByNo(questionNo[i]));
+			questions.add(icebreakingRepository.findByNo(questionNo[i]));
 		}
 		
 		System.out.println("Questions: " + questions);
