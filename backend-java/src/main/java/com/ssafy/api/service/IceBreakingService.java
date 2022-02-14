@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.ssafy.db.entity.Questions;
 
-public interface IceBrakingService {
+public interface IceBreakingService {
 	List<Questions> getQuestions() throws Exception;
 }
