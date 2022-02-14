@@ -8,4 +8,4 @@ docker container stop friendject
 
 docker rm friendject
 
-docker run -d --name friendject -p 8080:8080 friendject/backend
+docker run -d --name friendject -p 8000:80 friendject/backend
