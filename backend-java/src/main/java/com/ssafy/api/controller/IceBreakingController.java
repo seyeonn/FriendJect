@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/icebreaking")
 @Api(value = "아이스브레이킹")
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin("*")
 public class IceBreakingController {
 
 	@Autowired
