@@ -60,7 +60,7 @@ function registerMemoList(memolist, param, success, fail) {
 
 function modifyMemo(memoId, memo, success, fail) {
   api
-    .put(`/memo/${memoId}`, JSON.stringify(memo))
+    .put(`memo/${memoId}`, JSON.stringify(memo))
     .then(success)
     .catch(fail);
 }
