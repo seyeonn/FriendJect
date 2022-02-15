@@ -30,19 +30,19 @@
 
     <b-row>
       <b-col class="box" style="margin-right:10%">
-        <button @click="setTab('StudyRoom')">Study</button>
+         <router-link :to="'/room/studyroom'">study</router-link>
       </b-col>
       <b-col class="box">
-        <button @click="setTab('MeetingRoom')">Meeting</button>
+        <router-link :to="'/room/meetingroom'">Meeting</router-link>
       </b-col>
     </b-row>
 
     <b-row>
       <b-col class="box2" style="margin-right:10%">
-        <button @click="setTab('ProjectRoom')">Project</button>
+        <router-link :to="'/room/projectroom'">Project</router-link>
       </b-col>
       <b-col class="box2">
-        <button @click="setTab('ConsultRoom')">Consult</button>
+        <router-link :to="'/room/consultroom'">Consult</router-link>
       </b-col>
     </b-row>
   </div>
