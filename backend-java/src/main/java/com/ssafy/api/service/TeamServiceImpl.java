@@ -4,11 +4,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.api.request.TeamRegisterPostReq;
-import com.ssafy.db.entity.Member;
 import com.ssafy.db.entity.Team;
+import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.JoinedTeamListRepository;
-import com.ssafy.db.repository.MemberRepository;
 import com.ssafy.db.repository.TeamRepository;
+import com.ssafy.db.repository.UserClassRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,21 +18,21 @@ import lombok.RequiredArgsConstructor;
 public class TeamServiceImpl  implements TeamService {
 	
 	private final TeamRepository teamRepository;
-	private final MemberRepository memberRepository;
+	private final UserClassRepository userClassRepository;
 	private final JoinedTeamListRepository joinedTeamListRepository;
 	
 	@Transactional
 	public Long save(TeamRegisterPostReq teamRegisterPostReq) {
 		
-		Member member = memberRepository.findOne(teamRegisterPostReq.getMemberId());
+		User user = userClassRepository.findOne(teamRegisterPostReq.getUserId());
 		Team team = new Team();
 		team.setName(teamRegisterPostReq.getTeamName());
 		team.setTeamNumber(teamRegisterPostReq.getTeamNumber());
 		
-		joinedTeamListRepository.save(member, team);
+		joinedTeamListRepository.save(user, team);
 		
 		teamRepository.save(team);
-		return member.getId();
+		return user.getId();
 	}
 
 }
