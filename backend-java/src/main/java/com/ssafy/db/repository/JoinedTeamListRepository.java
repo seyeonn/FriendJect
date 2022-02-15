@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.ssafy.db.entity.JoinedTeamList;
 import com.ssafy.db.entity.Member;
 import com.ssafy.db.entity.Team;
+import com.ssafy.db.entity.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,9 +17,9 @@ public class JoinedTeamListRepository {
 	
 	private final EntityManager em;
 	
-	public void save(Member member, Team team) {
+	public void save(User user, Team team) {
 		JoinedTeamList teamList = new JoinedTeamList();
-		teamList.setMember(member);
+		teamList.setUser(user);
 		teamList.setTeam(team);
 		em.persist(teamList);
 	}
