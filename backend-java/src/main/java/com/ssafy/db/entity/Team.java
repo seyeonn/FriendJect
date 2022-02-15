@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @Table(name = "team")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Team {
 
 	@Id @GeneratedValue
@@ -33,14 +34,7 @@ public class Team {
 	@Column(name="team_number")
 	private Long teamNumber;
 	
-	@ManyToMany(mappedBy = "teams")
-	private List<Member> members = new ArrayList<>();
-	
-	@Builder
-	public Team(String name, Long teamNumber, Member member) {
-		this.name = name;
-		this.teamNumber = teamNumber;
-		this.members.add(member);
-	}
+	@OneToMany(mappedBy = "team")
+	private List<JoinedTeamList> teamList = new ArrayList<>();
 	
 }

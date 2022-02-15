@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -29,11 +30,8 @@ public class Member {
 	@Column(name = "member_name") 
 	private String memberName; 
 		
-	@ManyToMany
-	@JoinTable(name = "joined_team_list",
-		joinColumns = @JoinColumn(name = "member_id"),
-		inverseJoinColumns = @JoinColumn(name = "team_id"))
-	private List<Team> teams = new ArrayList<>();	
+	@OneToMany(mappedBy = "member")
+	private List<JoinedTeamList> teamList = new ArrayList<>();
 	
 
 }
