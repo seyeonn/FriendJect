@@ -207,6 +207,7 @@
 
 <script>
 import axios from "axios";
+import { getConsultLogList } from "@/api/consultroom.js";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/UserVideo.vue";
 
@@ -306,17 +307,19 @@ export default {
     getLog: function() {
       console.log("상담 기록 조회");
       this.log = [];
-      axios
-        .get(
-          `http://localhost:8081/consultroom/consult?userId=ilove_13@naver.com`
-        )
-        .then((response) => {
+      // TODO: userId 불러와야함!!
+      var userId = "ilove_13@naver.com";
+      getConsultLogList(
+        userId,
+        (response) => {
           console.log(response.data);
           this.log.push(response.data);
-        })
-        .catch();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
-
     exit: function() {
       this.currentTab = "Center";
     },

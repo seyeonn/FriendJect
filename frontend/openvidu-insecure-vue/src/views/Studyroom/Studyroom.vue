@@ -1,7 +1,7 @@
 <template>
   <div class="main_study" style="height:100%">
     <div style="margin-top: 100px; margin-left: 220px;">
-    <studyroom-player />
+      <studyroom-player />
     </div>
     <div id="stopwatch" style="margin-top: 30px;">
       <!-- 스톱워치 기능 개발 -->
@@ -23,16 +23,26 @@
 
     <!-- 상태 메세지 등록 및 수정 -->
     <div class="comment" style="margin-top: 160px; margin-left: 122px;">
-      <span  v-show=!showInput>{{ com }}</span>
-      <input type="text" v-show=showInput v-model="value" class="input_comment"/>
-      <button class="w-btn w-btn-white" v-on:click = "showInput =!showInput" @click="setDefault()">{{regOrEdit}}</button>
+      <span v-show="!showInput">{{ com }}</span>
+      <input
+        type="text"
+        v-show="showInput"
+        v-model="value"
+        class="input_comment"
+      />
+      <button
+        class="w-btn w-btn-white"
+        v-on:click="showInput = !showInput"
+        @click="setDefault()"
+      >
+        {{ regOrEdit }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import { regMember, regTime } from "@/api/studyroom";
+import { regMember, regTime, getStudyBest } from "@/api/studyroom";
 import StudyroomPlayer from "./StudyroomPlayer.vue";
 
 export default {
@@ -72,14 +82,16 @@ export default {
     );
 
     // 오늘의 학습왕 조회
-    axios
-      .get(`http://localhost:8081/studyroom`)
-      .then((response) => {
+    getStudyBest(
+      (response) => {
         console.log("오늘의 학습왕은?");
         console.log(response.data);
         this.studybest = response.data;
-      })
-      .catch();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
   // 스톱워치 설정
   computed: {
@@ -115,14 +127,16 @@ export default {
           this.userid = data;
           alert("저장이 완료되었습니다.");
 
-      axios
-      .get(`http://localhost:8081/studyroom`)
-      .then((response) => {
-        console.log("오늘의 학습왕은?");
-        console.log(response.data);
-        this.studybest = response.data;
-      })
-      .catch();
+          getStudyBest(
+            (response) => {
+              console.log("오늘의 학습왕은?");
+              console.log(response.data);
+              this.studybest = response.data;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
         },
         (error) => {
           console.log(error);
@@ -238,16 +252,16 @@ document.addEventListener("DOMContentLoaded", () => {
 .w-btn-white {
   padding: 6px 12px;
   background-color: rgba(234, 237, 240, 0.712);
-  color: #F9B225;
+  color: #f9b225;
 }
 
 .w-btn-white-outline {
   border: 3px solid rgba(234, 237, 240, 0.712);
-  color: #F9B225;
+  color: #f9b225;
 }
 
 .w-btn-white-outline:hover {
-  color: #F9B225;
+  color: #f9b225;
   background: rgba(234, 237, 240, 0.712);
 }
 
