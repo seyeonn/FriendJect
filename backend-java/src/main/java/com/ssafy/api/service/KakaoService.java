@@ -48,8 +48,8 @@ public class KakaoService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=e1a7f29f3266d25acd09415836291442");  //본인이 발급받은 key
-            sb.append("&redirect_uri=http://i6b202.p.ssafy.io/kakao");     // 본인이 설정해 놓은 경로 서버용
-            //sb.append("&redirect_uri=http://localhost:8080/kakao");     // 본인이 설정해 놓은 경로 test용
+//            sb.append("&redirect_uri=http://i6b202.p.ssafy.io/kakao");     // 본인이 설정해 놓은 경로 서버용
+            sb.append("&redirect_uri=http://localhost:8080/kakao");     // 본인이 설정해 놓은 경로 test용
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -67,7 +67,6 @@ public class KakaoService {
 	            while ((line = br.readLine()) != null) {
 	                result += line;
 	            }
-	//            System.out.println("response body : " + result);
 	
 	            //    Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
 //	            JsonParser parser = new JsonParser();
@@ -147,11 +146,8 @@ System.out.println(element);
     public User getUserEmail(HashMap<String, Object> userInfo) {
     	String email = (String) userInfo.get("email");
     	
-    	System.out.println("######with : "+userRepository.findByUserEmail(email));
-    	
     	// DB애 email이 존재하면 패스, 존재하지 않으면 저장 Go!
-		return userRepository.findByUserEmail(email).orElseGet(()-> JoinNewUserWithEmail(userInfo));  		
-    	
+		return userRepository.findByUserEmail(email).orElseGet(()-> JoinNewUserWithEmail(userInfo));  		 	
     }
     
     public User JoinNewUserWithEmail(HashMap<String, Object> userInfo){
@@ -160,7 +156,6 @@ System.out.println(element);
         user.setUserEmail((String) userInfo.get("email"));
         user.setNickName((String) userInfo.get("nickname"));
         user.setAccessToken((String) userInfo.get("access_token"));
-        user.setSessionState(0);
         user.setProfileUrl((String) userInfo.get("profile_image"));
         userRepository.save(user);
         

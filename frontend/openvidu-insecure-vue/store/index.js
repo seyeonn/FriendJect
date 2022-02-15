@@ -11,10 +11,8 @@ export const store = new Vuex.Store({
     userEmail: "",
     myUserName: "",
     profileUrl: "",
-    sessionState: 0,
     message: "",
     messageList: [],
-    loginUsers: [],
   },
   getters: {
     isLogin: (state) => {
@@ -51,18 +49,11 @@ export const store = new Vuex.Store({
       state.accessToken = userdata["accessToken"];
       state.userEmail = userdata["userEmail"];
       state.profileUrl = userdata["profileUrl"];
-      state.sessionState = userdata["sessionState"];
-    },
-    SET_LOGIN_USERS: function(state, userdata) {
-      state.loginUsers = userdata;
     },
   },
   actions: {
     setUserinfo: function({ commit }, userdata) {
       commit("SET_USERINFO", userdata);
-    },
-    setLoginUsers: function({ commit }, userdata) {
-      commit("SET_LOGIN_USERS", userdata);
     },
   },
 });

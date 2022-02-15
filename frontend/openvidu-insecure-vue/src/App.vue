@@ -15,7 +15,7 @@
 
 <script>
 import Header from "./components/layout/Header.vue";
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -30,7 +30,6 @@ export default {
     ...mapGetters(["isLogin"]),
   },
   methods: {
-    ...mapActions(["setLoginUsers"]),
     logout() {
       this.$store.commit("deleteToken");
       this.$router.replace("/");
