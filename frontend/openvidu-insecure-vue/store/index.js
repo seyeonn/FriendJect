@@ -7,30 +7,62 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     accessToken: "",
-    // user pk
-    // id: "",
-    //  user user_email
+    kakaoId: "",
     userEmail: "",
+    myUserName: "",
+    profileUrl: "",
+    sessionState: 0,
+    message: "",
+    messageList: [],
+    loginUsers: [],
   },
   getters: {
-    isLogin: function(state) {
-      if (state.userEmail) return true;
+    isLogin: (state) => {
+      if (state.accessToken) return true;
       return false;
     },
   },
   mutations: {
+    // accessToken 저장요청으로 localStorage에 저장
     setToken(state, newAccessToken) {
-      localStorage.setItem("accessToken", newAccessToken);
       state.accessToken = newAccessToken;
+      localStorage.setItem("accessToken", newAccessToken);
     },
+    setKakaoId(state, newKakaoId) {
+      state.kakaoId = newKakaoId;
+      localStorage.setItem("kakaoId", newKakaoId);
+    },
+    setUserName(state, newUserName) {
+      state.myUserName = newUserName;
+      localStorage.setItem("myUserName", newUserName);
+    },
+    deleteToken(state) {
+      state.accessToken = "";
+      state.kakaoId = "";
+      state.myUserName = "";
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("kakaoId");
+      localStorage.removeItem("myUserName");
+    },
+    // 카카오 로그인으로 유저정보가 들어왔는지 확인
     SET_USERINFO: function(state, userdata) {
-      // state.id = userdata["id"];
+      state.kakaoId = userdata["kakaoId"];
+      state.myUserName = userdata["nickName"];
+      state.accessToken = userdata["accessToken"];
       state.userEmail = userdata["userEmail"];
+      state.profileUrl = userdata["profileUrl"];
+      state.sessionState = userdata["sessionState"];
+    },
+    SET_LOGIN_USERS: function(state, userdata) {
+      state.loginUsers = userdata;
     },
   },
   actions: {
-    setUserinfo: function({ commit }, userEmail) {
-      commit("SET_USERINFO", userEmail);
+    setUserinfo: function({ commit }, userdata) {
+      commit("SET_USERINFO", userdata);
+    },
+    setLoginUsers: function({ commit }, userdata) {
+      commit("SET_LOGIN_USERS", userdata);
     },
   },
 });

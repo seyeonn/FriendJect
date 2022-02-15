@@ -1,6 +1,5 @@
 <template>
   <div>
-     <Header />
     <div class="macbook" style="margin-top:5%">
       <div class="inner">
         <div class="screen">
@@ -116,12 +115,7 @@
 </template>
 
 <script>
-import Header from "../components/layout/Header.vue";
-export default {
-  components: {
-    Header
-  }
-};
+export default {};
 </script>
 
 <style scoped>
