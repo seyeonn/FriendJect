@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class TeamRegisterPostReq {
-	private Long memberId;
+	private Long userId;
 	private String teamName;
 	private Long teamNumber;
 }
