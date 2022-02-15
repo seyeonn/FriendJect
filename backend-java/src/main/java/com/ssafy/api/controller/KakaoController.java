@@ -22,15 +22,15 @@ import io.swagger.annotations.ApiOperation;
  * Kakao 로그인 관련 API 요청 처리를 위한 컨트롤러
  */
 @CrossOrigin("*")
-@RequestMapping("/login")
 @RestController
+@RequestMapping("api")
 @Api(value = "카카오톡 간편 가입", tags = {"회원가입 및 로그인"})
 public class KakaoController {
     @Autowired
     private KakaoService kakaoService;
     
     @CrossOrigin("*")
-    @PostMapping
+    @PostMapping("/login")
     @ApiOperation(value = "로그인 및 회원가입", notes = "<strong> 로그인과 동시에 회원가입 </strong> 을 진행한다. ") 
     public ResponseEntity<User> home(@RequestBody Map<String, String> requestData) throws Exception{
 

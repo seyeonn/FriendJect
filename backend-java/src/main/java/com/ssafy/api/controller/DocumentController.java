@@ -29,7 +29,7 @@ import lombok.AllArgsConstructor;
 @Api(value = "회의록 CRUD", tags = {"회의실"})
 @RestController
 @AllArgsConstructor
-@RequestMapping("/meetingroom/document")
+@RequestMapping("api/meetingroom/document")
 @CrossOrigin("*")
 public class DocumentController {
 	
