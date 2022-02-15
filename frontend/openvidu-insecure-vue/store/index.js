@@ -15,6 +15,7 @@ export const store = new Vuex.Store({
     message: "",
     messageList: [],
     loginUsers: [],
+    userId: "",
   },
   getters: {
     isLogin: (state) => {
@@ -36,13 +37,19 @@ export const store = new Vuex.Store({
       state.myUserName = newUserName;
       localStorage.setItem("myUserName", newUserName);
     },
+    setUserId(state, newUserId) {
+      state.userId = newUserId;
+      localStorage.setItem("userId", newUserId);
+    },
     deleteToken(state) {
       state.accessToken = "";
       state.kakaoId = "";
       state.myUserName = "";
+      state.userId = "";
       localStorage.removeItem("accessToken");
       localStorage.removeItem("kakaoId");
       localStorage.removeItem("myUserName");
+      localStorage.removeItem("userId");
     },
     // 카카오 로그인으로 유저정보가 들어왔는지 확인
     SET_USERINFO: function(state, userdata) {
@@ -52,6 +59,7 @@ export const store = new Vuex.Store({
       state.userEmail = userdata["userEmail"];
       state.profileUrl = userdata["profileUrl"];
       state.sessionState = userdata["sessionState"];
+      state.userId = userdata["userId"];
     },
     SET_LOGIN_USERS: function(state, userdata) {
       state.loginUsers = userdata;

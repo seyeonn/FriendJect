@@ -5,14 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.api.request.JoinTeamPostReq;
+import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
 
@@ -28,7 +32,6 @@ import lombok.AllArgsConstructor;
 public class UserController {
 	
 	UserRepository userRepository;
-	
 	
 	@GetMapping
 	@ApiOperation(value = "세션에 참여한 회원 조회", notes = "세션에 참여한 회원목록을 조회한다. ")
@@ -53,6 +56,7 @@ public class UserController {
 		userRepository.save(user);
 		return body;
 	}
+	
 	
 }
 
