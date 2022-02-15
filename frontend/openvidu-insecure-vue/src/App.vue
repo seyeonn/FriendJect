@@ -6,8 +6,9 @@
     <!-- <b-img :src="require('./assets/images/main.png')" fluid-gro></b-img> -->
     <!-- 자주 바뀌는 영역 -->
     <Header :is-login="isLogin" @logout="logout" />
+
     <body>
-      <router-view @userInfoDB="userInfoDB"></router-view>
+      <router-view></router-view>
     </body>
   </div>
 </template>
@@ -15,7 +16,6 @@
 <script>
 import Header from "./components/layout/Header.vue";
 import { mapActions, mapState, mapGetters } from "vuex";
-import axios from "axios";
 
 export default {
   name: "App",
@@ -35,33 +35,14 @@ export default {
       this.$store.commit("deleteToken");
       this.$router.replace("/");
     },
-    userInfoDB: function() {
-      axios({
-        method: "get",
-        url: `http://localhost:8081/userinfo/`,
-      })
-        .then((res) => {
-          this.setLoginUsers({
-            ...res.data,
-          });
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
   },
   created() {
-    this.userInfoDB();
     const accessToken = localStorage.getItem("accessToken") || "";
     const kakaoId = localStorage.getItem("kakaoId") || "";
     const userName = localStorage.getItem("myUserName") || "";
     this.$store.commit("setToken", accessToken);
     this.$store.commit("setKakaoId", kakaoId);
     this.$store.commit("setUserName", userName);
-  },
-  mounted() {
-    this.userInfoDB();
   },
 };
 </script>

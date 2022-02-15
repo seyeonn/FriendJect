@@ -31,7 +31,7 @@ export default {
           this.$store.commit("setKakaoId", res.data.kakaoId);
           this.$store.commit("setUserName", res.data.nickName);
 
-          this.$router.replace("/join");
+          this.$router.replace("/main");
         })
         .catch((error) => {
           console.log(error);
