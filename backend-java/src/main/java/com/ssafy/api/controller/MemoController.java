@@ -35,7 +35,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/projectroom")
+@RequestMapping("api/projectroom")
 @Api(value = "메모보드", tags = {"프로젝트실"})
 @CrossOrigin("*")
 public class MemoController {

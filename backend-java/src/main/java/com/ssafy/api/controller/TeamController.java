@@ -16,7 +16,7 @@ import com.ssafy.api.service.TeamService;
 import com.ssafy.common.model.response.BaseResponseBody;
 
 @RestController
-@RequestMapping("/team")
+@RequestMapping("api/team")
 @CrossOrigin("*")
 public class TeamController {
 	
