@@ -13,7 +13,7 @@ function getOneBook(success, fail) {
 // 상담실
 function getConsultLogList(userId, success, fail) {
   api
-    .get(`/${userId}`)
+    .get(`consult/${userId}`)
     .then(success)
     .catch(fail);
 }
