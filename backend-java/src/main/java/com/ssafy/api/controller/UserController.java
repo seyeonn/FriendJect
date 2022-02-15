@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/userinfo")
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin("*")
 @AllArgsConstructor
 @Api(value = "유저", tags = {"유저"})
 public class UserController {

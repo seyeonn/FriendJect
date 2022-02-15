@@ -17,6 +17,7 @@ import lombok.Setter;
 @Table(name = "joinedteamlist")
 @NoArgsConstructor
 public class JoinedTeamList {
+	
 	@Id	@GeneratedValue
 	@Column(name = "team_list_id")
 	private Long id; 
