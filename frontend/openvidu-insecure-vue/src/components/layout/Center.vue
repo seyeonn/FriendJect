@@ -1,36 +1,42 @@
 <template>
   <div class="main_center" style="height:100%">
     <div>
-    <!-- 아이스 브레이킹 -->
-    <div @click="icebreaking">
-      <a href="#icebreaking"><img src="https://i.imgur.com/Lc6TLfM.png" style="width: 15%; margin-left: 500px;"/></a>
-    </div>
+      <!-- 아이스 브레이킹 -->
+      <div @click="icebreaking">
+        <a href="#icebreaking"
+          ><img
+            src="https://i.imgur.com/Lc6TLfM.png"
+            style="width: 15%; margin-left: 500px;"
+        /></a>
+      </div>
 
-    <!-- 아이스 브레이킹 모달창 -->
-    <div id="icebreaking" class="modal-window">
-      <div>
-        <a href="#" title="Close" class="modal-close">
+      <!-- 아이스 브레이킹 모달창 -->
+      <div id="icebreaking" class="modal-window">
+        <div>
+          <a href="#" title="Close" class="modal-close">
             <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
-        </a>
-        <div class="timer">
-        <div v-show=showtimer>
-          <input type="text" v-model="time" style="width: 30px">
-          <button class="w-btn w-btn-white" v-on:click="submit" >시간 설정</button>
-        </div>
-       <div id="demo"></div>
-        </div>
-        <div class="icequestion">
-        <div v-for="question in questions" :key="question">
-          - {{ question }}
-        </div>
+          </a>
+          <div class="timer">
+            <div v-show="showtimer">
+              <input type="text" v-model="time" style="width: 30px" />
+              <button class="w-btn w-btn-white" v-on:click="submit">
+                시간 설정
+              </button>
+            </div>
+            <div id="demo"></div>
+          </div>
+          <div class="icequestion">
+            <div v-for="question in questions" :key="question">
+              - {{ question }}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     </div>
 
     <b-row>
       <b-col class="box" style="margin-right:10%">
-         <router-link :to="'/room/studyroom'">study</router-link>
+        <router-link :to="'/room/studyroom'">study</router-link>
       </b-col>
       <b-col class="box">
         <router-link :to="'/room/meetingroom'">Meeting</router-link>
@@ -49,7 +55,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { getQuestionList } from "@/api/center.js";
 
 var audio = new Audio();
 audio.src = "@/assets/ding-dong.mp3";
@@ -73,49 +79,46 @@ export default {
     icebreaking() {
       console.log("아이스 브레이킹");
       this.questions = [];
-      axios
-        .get(`http://localhost:8081/icebreaking/questions`)
-        .then((response) => {
+      getQuestionList(
+        (response) => {
           console.log(response.data);
 
-          for(var i=0; i<5; i++){
+          for (var i = 0; i < 5; i++) {
             this.questions.push(response.data[i].question);
           }
-          
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
-    // 아이스 브레이킹 타이머 
+    // 아이스 브레이킹 타이머
     submit() {
-      var time2 = parseInt(this.time)*60;
+      var time2 = parseInt(this.time) * 60;
       var min2 = parseInt(this.min);
       var sec2 = parseInt(this.sec);
       var x;
       console.log(time2);
 
-      if(time2 >= 1860){
+      if (time2 >= 1860) {
         alert("30분까지만 가능합니다. 재설정 해주세요.");
-      }
-      else {
+      } else {
         this.showtimer = false;
         x = setInterval(function() {
-          
-          min2 = parseInt(time2/60);
-          sec2 = time2%60;
+          min2 = parseInt(time2 / 60);
+          sec2 = time2 % 60;
 
           document.getElementById("demo").innerHTML = min2 + ":" + sec2;
           time2--;
 
-          if(time2 < 0){
+          if (time2 < 0) {
             clearInterval(x);
-            document.getElementById("demo").innerHTML="BAAM!!";
+            document.getElementById("demo").innerHTML = "BAAM!!";
             audio.play();
           }
-        },1000);
+        }, 1000);
       }
-    }
+    },
   },
 };
 </script>
@@ -137,7 +140,7 @@ export default {
   margin-top: 210px;
   margin-left: -5px;
 }
-.timer > input{
+.timer > input {
   width: 50px;
 }
 #demo {
@@ -171,16 +174,16 @@ export default {
 .w-btn-white {
   padding: 6px 12px;
   background-color: rgba(234, 237, 240, 0.712);
-  color: #F9B225;
+  color: #f9b225;
 }
 
 .w-btn-white-outline {
   border: 3px solid rgba(234, 237, 240, 0.712);
-  color: #F9B225;
+  color: #f9b225;
 }
 
 .w-btn-white-outline:hover {
-  color: #F9B225;
+  color: #f9b225;
   background: rgba(234, 237, 240, 0.712);
 }
 .box {
