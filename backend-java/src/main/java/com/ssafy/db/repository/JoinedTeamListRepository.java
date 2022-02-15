@@ -1,25 +1,21 @@
 package com.ssafy.db.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.ssafy.api.request.TeamRegisterPostReq;
 import com.ssafy.db.entity.JoinedTeamList;
+import com.ssafy.db.entity.Memo;
 import com.ssafy.db.entity.Team;
 import com.ssafy.db.entity.User;
 
 import lombok.RequiredArgsConstructor;
 
 @Repository
-@RequiredArgsConstructor
-public class JoinedTeamListRepository {
-	
-	private final EntityManager em;
-	
-	public void save(User user, Team team) {
-		JoinedTeamList teamList = new JoinedTeamList();
-		teamList.setUser(user);
-		teamList.setTeam(team);
-		em.persist(teamList);
-	}
+public interface JoinedTeamListRepository  extends JpaRepository<JoinedTeamList, Long> {
 }
