@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
-@RequestMapping("/studyroom")
+@RequestMapping("api/studyroom")
 @Api(value = "열람실", tags = {"열람실"})
 @CrossOrigin("*")
 public class StudyRoomController {
