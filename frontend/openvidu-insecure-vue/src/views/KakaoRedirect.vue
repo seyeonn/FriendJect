@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>kakao Redirect 화면입니다.</h1>
+    <!-- <h1>kakao Redirect 화면입니다.</h1> -->
   </div>
 </template>
 
@@ -25,22 +25,24 @@ export default {
           this.setUserinfo({
             ...res.data,
           });
-          console.log(this.$store.getters.isLogin);
-          if (this.$store.getters.isLogin == true) {
-            this.$store.commit("setToken", res.data.accessToken);
-          }
           console.log(res.data);
+          // 올바른 인적사항이 response 되면 accessToken 저장요청
+          this.$store.commit("setToken", res.data.accessToken);
+          this.$store.commit("setKakaoId", res.data.kakaoId);
+          this.$store.commit("setUserName", res.data.nickName);
+
+          this.$router.replace("/join");
         })
         .catch((error) => {
           console.log(error);
+          this.$router.replace("/");
         });
     },
   },
   mounted() {
     this.kako_api();
-
-    console.log(this.$route.query.code);
-    this.$router.replace("/join");
+    // console.log(this.$route.query.code);
+    // this.$router.replace("/join");
   },
 };
 </script>

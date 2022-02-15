@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,16 +21,18 @@ import io.swagger.annotations.ApiOperation;
  * Kakao 로그인 관련 API 요청 처리를 위한 컨트롤러
  */
 
+@CrossOrigin("*")
 @RestController
 @Api(value = "카카오톡 간편 가입", tags = {"회원가입 및 로그인"})
 public class KakaoController {
     @Autowired
     private KakaoService kakaoService;
-
-    @CrossOrigin("")
+    
+    @CrossOrigin("*")
     @PostMapping("/login")
     @ApiOperation(value = "로그인 및 회원가입", notes = "<strong> 로그인과 동시에 회원가입 </strong> 을 진행한다. ") 
     public ResponseEntity<User> home(@RequestBody Map<String, String> requestData) throws Exception{
+
     	String code = requestData.get("code");
         System.out.println("###인가코드###" + code);
         HashMap<String, Object> token = kakaoService.getAccessToken(code);
@@ -40,11 +43,12 @@ public class KakaoController {
         	return ResponseEntity.badRequest()
                     .body(new User());
         }
-        
+          
         HashMap<String, Object> userInfo = kakaoService.getUserInfo(access_Token);
         
         String userEmail = (String) userInfo.get("email");
         
+        System.out.println("###kakao_id#### : " + userInfo.get("kakao_id"));
         System.out.println("###access_Token#### : " + token.get("access_Token"));
         System.out.println("###refresh_Token#### : " + token.get("refresh_Token"));
         System.out.println("###userEmail#### : " + userEmail);
@@ -57,4 +61,5 @@ public class KakaoController {
         
         return ResponseEntity.ok().body(user);
     }
+
 }

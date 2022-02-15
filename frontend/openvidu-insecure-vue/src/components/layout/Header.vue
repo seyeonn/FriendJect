@@ -6,6 +6,14 @@
         <b-col cols="8"></b-col>
         <b-col>
           <b-button
+            v-if="isLogin"
+            variant="outline-warning"
+            style="margin-top: 30px"
+            @click="logout"
+            >로그아웃</b-button
+          >
+          <b-button
+            v-else
             variant="outline-warning"
             style="margin-top: 30px"
             href="#join"
@@ -39,10 +47,18 @@
 
 <script>
 export default {
+  data() {
+    return {};
+  },
+  props: {
+    isLogin: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
-    login: function() {
-      //모달 닫히는게 필요
-      this.$router.push("join");
+    logout() {
+      this.$emit("logout");
     },
   },
 };

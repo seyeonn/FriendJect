@@ -75,13 +75,9 @@ public class KakaoService {
 	            JsonObject element = JsonParser.parseString(result).getAsJsonObject();
 	            access_Token = element.getAsJsonObject().get("access_token").getAsString();
 	            refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-	
 	            
 	            token.put("access_Token", access_Token);
 	            token.put("refresh_Token", refresh_Token);
-	            
-	//            System.out.println("access_token : " + access_Token);
-	//            System.out.println("refresh_token : " + refresh_Token);
 	
 	            br.close();
 	            bw.close();
@@ -127,6 +123,7 @@ public class KakaoService {
 //            JsonElement element = parser.parse(result);
             JsonObject element = JsonParser.parseString(result).getAsJsonObject();
 
+            String kakao_id = element.getAsJsonObject().get("id").getAsString();
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
@@ -134,6 +131,7 @@ public class KakaoService {
             String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
+            userInfo.put("kakao_id", kakao_id);
             userInfo.put("nickname", nickname);
             userInfo.put("access_token", access_Token);
             userInfo.put("email", email);
@@ -158,9 +156,11 @@ public class KakaoService {
     
     public User JoinNewUserWithEmail(HashMap<String, Object> userInfo){
         User user = new User();
+        user.setKakaoId((String) userInfo.get("kakao_id"));
         user.setUserEmail((String) userInfo.get("email"));
         user.setNickName((String) userInfo.get("nickname"));
         user.setAccessToken((String) userInfo.get("access_token"));
+        user.setSessionState(0);
         user.setProfileUrl((String) userInfo.get("profile_image"));
         userRepository.save(user);
         
