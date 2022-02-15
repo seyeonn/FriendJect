@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Repository;
 
-import com.ssafy.db.entity.Member;
 import com.ssafy.db.entity.User;
 
 import lombok.RequiredArgsConstructor;

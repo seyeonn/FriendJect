@@ -36,7 +36,7 @@ public class User {
 	private String profileUrl;
 	private Integer sessionState;
 	
-	@OneToMany(mappedBy = "member")
+	@OneToMany(mappedBy = "user")
 	private List<JoinedTeamList> teamList = new ArrayList<>();
  
 }
