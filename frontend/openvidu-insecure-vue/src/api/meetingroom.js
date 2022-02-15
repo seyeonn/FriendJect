@@ -10,6 +10,13 @@ function getOneDocument(targetId, success, fail) {
     .catch(fail);
 }
 
+function getDocumentList(success, fail) {
+  api
+    .get(`document`)
+    .then(success)
+    .catch(fail);
+}
+
 function registerDocument(documentItem, success, fail) {
   api
     .post(`document/`, documentItem)
@@ -31,4 +38,10 @@ function removeDocument(targetId, success, fail) {
     .catch(fail);
 }
 
-export { getOneDocument, registerDocument, modifyDocument, removeDocument };
+export {
+  getOneDocument,
+  getDocumentList,
+  registerDocument,
+  modifyDocument,
+  removeDocument,
+};
