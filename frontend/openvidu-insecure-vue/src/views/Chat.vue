@@ -2,7 +2,8 @@
   <!-- 세션이 있을때 (접속 한 상태) -->
   <!-- chat -->
   <div class="fabs blue-grey">
-    <div :class="isActive ? 'is-visible' : ''" class="chat">
+    <!-- <div :class="isActive ? 'is-visible' : ''" class="chat"> -->
+    <div v-if="isActive" class="chat is-visible">
       <div class="chat_header">
         <span id="chat_head">Live Chat</span>
       </div>

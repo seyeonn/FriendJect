@@ -20,6 +20,8 @@ public class QUser extends EntityPathBase<User> {
     public static final QUser user = new QUser("user");
 
 
+    public final StringPath kakaoId = createString("kakaoId");
+
     public final StringPath userEmail = createString("userEmail");
 
     public final StringPath accessToken = createString("accessToken");

@@ -292,7 +292,7 @@
 
 <script>
 import axios from "axios";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/UserVideo.vue";
 
@@ -319,6 +319,7 @@ export default {
       publisher: undefined,
       subscribers: [],
       mySessionId: "",
+      sessionState: 0,
       teamName: "",
       // openvidu end
       log: [],
@@ -335,6 +336,7 @@ export default {
   computed: {
     // 카카오 닉네임
     ...mapState(["myUserName"]),
+    ...mapState(["kakaoId"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
@@ -350,6 +352,10 @@ export default {
     UserListRow,
   },
   methods: {
+    ...mapActions(["setUserinfo"]),
+    userInfoDB() {
+      this.$emit("userInfoDB");
+    },
     randomNumber: function() {
       var num = Math.floor(Math.random() * 10000) + 1000;
       this.mySessionId = num;
@@ -379,7 +385,23 @@ export default {
     pushMessage(message) {
       this.chatList.push(JSON.parse(message));
     },
-
+    sessionUpdate: function(targetId) {
+      const userItem = {
+        ...mapActions(["setUserinfo"]),
+        session_state: Number((this.sessionState = !this.sessionState)),
+      };
+      axios({
+        method: "put",
+        url: `http://localhost:8081/userinfo/${targetId}`,
+        data: userItem,
+      })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     // openvidu methods
     joinSession: function() {
       // --- Get an OpenVidu object ---
@@ -394,6 +416,7 @@ export default {
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
+        this.userInfoDB();
       });
 
       // On every Stream destroyed...
@@ -402,6 +425,7 @@ export default {
         if (index >= 0) {
           this.subscribers.splice(index, 1);
         }
+        this.userInfoDB();
       });
 
       // On every asynchronous exception...
@@ -451,6 +475,9 @@ export default {
             );
           });
       });
+      // 세션에 참가할 경우 접속상태 update 0->1
+      this.sessionUpdate(this.kakaoId);
+
       window.addEventListener("beforeunload", this.leaveSession);
     },
     copyTeamCode() {
@@ -472,6 +499,9 @@ export default {
       this.publisher = undefined;
       this.subscribers = [];
       this.OV = undefined;
+
+      // 세션을 떠날 경우 접속상태 update 1->0
+      this.sessionUpdate(this.kakaoId);
 
       window.removeEventListener("beforeunload", this.leaveSession);
     },
