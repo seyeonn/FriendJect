@@ -32,6 +32,7 @@ public class TeamServiceImpl  implements TeamService {
 		joinedTeamListRepository.save(user, team);
 		
 		teamRepository.save(team);
+		System.out.println(team.getId());
 		return user.getId();
 	}
 
