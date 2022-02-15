@@ -5,7 +5,6 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import com.ssafy.db.entity.JoinedTeamList;
-import com.ssafy.db.entity.Member;
 import com.ssafy.db.entity.Team;
 import com.ssafy.db.entity.User;
 
