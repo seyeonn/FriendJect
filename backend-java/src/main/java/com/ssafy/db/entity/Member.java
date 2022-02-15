@@ -26,8 +26,8 @@ public class Member {
 	@Column(name = "member_id")
 	private Long id; 
 	 
-	@Column(name = "username") 
-	private String username; 
+	@Column(name = "member_name") 
+	private String memberName; 
 		
 	@ManyToMany
 	@JoinTable(name = "joined_team_list",
