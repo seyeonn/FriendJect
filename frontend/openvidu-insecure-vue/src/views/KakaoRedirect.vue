@@ -1,49 +1,48 @@
 <template>
   <div>
-    <h1>kakao Redirect 화면입니다.</h1>
+    <!-- <h1>kakao Redirect 화면입니다.</h1> -->
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
 import axios from "axios";
+import { SIGNUP_URL } from "@/config";
 
 export default {
-  components: {
+  computed: {
     ...mapState(["accessToken"]),
   },
   methods: {
     ...mapActions(["setUserinfo"]),
     kako_api: function() {
       axios
-        .post("http://localhost:8081/login", {
+        // .post("http://i6b202.p.ssafy.io:8081/login", {               서버에 올릴때
+        .post(SIGNUP_URL, {
           code: this.$route.query.code,
         })
         .then((res) => {
-          alert("DB에 전송완료");
           this.setUserinfo({
             ...res.data,
           });
-          console.log(this.$store.getters.isLogin);
-          if (this.$store.getters.isLogin == true) {
-            this.$store.commit("setToken", res.data.accessToken);
-          }
           console.log(res.data);
+          // 올바른 인적사항이 response 되면 accessToken 저장요청
+          this.$store.commit("setToken", res.data.accessToken);
+          this.$store.commit("setKakaoId", res.data.kakaoId);
+          this.$store.commit("setUserName", res.data.nickName);
+
+          this.$router.replace("/main");
         })
         .catch((error) => {
           console.log(error);
+          this.$router.replace("/");
         });
     },
   },
   mounted() {
-    //this.kako_api();
-    // 여기서 choice , 즉 본인의 방을 생성하거나 참가하는 페이지로 이동합니다.
-    // 이때 카카오에서 받은 닉네임을 props 로 choice.vue 에 넘겨주세요.
-    // choice 에서 넘겨받은 닉네임을 participant 에 input 값으로 지정해주세요.
-    // 그러면 자동으로 닉네임 + 팀코드로 방에 접속됩니다.
-
-    console.log(this.$route.query.code);
-    //this.$router.replace("/choice");
+    this.kako_api();
+    // console.log(this.$route.query.code);
+    // this.$router.replace("/join");
   },
 };
 </script>
