@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/projectroom")
 @Api(value = "메모보드", tags = {"프로젝트실"})
-@CrossOrigin("http://localhost:8083")
+@CrossOrigin("*")
 public class MemoController {
 	@Autowired
 	MemoService memoService;

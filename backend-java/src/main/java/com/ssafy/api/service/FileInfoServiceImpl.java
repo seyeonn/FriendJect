@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -36,8 +37,9 @@ public class FileInfoServiceImpl implements FileInfoService {
 		return fileRepository.findById(itemId).get();
 	}
 
-	public Stream<FileInfo> findFiles() {
-		return fileRepository.findAll().stream();
+	@Override
+	public Stream<FileInfo> findFiles(Sort sort) {
+		return fileRepository.findAll(sort).stream();
 	}
 	
 }
