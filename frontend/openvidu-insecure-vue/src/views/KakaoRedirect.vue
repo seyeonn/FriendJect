@@ -17,7 +17,6 @@ export default {
     ...mapActions(["setUserinfo"]),
     kako_api: function() {
       axios
-        // .post("http://i6b202.p.ssafy.io:8081/login", {               서버에 올릴때
         .post(SIGNUP_URL, {
           code: this.$route.query.code,
         })

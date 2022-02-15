@@ -28,7 +28,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/profile")
+@RequestMapping("api/profile")
 @CrossOrigin("*")
 public class ProfileController {
 	
