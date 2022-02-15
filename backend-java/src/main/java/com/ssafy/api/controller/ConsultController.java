@@ -29,8 +29,8 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 
 @RestController
-@RequestMapping("/consultroom")
-@CrossOrigin("http://localhost:8081")
+@RequestMapping("api/consultroom")
+@CrossOrigin("*")
 @Api(value = "상담실", tags = {"상담실"})
 public class ConsultController {
 	

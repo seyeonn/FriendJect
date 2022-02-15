@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/icebreaking")
+@RequestMapping("api/icebreaking")
 @Api(value = "아이스브레이킹")
 @CrossOrigin("*")
 public class IceBreakingController {
