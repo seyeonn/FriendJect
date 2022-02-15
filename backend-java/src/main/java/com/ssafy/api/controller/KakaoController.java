@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.api.service.KakaoService;
@@ -21,7 +22,7 @@ import io.swagger.annotations.ApiOperation;
  * Kakao 로그인 관련 API 요청 처리를 위한 컨트롤러
  */
 
-@CrossOrigin("*")
+@RequestMapping("/api")
 @RestController
 @Api(value = "카카오톡 간편 가입", tags = {"회원가입 및 로그인"})
 public class KakaoController {

@@ -76,7 +76,7 @@ server:
       charset: UTF-8
     contextPath: /
   address: localhost
-  port: '8081'
+  port: 8081
   compression:
     enabled: 'true'
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
