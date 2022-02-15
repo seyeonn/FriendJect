@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.api.response.UserLoginPostRes;
-import com.ssafy.api.service.IceBrakingService;
+import com.ssafy.api.service.IceBreakingService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Questions;
 import com.ssafy.db.entity.SolutionBook;
@@ -21,13 +21,13 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/icebraking")
+@RequestMapping("/icebreaking")
 @Api(value = "아이스브레이킹")
-@CrossOrigin("http://localhost:8081")
-public class IceBrakingController {
+@CrossOrigin("*")
+public class IceBreakingController {
 
 	@Autowired
-	IceBrakingService icebrakingService;
+	IceBreakingService icebreakingService;
 	
 	@GetMapping("/questions")
 	@ApiOperation(value = "질문 리스트")
@@ -39,7 +39,7 @@ public class IceBrakingController {
     })
 	public List<Questions> book() throws Exception {
 		
-		return icebrakingService.getQuestions();
+		return icebreakingService.getQuestions();
 	}
 	
 }
