@@ -192,7 +192,9 @@
                 alt=""
                 class="account-profile"
               />
-              <span>▼</span>
+              <a href="#profileModal">
+                <b-icon-pencil-square></b-icon-pencil-square
+              ></a>
             </span>
           </div>
           <div class="side-wrapper stories">
@@ -270,6 +272,25 @@
             {{ log }}
           </div>
         </div>
+        <!-- 프로필 편집모달 -->
+        <div id="profileModal" class="modal-window">
+          <div>
+            <a href="#" title="Close" class="modal-close">
+              <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
+            </a>
+
+            <h1>프로필 편집</h1>
+            <img src="" alt="" class="user-img" @error="replaceImg" />
+            <input
+              id="input"
+              @change="onInputImage"
+              type="file"
+              accept="image/*"
+            />
+            <button class="btn" @click="onChangProfile">변경</button>
+            <button class="btn" @click="onDeleteProfile">삭제</button>
+          </div>
+        </div>
 
         <div
           class="overlay"
@@ -307,9 +328,10 @@ import MeetingRoom from "./Meeting.vue";
 import StudyRoom from "./Studyroom/Studyroom.vue";
 import Center from "../components/layout/Center.vue";
 import UserListRow from "../components/UserListRow.vue";
+import userStore from "@/store/userStore.js";
 
 export default {
-  name: "main",
+  name: "join",
   data() {
     return {
       // openvidu start
@@ -321,6 +343,8 @@ export default {
       mySessionId: "",
       sessionState: 0,
       teamName: "",
+      // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
+      // myUserName: "nickname" + Math.floor(Math.random() * 100),
       // openvidu end
       log: [],
       currentTab: "Center",
@@ -337,6 +361,7 @@ export default {
     // 카카오 닉네임
     ...mapState(["myUserName"]),
     ...mapState(["kakaoId"]),
+    ...mapState(userStore, ["isLogin", "userInfo"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
@@ -603,6 +628,42 @@ export default {
       } else {
         document.getElementById("mute").innerText = "음소거";
       }
+    },
+
+    //프로필 이미지
+    replaceImg: function(event) {
+      event.target.src =
+        "https://user-images.githubusercontent.com/83205029/153914730-ac2988f7-745d-4e3a-89a4-38d506117607.png";
+    },
+    onInputImage: function(file) {
+      this.image = file.target.files[0];
+      console.log(this.image);
+    },
+    onChangProfile: function() {
+      const frm = new FormData();
+      frm.append("filename", this.image);
+      axios
+        .patch("http://localhost:8081/profile/iu123@gmail.com", frm, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    onDeleteProfile: function() {
+      axios
+        .patch("http://localhost:8081/profile/empty/iu123@gmail.com")
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

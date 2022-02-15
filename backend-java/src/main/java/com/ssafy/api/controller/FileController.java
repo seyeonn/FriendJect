@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "자료실", tags = {"프로젝트실"})
 @RestController
 @RequestMapping("projectroom")
-@CrossOrigin("http://localhost:8083")
+@CrossOrigin("*")
 public class FileController {
 
   @Autowired
@@ -47,7 +47,7 @@ public class FileController {
 		}
 	}
   
-  @GetMapping("/files/{fileId}")
+  	@GetMapping("/files/{fileId}")
 	public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
 		FileInfo fileInfo = storageService.findOne(fileId);
 		return ResponseEntity.ok()
