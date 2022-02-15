@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -58,7 +59,8 @@ public class FileController {
 	@GetMapping("/files")
 	@ApiOperation(value = "파일 목록 조회", notes = "<strong> 업로드된 파일 전체 </strong> 를 조회한다. ") 
 	public ResponseEntity<? extends BaseResponseBody> getFileList() {
-		List<FileRes> files = storageService.findFiles().map(file -> {
+		Sort sort = Sort.by(Sort.Direction.DESC, "modifiedDate");
+		List<FileRes> files = storageService.findFiles(sort).map(file -> {
 		      String fileDownloadUri = ServletUriComponentsBuilder
 							          .fromCurrentContextPath()
 							          .path("/files/")
