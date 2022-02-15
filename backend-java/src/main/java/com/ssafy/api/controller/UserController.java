@@ -20,9 +20,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 
-
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/api/userinfo")
+@RequestMapping("api/userinfo")
 @AllArgsConstructor
 @Api(value = "유저", tags = {"유저"})
 public class UserController {
