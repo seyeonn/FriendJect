@@ -4,6 +4,7 @@ const SIGNUP_URL = API_BASE_URL + "login/";
 const STU_BASE_URL = API_BASE_URL + "studyroom/";
 const ICE_BASE_URL = API_BASE_URL + "icebreaking/";
 const MEET_BASE_URL = API_BASE_URL + "meetingroom/";
+const CST_BASE_URL = API_BASE_URL + "consultroom/";
 
 export {
   API_BASE_URL,
@@ -12,4 +13,5 @@ export {
   ICE_BASE_URL,
   SIGNUP_URL,
   MEET_BASE_URL,
+  CST_BASE_URL,
 };

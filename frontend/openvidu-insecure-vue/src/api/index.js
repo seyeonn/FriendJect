@@ -4,8 +4,9 @@ import {
   PJT_BASE_URL,
   STU_BASE_URL,
   ICE_BASE_URL,
+  MEET_BASE_URL,
+  CST_BASE_URL,
 } from "@/config";
-import { MEET_BASE_URL } from "../config";
 
 // axios 객체 생성
 function apiInstance() {
@@ -53,6 +54,15 @@ function meetingRoomInstance() {
   });
   return instance;
 }
+function consultRoomInstance() {
+  const instance = axios.create({
+    baseURL: CST_BASE_URL,
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  return instance;
+}
 
 export {
   apiInstance,
@@ -60,4 +70,5 @@ export {
   studyRoomInstance,
   icebreakingInstance,
   meetingRoomInstance,
+  consultRoomInstance,
 };
