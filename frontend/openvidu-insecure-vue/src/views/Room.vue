@@ -6,8 +6,8 @@
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
-        <h4> 팀 코드 : {{ $route.params.code }} </h4>
-        <h4> 팀 네임 : {{ $route.params.name }} </h4>
+        <h4>팀 코드 : {{ $route.params.code }}</h4>
+        <h4>팀 네임 : {{ $route.params.name }}</h4>
         <button @click="leaveSession" value="Leave session">
           세션 나가기
         </button>
@@ -19,7 +19,7 @@
         />
         <b-row>
           <!-- 방장 캠 -->
-          
+
           <user-video
             :stream-manager="mainStreamManager"
             style="width:200px;"
@@ -200,6 +200,8 @@
         <button>투표 생성하기</button>
       </div>
     </div>
+    <!-- chat -->
+    <chat :session="session" :team-name="teamName" :chat-list="chatList"></chat>
   </div>
 </template>
 
@@ -212,6 +214,7 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
 const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
+import Chat from "./Chat.vue";
 import UserListRow from "../components/UserListRow.vue";
 import { mapState, mapActions } from "vuex";
 
@@ -229,7 +232,7 @@ export default {
       subscribers: [],
       mySessionId: "",
       teamName: "",
-      message:"",
+      message: "",
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
       // myUserName: "Participant" + Math.floor(Math.random() * 100),
 
@@ -241,6 +244,8 @@ export default {
       items: [],
       items_cnt: 0,
       checked: false,
+      // 채팅 리스트
+      chatList: [],
       // 비디오, 마이크 온/오프
       videoEnabled: true,
       audioEnabled: true,
@@ -250,11 +255,14 @@ export default {
   },
   computed: {
     ...mapState(["consult_log", "store_sessionId"]),
+    ...mapState(["myUserName"]),
+    ...mapState(["kakaoId"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
   },
   components: {
+    Chat,
     UserVideo,
     UserListRow,
   },
@@ -262,13 +270,13 @@ export default {
     this.joinSession();
   },
   methods: {
+    ...mapActions(["setUserinfo"]),
     ...mapActions([
       "set_consult_room_member",
       "set_consult_question",
       "push_sub",
       "set_sesstion_id",
     ]),
-
 
     play: function(sound) {
       if (sound) {
@@ -311,6 +319,10 @@ export default {
 
     exit: function() {
       this.currentTab = "Center";
+    },
+
+    pushMessage(message) {
+      this.chatList.push(JSON.parse(message));
     },
 
     // openvidu methods
@@ -361,6 +373,10 @@ export default {
 
       // --- Connect to the session with a valid user token ---
 
+      // 메세지 수신(보통 세션 커넥트 전)
+      this.session.on("signal:my-chat", (event) => {
+        this.pushMessage(event.data);
+      });
       // 'getToken' method is simulating what your server-side should do.
       // 'token' parameter should be retrieved and returned by your own backend
       this.getToken(this.mySessionId).then((token) => {
@@ -397,7 +413,7 @@ export default {
               });
 
             this.session.on("signal", (event) => {
-            //   alert("브로드캐스팅 테스트. 투표하세요!!!");
+              //   alert("브로드캐스팅 테스트. 투표하세요!!!");
               console.log(event.data); // Message
               console.log(event.from); // Connection object of the sender
               console.log(event.type); // The type of message
@@ -476,8 +492,7 @@ export default {
       this.OV = undefined;
 
       window.removeEventListener("beforeunload", this.leaveSession);
-      this.$router.push({name: 'main'});
-      
+      this.$router.push({ name: "main" });
     },
 
     updateMainVideoStreamManager(stream) {
@@ -588,7 +603,6 @@ export default {
 @import "@/assets/style/join_room.scss";
 
 video {
-  width:100px;
+  width: 100px;
 }
-
 </style>
