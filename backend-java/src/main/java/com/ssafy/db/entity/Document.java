@@ -32,12 +32,14 @@ public class Document {
 	private String content;
 	private LocalDateTime meetingTime;
 	
+	@Column(name = "team_id")
+	private String teamId;
+	
 	@Builder
-	public Document(String title, String content, LocalDateTime meetingTime) {
+	public Document(String title, String content, LocalDateTime meetingTime, String teamId) {
 		this.title = title;
 		this.content = content;
 		this.meetingTime = meetingTime;
+		this.teamId = teamId;
 	}
-	
-
 }
