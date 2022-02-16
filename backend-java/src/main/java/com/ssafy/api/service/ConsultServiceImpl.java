@@ -28,13 +28,13 @@ public class ConsultServiceImpl implements ConsultService {
 	}
 
 	@Override
-	public ConsultLog setConsultLog(ConsultLog consultlog) throws Exception {
+	public ConsultLogList setConsultLog(ConsultLogList consultlog) throws Exception {
 		// TODO Auto-generated method stub
 		return JpaConsultRepository.setConsultLog(consultlog);
 	}
 
 	@Override
-	public List<ConsultLog> getConsultLog(String userId) throws Exception {
+	public List<ConsultLogList> getConsultLog(String userId) throws Exception {
 		// TODO Auto-generated method stub
 		return  JpaConsultRepository.getConsultLog(userId);
 	}

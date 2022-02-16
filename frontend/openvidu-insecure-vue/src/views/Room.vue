@@ -6,8 +6,9 @@
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
-        <h4> 팀 코드 : {{ $route.params.code }} </h4>
-        <h4> 팀 네임 : {{ $route.params.name }} </h4>
+        <h4>팀 코드 : {{ $route.params.code }}</h4>
+        <h4>팀 네임 : {{ $route.params.name }}</h4>
+
         <button @click="leaveSession" value="Leave session">
           세션 나가기
         </button>
@@ -17,19 +18,14 @@
           @click="copyTeamCode"
           value="팀코드 복사"
         />
-        <b-row>
+        <b-row id="roomHeader">
           <!-- 방장 캠 -->
-          
+
           <user-video
             :stream-manager="mainStreamManager"
             style="width:200px;"
           ></user-video>
 
-          <!-- 화면공유 캠 -->
-          <user-video
-            :stream-manager="screenShare"
-            style="width:200px;"
-          ></user-video>
 
           <!-- 접속자 캠 -->
           <user-video
@@ -40,9 +36,8 @@
             @click.native="updateMainVideoStreamManager(sub)"
           />
         </b-row>
-
         <!-- 네비게이션 부분 -->
-        <div>
+        <div style="position: relative; z-index: 1;">
           <router-link :to="'/room'">각 방 나가기</router-link>
           <button type="button" id="camera" @click="videoOnAndOff()">
             비디오 끄기
@@ -50,11 +45,17 @@
           <button type="button" id="mute" @click="audioOnAndOff()">
             음소거
           </button>
-          <button @click="screenVideo()">화면공유</button>
-
           <!-- 각 방 들어가는 부분 -->
-          <router-view></router-view>
+          <router-view v-on:upstream="upstream"> </router-view>
+
         </div>
+
+         <!-- 화면공유 캠 -->
+          <user-video
+            :stream-manager="screenShare"
+            style="width:600px; top:-500px; left:1%; position: relative; z-index: 2;"
+          >
+          </user-video>
       </div>
     </div>
     <div class="right-side" :class="{ active: rightSide }">
@@ -75,30 +76,6 @@
             <path d="M22 6l-10 7L2 6" />
           </svg>
         </button>
-        <button class="account-button">
-          <svg
-            stroke="currentColor"
-            stroke-width="2"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="css-i6dzq1"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"
-            />
-          </svg>
-        </button>
-        <span class="account-user"
-          >Quan Ha
-          <img
-            src="https://images.genius.com/2326b69829d58232a2521f09333da1b3.1000x1000x1.jpg"
-            alt=""
-            class="account-profile"
-          />
-          <span>▼</span>
-        </span>
       </div>
 
       <div style="text-align:center;" v-on:click="getLog">
@@ -227,11 +204,11 @@ export default {
       screenShare: undefined,
       publisher: undefined,
       subscribers: [],
-      mySessionId: "",
+      mySessionId: "1234",
       teamName: "",
-      message:"",
+      message: "",
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
-      // myUserName: "Participant" + Math.floor(Math.random() * 100),
+      //myUserName: "Participant" + Math.floor(Math.random() * 100),
 
       //탭 전환
       currentTab: "Center",
@@ -249,7 +226,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["consult_log", "store_sessionId"]),
+    ...mapState(["consult_log", "store_sessionId", "store_ov"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
@@ -267,8 +244,15 @@ export default {
       "set_consult_question",
       "push_sub",
       "set_sesstion_id",
+      "set_ov",
+      "set_session"
     ]),
 
+    //최상위에서 비디오를 내려주는 코드입니다. 비디오, 화면공유 포함.
+     upstream: function() {
+      console.log("최상위 도달");
+      this.screenVideo();
+    },
 
     play: function(sound) {
       if (sound) {
@@ -318,10 +302,13 @@ export default {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
+      this.set_ov(this.OV);
       // --- Init a session ---
       this.session = this.OV.initSession();
 
+      
       // --- Specify the actions when events take place in the session ---
+      
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
@@ -367,7 +354,9 @@ export default {
         this.session
           .connect(token, { clientData: this.myUserName })
           .then(() => {
-            this.sessionId = this.$route.params.code;
+
+            this.set_session(this.session);
+            this.sessionId = this.mySessionId;
             // --- Get your own camera stream with the desired properties ---
             // var path = (location.pathname.slice(-1) == "/" ? location.pathname : location.pathname + "/");
             //     window.history.pushState("", "", path + '#' + this.store_sessionId);
@@ -397,7 +386,7 @@ export default {
               });
 
             this.session.on("signal", (event) => {
-            //   alert("브로드캐스팅 테스트. 투표하세요!!!");
+              //   alert("브로드캐스팅 테스트. 투표하세요!!!");
               console.log(event.data); // Message
               console.log(event.from); // Connection object of the sender
               console.log(event.type); // The type of message
@@ -434,6 +423,7 @@ export default {
     },
 
     screenVideo() {
+      
       this.screenShare = !this.screenShare;
 
       let publisher = this.OV.initPublisher(undefined, {
@@ -446,10 +436,10 @@ export default {
         insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
         mirror: false, // Whether to mirror your local video or not
       });
-      this.screenShare = publisher;
-      this.publisher = publisher;
 
-      this.session.publish(this.publisher);
+      this.screenShare = publisher;
+      //this.publisher = publisher;
+      this.session.publish(this.screenShare);
     },
 
     copyTeamCode() {
@@ -476,8 +466,7 @@ export default {
       this.OV = undefined;
 
       window.removeEventListener("beforeunload", this.leaveSession);
-      this.$router.push({name: 'main'});
-      
+      this.$router.push({ name: "main" });
     },
 
     updateMainVideoStreamManager(stream) {
@@ -588,7 +577,6 @@ export default {
 @import "@/assets/style/join_room.scss";
 
 video {
-  width:100px;
+  width: 100px;
 }
-
 </style>
