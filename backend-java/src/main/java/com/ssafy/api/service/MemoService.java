@@ -26,4 +26,6 @@ public interface MemoService {
 	
 	List<Memo> findMemoOfTeam(MemoGetListReq memoGetListReq);
 
+	List<Memo> findMemoOfTeam(MemoStatus memoStatus, Long teamId);
+
 }

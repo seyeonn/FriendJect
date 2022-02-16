@@ -29,14 +29,9 @@ function registerFile(file, success, fail) {
 }
 
 // 메모보드 APIs
-function getMemoList(param, teamId, success, fail) {
+function getMemoList(memoStatus, teamId, success, fail) {
   api
-    .get(`memo`, {
-      params: {
-        status: param,
-        teamId: teamId,
-      },
-    })
+    .get(`memo/list/${teamId}`, { params: { status: memoStatus } })
     .then(success)
     .catch(fail);
 }
@@ -48,11 +43,12 @@ function registerMemo(memo, success, fail) {
     .catch(fail);
 }
 
-function registerMemoList(memolist, param, success, fail) {
+function registerMemoList(memolist, param, teamId, success, fail) {
   api
     .post(`memo/list`, JSON.stringify(memolist), {
       params: {
         status: param,
+        teamId: teamId,
       },
     })
     .then(success)

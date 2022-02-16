@@ -73,4 +73,17 @@ public class MemoServiceImpl implements MemoService {
 		
 		return memoList;
 	}
+
+	@Override
+	public List<Memo> findMemoOfTeam(MemoStatus memoStatus, Long teamId) {
+
+		String jpql = "select m from Memo m where m.teamId = :team_id and m.status = :status";
+		List<Memo> memoList = em.createQuery(jpql, Memo.class).setParameter("team_id",teamId).setParameter("status", memoStatus).getResultList();
+		
+		for (Memo m : memoList) {
+			System.out.println(m.getContent());
+		}
+		
+		return memoList;
+	}
 }
