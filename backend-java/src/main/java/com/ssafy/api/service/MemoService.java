@@ -3,6 +3,7 @@ package com.ssafy.api.service;
 import java.io.IOException;
 import java.util.List;
 
+import com.ssafy.api.request.MemoGetListReq;
 import com.ssafy.api.request.MemoRegisterPostReq;
 import com.ssafy.api.response.MemoRes;
 import com.ssafy.db.dto.MemoDTO;
@@ -22,5 +23,7 @@ public interface MemoService {
 	void deleteMemo(Long memoId);
 
 	void changeMemoStatus(Long id, MemoStatus memoStatus);
+	
+	List<Memo> findMemoOfTeam(MemoGetListReq memoGetListReq);
 
 }
