@@ -39,13 +39,13 @@ public class FileController {
   @ApiOperation(value = "파일 업로드", notes = "<strong> 파일을 업로드 </strong> 한다. ") 
   @PostMapping("/files")
   public ResponseEntity<? extends BaseResponseBody> uploadMultipleFiles(@RequestParam("file") MultipartFile file) {
-		try {
-			storageService.save(file);
+//		try {
+//			storageService.save(file);
 			return ResponseFactory.ok();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return ResponseFactory.forbidden();
-		}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			return ResponseFactory.forbidden();
+//		}
 	}
   
   	@GetMapping("/files/{fileId}")

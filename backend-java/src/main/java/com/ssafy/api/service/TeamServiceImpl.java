@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -60,6 +61,7 @@ public class TeamServiceImpl implements TeamService {
 		
 		
 		System.out.println(team.getName() + ", " + team.getTeamNumber());
+		System.out.println(user.getNickName());
 		System.out.println(user.getId() + ", " + user.getNickName());
 		JoinedTeamList joinedTeamList = new JoinedTeamList();
 		joinedTeamList.setTeam(team);
@@ -87,5 +89,8 @@ public class TeamServiceImpl implements TeamService {
 		return team;
 	}
 
+	public Optional<Team> findByTeamNumber(String teamNumber) {
+		return teamRepository.findByTeamNumber(teamNumber);
+	}
 
 }

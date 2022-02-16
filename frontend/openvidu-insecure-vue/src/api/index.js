@@ -3,7 +3,6 @@ import {
   API_BASE_URL,
   PJT_BASE_URL,
   STU_BASE_URL,
-  ICE_BASE_URL,
   MEET_BASE_URL,
   CST_BASE_URL,
 } from "@/config";
@@ -36,9 +35,9 @@ function studyRoomInstance() {
   });
   return instance;
 }
-function icebreakingInstance() {
+function centerInstance() {
   const instance = axios.create({
-    baseURL: ICE_BASE_URL,
+    baseURL: API_BASE_URL,
     headers: {
       "Content-type": "application/json",
     },
@@ -68,7 +67,7 @@ export {
   apiInstance,
   projectRoomInstance,
   studyRoomInstance,
-  icebreakingInstance,
+  centerInstance,
   meetingRoomInstance,
   consultRoomInstance,
 };

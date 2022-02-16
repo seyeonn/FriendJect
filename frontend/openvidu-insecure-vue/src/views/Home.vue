@@ -121,7 +121,7 @@ export default {
   methods: {
     callHello() {
       axios
-        .get("http://localhost:8081/hello")
+        .get("http://localhost:8081/api/hello")
         .then((res) => {
           console.log(res);
           alert("hello");

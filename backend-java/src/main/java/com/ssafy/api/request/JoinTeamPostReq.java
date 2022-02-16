@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 public class JoinTeamPostReq {
 	Long userId;
-	Long teamNumber;
+	String teamNumber;
 }

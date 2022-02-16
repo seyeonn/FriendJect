@@ -37,10 +37,7 @@ spring:
       pageable:
         one-indexed-parameters: 'true'
   
-  http:
-    multipart:
-      enabled: 'false'
-      
+     
   mvc:
     throw-exception-if-no-handler-found: 'true'
     
@@ -52,6 +49,7 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 2MB
+      enabled: 'false'
       
   resources:
     static-locations: classpath:/dist/
