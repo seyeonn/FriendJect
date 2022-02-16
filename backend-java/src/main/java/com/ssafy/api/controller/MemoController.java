@@ -76,7 +76,9 @@ public class MemoController {
 	
 	@GetMapping("/memo")
 	@ApiOperation(value = "메모 조회", notes = "<strong> 메모를 조회 </strong> 한다. ") 
-	public ResponseEntity<? extends BaseResponseBody> getMemoList(@RequestParam("status") MemoStatus memoStatus) {
+	public ResponseEntity<? extends BaseResponseBody> getMemoList(@RequestParam("status") MemoStatus memoStatus, @RequestParam("teamId") Long teamId) {
+		System.out.println("=====================");
+		System.out.println(teamId);
 		List<Memo> findMemos = memoService.findMemos(memoStatus);
 		List<MemoRes> memoRes = findMemos.stream()
 				.map(m -> new MemoRes(m))
