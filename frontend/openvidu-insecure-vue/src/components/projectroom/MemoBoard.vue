@@ -133,8 +133,10 @@ export default {
       arrInProgress: [],
       arrTested: [],
       arrDone: [],
+      currentTeamId: "",
     };
   },
+
   watch: {
     arrTodo: function() {
       this.updateStatusList(this.arrTodo, "TODO");
@@ -150,9 +152,10 @@ export default {
     },
   },
   created() {
+    this.currentTeamId = localStorage.getItem("teamId");
     getMemoList(
       "TODO",
-      this.$store.state.teamId,
+      this.currentTeamId,
       (response) => {
         this.arrTodo = response.data.data;
       },
@@ -160,9 +163,10 @@ export default {
         console.log(error);
       }
     );
+    console.log("test");
     getMemoList(
       "INPROGRESS",
-      this.$store.state.teamId,
+      this.currentTeamId,
       (response) => {
         this.arrInProgress = response.data.data;
       },
@@ -170,9 +174,10 @@ export default {
         console.log(error);
       }
     );
+    console.log("test");
     getMemoList(
       "TESTING",
-      this.$store.state.teamId,
+      this.currentTeamId,
       (response) => {
         this.arrTested = response.data.data;
       },
@@ -180,9 +185,10 @@ export default {
         console.log(error);
       }
     );
+    console.log("test");
     getMemoList(
       "DONE",
-      this.$store.state.teamId,
+      this.currentTeamId,
       (response) => {
         this.arrDone = response.data.data;
       },
@@ -200,7 +206,7 @@ export default {
     },
     writeNewMemo() {
       registerMemo({
-        teamId: this.$store.state.teamId,
+        teamId: this.currentTeamId,
         title: this.newTitle,
         content: this.newContent,
         status: "TODO",
@@ -208,7 +214,7 @@ export default {
       this.$router.go();
     },
     updateStatusList(arr, status) {
-      registerMemoList(arr, status);
+      registerMemoList(arr, status, this.currentTeamId);
     },
   },
 };

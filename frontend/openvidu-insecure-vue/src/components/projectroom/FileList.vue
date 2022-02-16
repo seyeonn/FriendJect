@@ -24,7 +24,6 @@
             </tr>
           </thead>
           <tbody>
-            <div v-if="this.files.length == 0">등록된 파일이 없습니다.</div>
             <file-list-row
               v-for="(file, index) in sortedFiles()"
               :key="index"
@@ -74,7 +73,6 @@ export default {
       (response) => {
         console.log(response.data.data);
         this.files = response.data.data;
-        console.log(this.files.length);
       },
       (error) => {
         console.log(error);

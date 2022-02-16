@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { getOneTeam, joinTeam } from "@/api/center.js";
+import { getOneTeam, joinTeam, createTeam } from "@/api/center.js";
 import { mapActions, mapState } from "vuex";
 export default {
   name: "search",
@@ -110,6 +110,7 @@ export default {
       message: "",
       test: "",
       teamNum: "",
+      teamName: "",
       teamInfo: "",
       teamnumtemp: 3243,
     };
@@ -173,6 +174,28 @@ export default {
             alert("존재하지 않는 팀 입니다.\n 팀 코드를 다시 확인해주세요");
             this.$router.push({ name: "room" });
           }
+        }
+      );
+    },
+    randomNumber() {
+      this.teamNum = Math.random()
+        .toString(36)
+        .substr(2, 11);
+      console.log(this.teamNum);
+      createTeam(
+        {
+          userId: localStorage.getItem("userId"),
+          teamName: this.teamName,
+          teamNum: this.teamNum,
+        },
+        (response) => {
+          this.arrTodo = response.data.data;
+          // 팀 생성과 동시에 이동
+          // TODO 바로 복사 되는 기능?
+          this.$router.push({ name: "minime" }); // 화면이 안 움직임 아놔
+        },
+        (error) => {
+          console.log(error);
         }
       );
     },
