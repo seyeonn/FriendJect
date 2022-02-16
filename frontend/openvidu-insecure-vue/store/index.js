@@ -13,7 +13,6 @@ export const store = new Vuex.Store({
     profileUrl: "",
     message: "",
     messageList: [],
-    loginUsers: [],
     userId: "",
     teamInfo: [],
     teamId: "",
@@ -64,9 +63,6 @@ export const store = new Vuex.Store({
       state.sessionState = userdata["sessionState"];
       state.userId = userdata["userId"];
     },
-    SET_LOGIN_USERS: function(state, userdata) {
-      state.loginUsers = userdata;
-    },
     SET_CURRENT_TEAM: function(state, teamInfo) {
       state.teamId = teamInfo.teamId;
       state.teamName = teamInfo.teamName;
@@ -92,9 +88,6 @@ export const store = new Vuex.Store({
   actions: {
     setUserinfo: function({ commit }, userdata) {
       commit("SET_USERINFO", userdata);
-    },
-    setLoginUsers: function({ commit }, userdata) {
-      commit("SET_LOGIN_USERS", userdata);
     },
     setCurrentTeam: function({ commit }, teamInfo) {
       commit("SET_CURRENT_TEAM", teamInfo);
