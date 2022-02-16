@@ -44,7 +44,7 @@
 <script>
 import { regMember, regTime, getStudyBest } from "@/api/studyroom";
 import StudyroomPlayer from "./StudyroomPlayer.vue";
-import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Studyroom",
@@ -56,7 +56,7 @@ export default {
       elapsedTime: 0,
       timer: undefined,
       userInfo: {
-        userid: this.setUserinfo,
+        userid: this.getUserName,
         time: 0,
       },
       studybest: "",
@@ -69,10 +69,10 @@ export default {
   created() {
     // 스터디룸 입장 유저 감지
     console.log("studyroom entry");
-    console.log(this.setUserinfo);
+    console.log(this.getUserName);
     regMember(
       {
-        userid: this.setUserinfo,
+        userid: this.getUserName,
         time: this.userInfo.time,
       },
       ({ data }) => {
@@ -97,7 +97,7 @@ export default {
   },
   // 스톱워치 설정
   computed: {
-    ...mapActions(["setUserinfo"]),
+    ...mapGetters(["getUserName"]),
     formattedElapsedTime() {
       const date = new Date(null);
       date.setSeconds(this.elapsedTime / 1000);
@@ -122,7 +122,7 @@ export default {
       regTime(
         //this.$route.params.userid,
         {
-          userid: this.setUserInfo,
+          userid: this.getUserName,
           time: this.elapsedTime / 1000,
         },
         ({ data }) => {
