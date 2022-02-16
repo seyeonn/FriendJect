@@ -34,4 +34,11 @@ function createTeam(teamRegInfo, success, fail) {
     .catch(fail);
 }
 
-export { getQuestionList, getOneTeam, joinTeam, createTeam };
+function getTeamList(userId, success, fail) {
+  api
+    .get(`team/list/${userId}`)
+    .then(success)
+    .catch(fail);
+}
+
+export { getQuestionList, getOneTeam, joinTeam, createTeam, getTeamList };
