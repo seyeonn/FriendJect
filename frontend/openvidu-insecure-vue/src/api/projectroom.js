@@ -17,9 +17,9 @@ function getFileList(success, fail) {
     .catch(fail);
 }
 
-function registerFile(file, success, fail) {
+function registerFile(formData, success, fail) {
   api
-    .post(`files`, file, {
+    .post(`files`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
