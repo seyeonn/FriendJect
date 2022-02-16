@@ -27,4 +27,11 @@ function joinTeam(teamInfo, success, fail) {
     .catch(fail);
 }
 
-export { getQuestionList, getOneTeam, joinTeam };
+function createTeam(teamRegInfo, success, fail) {
+  api
+    .post(`team/create`, JSON.stringify(teamRegInfo))
+    .then(success)
+    .catch(fail);
+}
+
+export { getQuestionList, getOneTeam, joinTeam, createTeam };
