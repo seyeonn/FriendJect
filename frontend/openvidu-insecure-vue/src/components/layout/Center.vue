@@ -1,5 +1,8 @@
 <template>
   <div class="main_center" style="height:100%">
+    <div class="cursor"> 
+        <img style="width: 200px;" :src=profileUrl alt="my_minime"> 
+    </div>
     <div>
       <!-- 아이스 브레이킹 -->
       <div @click="icebreaking">
@@ -55,6 +58,8 @@
 </template>
 
 <script>
+import jquery from 'jquery';
+import { mapState} from "vuex";
 import { getQuestionList } from "@/api/center.js";
 
 var audio = new Audio();
@@ -71,7 +76,28 @@ export default {
       showtimer: true,
     };
   },
+  computed: {
+    ...mapState(["profileUrl"]),
+  },
+  mounted() {
+    this.showMinime();
+    
+  },
   methods: {
+    showMinime: function() {
+      jquery('.main_center').ready(function(){
+        jquery('.main_center').mousemove(function(e){
+          var mouseX = e.pageX;
+          var mouseY = e.pageY;
+        
+        jquery('.cursor').css({
+              left: mouseX + "px",
+              top : mouseY + "px"
+          })
+      })
+    })
+      
+    },
     setTab: function(tab) {
       this.$emit("emitTab", tab);
     },
@@ -195,5 +221,14 @@ export default {
   padding-top: 18%;
   padding-bottom: 8%;
   margin-left: 18%;
+}
+.cursor { 
+		position:absolute; 
+		top:0px; 
+		left: 0px; 
+		z-index: 9999; 
+		width: 250px; 
+		height: 100px; 
+		transform:translate(-50%, -50%); 
 }
 </style>

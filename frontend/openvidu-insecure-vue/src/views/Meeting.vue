@@ -2,15 +2,13 @@
   <b-container fluid class="p-1" style="background-color:white; height:100%">
     <div>
       <b-tabs content-class="m-3" fill>
-        <b-tab title="회의록">
+        <b-tab title="회의록" active>
           <meeting-note
             :documetns="allDocuments"
-            :profile="userProfile"
           ></meeting-note>
         </b-tab>
         <b-tab
           title="화이트보드"
-          active
           class="shadow-sm p-3 mb-5 bg-white rounded"
         >
           <white-board></white-board>
