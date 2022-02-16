@@ -29,11 +29,12 @@ function registerFile(file, success, fail) {
 }
 
 // 메모보드 APIs
-function getMemoList(param, success, fail) {
+function getMemoList(param, teamId, success, fail) {
   api
     .get(`memo`, {
       params: {
         status: param,
+        teamId: teamId,
       },
     })
     .then(success)

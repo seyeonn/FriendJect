@@ -152,6 +152,7 @@ export default {
   created() {
     getMemoList(
       "TODO",
+      this.$store.state.teamId,
       (response) => {
         this.arrTodo = response.data.data;
       },
@@ -161,6 +162,7 @@ export default {
     );
     getMemoList(
       "INPROGRESS",
+      this.$store.state.teamId,
       (response) => {
         this.arrInProgress = response.data.data;
       },
@@ -170,6 +172,7 @@ export default {
     );
     getMemoList(
       "TESTING",
+      this.$store.state.teamId,
       (response) => {
         this.arrTested = response.data.data;
       },
@@ -179,6 +182,7 @@ export default {
     );
     getMemoList(
       "DONE",
+      this.$store.state.teamId,
       (response) => {
         this.arrDone = response.data.data;
       },
@@ -196,11 +200,12 @@ export default {
     },
     writeNewMemo() {
       registerMemo({
+        teamId: this.$store.state.teamId,
         title: this.newTitle,
         content: this.newContent,
         status: "TODO",
       });
-      this.$router.push({ name: "memoboard" });
+      this.$router.go();
     },
     updateStatusList(arr, status) {
       registerMemoList(arr, status);

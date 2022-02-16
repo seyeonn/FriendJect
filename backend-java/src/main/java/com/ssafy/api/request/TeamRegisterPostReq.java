@@ -7,5 +7,5 @@ import lombok.Setter;
 public class TeamRegisterPostReq {
 	private Long userId;
 	private String teamName;
-	private Long teamNumber;
+	private String teamNum;
 }

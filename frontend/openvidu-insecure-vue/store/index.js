@@ -15,6 +15,11 @@ export const store = new Vuex.Store({
     message: "",
     messageList: [],
     loginUsers: [],
+    userId: "",
+    teamInfo: [],
+    teamId: "",
+    teamName: "",
+    teamNumber: "",
   },
   getters: {
     isLogin: (state) => {
@@ -36,13 +41,19 @@ export const store = new Vuex.Store({
       state.myUserName = newUserName;
       localStorage.setItem("myUserName", newUserName);
     },
+    setUserId(state, newUserId) {
+      state.userId = newUserId;
+      localStorage.setItem("userId", newUserId);
+    },
     deleteToken(state) {
       state.accessToken = "";
       state.kakaoId = "";
       state.myUserName = "";
+      state.userId = "";
       localStorage.removeItem("accessToken");
       localStorage.removeItem("kakaoId");
       localStorage.removeItem("myUserName");
+      localStorage.removeItem("userId");
     },
     // 카카오 로그인으로 유저정보가 들어왔는지 확인
     SET_USERINFO: function(state, userdata) {
@@ -52,9 +63,27 @@ export const store = new Vuex.Store({
       state.userEmail = userdata["userEmail"];
       state.profileUrl = userdata["profileUrl"];
       state.sessionState = userdata["sessionState"];
+      state.userId = userdata["userId"];
     },
     SET_LOGIN_USERS: function(state, userdata) {
       state.loginUsers = userdata;
+    },
+    SET_CURRENT_TEAM: function(state, teamInfo) {
+      state.teamId = teamInfo.teamId;
+      state.teamName = teamInfo.teamName;
+      state.teamNumber = teamInfo.teamNumber;
+    },
+    setTeamId(state, newTeamId) {
+      state.teamId = newTeamId;
+      //localStorage.setItem("teamId", newTeamId);
+    },
+    setTeamNumber(state, newTeamNumber) {
+      state.teamNumber = newTeamNumber;
+      //localStorage.setItem("teamNumber", newTeamNumber);
+    },
+    setTeamName(state, newTeamName) {
+      state.teamName = newTeamName;
+      //localStorage.setItem("teamId", newTeamId);
     },
   },
   actions: {
@@ -63,6 +92,9 @@ export const store = new Vuex.Store({
     },
     setLoginUsers: function({ commit }, userdata) {
       commit("SET_LOGIN_USERS", userdata);
+    },
+    setCurrentTeam: function({ commit }, teamInfo) {
+      commit("SET_CURRENT_TEAM", teamInfo);
     },
   },
 });

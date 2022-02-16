@@ -1,4 +1,4 @@
-package com.ssafy.common.util;
+/*package com.ssafy.common.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -19,7 +19,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * jwt 토큰 유틸 정의.
- */
+ *//*
 @Component
 public class JwtTokenUtil {
     private static String secretKey;
@@ -123,4 +123,4 @@ public class JwtTokenUtil {
             throw ex;
         }
     }
-}
+}*/
