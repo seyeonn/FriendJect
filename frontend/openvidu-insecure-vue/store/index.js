@@ -26,6 +26,7 @@ export const store = new Vuex.Store({
       if (state.accessToken) return true;
       return false;
     },
+    getUserName: (state) => state.myUserName,
   },
   mutations: {
     // accessToken 저장요청으로 localStorage에 저장
