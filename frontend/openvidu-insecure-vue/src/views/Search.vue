@@ -78,13 +78,19 @@
     <div>
       <h2 style="color:#3D3D3C; margin-left:10%">참여중인 프로젝트</h2>
 
+      <ul id="v-for-object" class="demo">
+        <li v-for="(value, index) in teams" :key="index">
+          {{ value }}
+        </li>
+      </ul>
       <!-- 이부분 접속 했던 이력을 for 문으로 나타내기 -->
       <div class="cards" style="width:100%;">
         <article class="information [ card ]">
           <dl class="details">
-            <div>
+            <div v-for="(value, index) in teams" :key="index">
               <dt># {{ this.teamnumtemp }}</dt>
               <dd>[2팀] 콘푸로스트</dd>
+              <dd>{{ teams.length }}</dd>
             </div>
           </dl>
           <router-link
@@ -101,7 +107,7 @@
 </template>
 
 <script>
-import { getOneTeam, joinTeam, createTeam } from "@/api/center.js";
+import { getOneTeam, joinTeam, createTeam, getTeamList } from "@/api/center.js";
 import { mapActions, mapState } from "vuex";
 export default {
   name: "search",
@@ -113,7 +119,23 @@ export default {
       teamName: "",
       teamInfo: "",
       teamnumtemp: 3243,
+      userId: localStorage.getItem("userId"),
     };
+  },
+  created() {
+    // 참여중인 프로젝트 목록
+    console.log(this.userId);
+    getTeamList(
+      this.userId,
+      (response) => {
+        console.log(response.data.data);
+        this.teams = response.data.data;
+        console.log("length: ", this.teams.length);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
   computed: {
     ...mapState(["teamId"]),
@@ -146,10 +168,9 @@ export default {
         this.teamNum,
         (response) => {
           console.log(response.data.data);
-          console.log(localStorage.getItem("userId"));
 
           this.teamInfo = {
-            userId: localStorage.getItem("userId"),
+            userId: this.userId,
             teamNumber: response.data.data.teamNumber,
           };
 
