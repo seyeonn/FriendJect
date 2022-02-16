@@ -1,12 +1,18 @@
 package com.ssafy.api.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +37,7 @@ public class KakaoController {
     
     @CrossOrigin("*")
     @PostMapping("/login")
-    @ApiOperation(value = "로그인 및 회원가입", notes = "<strong> 로그인과 동시에 회원가입 </strong> 을 진행한다. ") 
+    @ApiOperation(value = "로그인 및 회원가입", notes = "<strong> 로그인과 동시에 회원가입 </strong> 을 진행한다.") 
     public ResponseEntity<User> home(@RequestBody Map<String, String> requestData) throws Exception{
 
     	String code = requestData.get("code");
@@ -61,6 +67,57 @@ public class KakaoController {
         User user = kakaoService.getUserEmail(userInfo);
         
         return ResponseEntity.ok().body(user);
+    }
+    
+    
+    @CrossOrigin("*")
+    @GetMapping("/process")
+    @ApiOperation(value = "사용 프로세스", notes = "<strong> 사용 프로세스 </strong>를 감지하는 역할을 진행한다.") 
+    public String listRunningProcesses(){
+        List processes = new ArrayList();
+        String result = "";
+        Boolean state = false;
+        String state_result = "";
+
+        try{
+            String line;
+            Process p = Runtime.getRuntime().exec("tasklist.exe /nh");
+            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            while((line = input.readLine()) != null){
+                if (!line.trim().equals("")){
+                    // keep only the proecess name
+                    processes.add(line.substring(0, line.indexOf(" ")));
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        
+        // display the result
+        Iterator it = processes.iterator();
+
+        int i = 0;
+
+        while (it.hasNext()){
+            result += it.next() + ",";
+            i++;
+            if (i == 10){
+                i = 0;
+            }
+        }
+        if (result.contains("League")) {
+    		state = true;
+    		state_result = "league of legends 실행 중";
+    	}else if(result.contains("eclipse")) {
+    		state = true;
+    		state_result = "프로그래밍(eclipse) 중";
+    	}else if(result.contains("chrome")){
+    		state = true;
+    		state_result = "인터넷 서핑 중";
+    	}
+
+        return state_result;
     }
 
 }
