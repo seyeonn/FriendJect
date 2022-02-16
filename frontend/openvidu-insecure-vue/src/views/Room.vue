@@ -9,8 +9,8 @@
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
-        <h4>팀 코드 : {{ $route.params.code }}</h4>
-        <h4>팀 네임 : {{ $route.params.name }}</h4>
+        <h4>팀 코드 : {{ this.$store.state.teamNumber }}</h4>
+        <h4>팀 네임 : {{ this.$store.state.teamName }}</h4>
         <button @click="leaveSession" value="Leave session">
           세션 나가기
         </button>
@@ -154,13 +154,21 @@
     </div>
 
     <!-- 투표 모달 -->
-    <div id="vot" class="modal-window">
+    <div id="vot" class="modal-vot">
       <div style="width:40%">
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
 
-        <h1>투표 생성하기</h1>
+        <img
+          src="https://i.imgur.com/H6aJjTA.png"
+          style="
+        width: 400px;
+        height: 150px;
+        margin-left: -50;
+        margin-top: -20px;
+        "
+        />
         <!-- <div><small>Check out</small></div> -->
         <div>
           질문
@@ -169,22 +177,27 @@
             type="text"
             class="form-control"
             style="width:80%"
+            placeholder="투표 질문을 입력해주세요."
           />
           <br />
-          <p>투표 제목: "{{ votTitle }}"</p>
+          <!-- <p>투표 제목: "{{ votTitle }}"</p> -->
         </div>
 
-        <button @click="add">답변 추가</button>
+        <button @click="add" class="w-btn w-btn-indigo">답변 추가</button>
 
         <div v-for="item in items" :key="item.idx">
-          <input v-model="item.value" /> {{ item.index }}
+          {{ item.index }}. <input v-model="item.value" class="voteinput" />
+          <button @click="del" class="delb">
+            <b-icon icon="x-circle-fill" scale="2" variant="white"></b-icon>
+          </button>
         </div>
 
-        {{ items }}
+        <!-- {{ items }} -->
 
         <div>
           <b-form-checkbox v-model="checked" name="check-button" switch>
-            강제 투표 <b>(Checked: {{ checked }})</b>
+            강제 투표
+            <!-- <b>(Checked: {{ checked }})</b> -->
           </b-form-checkbox>
         </div>
 
@@ -194,11 +207,12 @@
               'http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3'
             )
           "
+          class="w-btn w-btn-green"
         >
           audioPlayer
         </button>
 
-        <button>투표 생성하기</button>
+        <button class="w-btn w-btn-green2">투표 생성하기</button>
       </div>
     </div>
     <!-- 프로필 편집 모달 -->
@@ -217,6 +231,7 @@
         <input id="input" @change="onInputImage" type="file" accept="image/*" />
         <button class="btn" @click="onChangProfile(userEmail)">변경</button>
         <button class="btn" @click="onDeleteProfile(userEmail)">삭제</button>
+        <button class="btn" @click="onInitProfile">초기화</button>
       </div>
     </div>
     <!-- chat -->
@@ -241,7 +256,7 @@ import UserListRow from "../components/UserListRow.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "main",
+  name: "room",
 
   data() {
     return {
@@ -253,7 +268,7 @@ export default {
       publisher: undefined,
       subscribers: [],
       mySessionId: "",
-      teamName: "",
+      teamCode: "",
       message: "",
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
       // myUserName: "Participant" + Math.floor(Math.random() * 100),
@@ -281,9 +296,13 @@ export default {
     ...mapState(["kakaoId"]),
     ...mapState(["profileUrl"]),
     ...mapState(["userEmail"]),
+    ...mapState(["teamName"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
+  },
+  created() {
+    console.log(this.$route.params.code);
   },
   components: {
     Chat,
@@ -323,6 +342,13 @@ export default {
     add: function() {
       this.items_cnt++;
       this.items.push({ index: this.items_cnt, value: "" });
+    },
+    del: function() {
+      if (this.items.length > 0) {
+        this.items.pop();
+        this.items_cnt--;
+        //arrInputValue.pop();
+      }
     },
     randomNumber: function() {
       var num = Math.floor(Math.random() * 10000) + 1000;
@@ -664,6 +690,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    onInitProfile: function() {
+      this.$router.push({ name: "minime" });
     },
   },
 };
