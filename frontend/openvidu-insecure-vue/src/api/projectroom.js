@@ -17,9 +17,9 @@ function getFileList(success, fail) {
     .catch(fail);
 }
 
-function registerFile(file, success, fail) {
+function registerFile(formData, success, fail) {
   api
-    .post(`files`, file, {
+    .post(`files`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -29,13 +29,9 @@ function registerFile(file, success, fail) {
 }
 
 // 메모보드 APIs
-function getMemoList(param, success, fail) {
+function getMemoList(memoStatus, teamId, success, fail) {
   api
-    .get(`memo`, {
-      params: {
-        status: param,
-      },
-    })
+    .get(`memo/list/${teamId}`, { params: { status: memoStatus } })
     .then(success)
     .catch(fail);
 }
@@ -47,11 +43,12 @@ function registerMemo(memo, success, fail) {
     .catch(fail);
 }
 
-function registerMemoList(memolist, param, success, fail) {
+function registerMemoList(memolist, param, teamId, success, fail) {
   api
     .post(`memo/list`, JSON.stringify(memolist), {
       params: {
         status: param,
+        teamId: teamId,
       },
     })
     .then(success)
@@ -60,7 +57,7 @@ function registerMemoList(memolist, param, success, fail) {
 
 function modifyMemo(memoId, memo, success, fail) {
   api
-    .put(`/memo/${memoId}`, JSON.stringify(memo))
+    .put(`memo/${memoId}`, JSON.stringify(memo))
     .then(success)
     .catch(fail);
 }
