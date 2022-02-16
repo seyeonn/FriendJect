@@ -111,11 +111,27 @@
     </div>
     <!-- <img src="@/assets/images/main.png" style="height:600px;" /> -->
     <div style="height:400px; background-color:#F9E7AD;"></div>
+    <button @click="callHello()">hello world</button>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  methods: {
+    callHello() {
+      axios
+        .get("http://localhost:8081/api/hello")
+        .then((res) => {
+          console.log(res);
+          alert("hello");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
