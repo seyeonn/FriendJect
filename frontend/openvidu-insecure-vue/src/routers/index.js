@@ -5,7 +5,6 @@ import Room from "../views/Room.vue";
 import Search from "../views/Search.vue";
 import KakaoLogin from "../views/KakaoRedirect.vue";
 import Center from "../components/layout/Center.vue";
-
 //consult room
 import Consult from "../views/ConsultRoom.vue";
 
