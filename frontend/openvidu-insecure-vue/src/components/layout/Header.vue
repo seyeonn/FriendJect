@@ -6,6 +6,14 @@
         <b-col cols="8"></b-col>
         <b-col>
           <b-button
+            v-if="isLogin"
+            variant="outline-warning"
+            style="margin-top: 30px"
+            @click="logout"
+            >로그아웃</b-button
+          >
+          <b-button
+            v-else
             variant="outline-warning"
             style="margin-top: 30px"
             href="#join"
@@ -20,8 +28,12 @@
         <a href="#" title="Close" class="modal-close">Close</a>
         <div style="text-align: center"><h1>3초만에 시작하기</h1></div>
         <div style="text-align: center; margin-top: 50px">
+          <!-- 서버에 올릴 때
           <a
-            href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e1a7f29f3266d25acd09415836291442&redirect_uri=http://i6b202.p.ssafy.io:8080/kakao"
+            href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e1a7f29f3266d25acd09415836291442&redirect_uri=http://i6b202.p.ssafy.io/kakao"
+          >-->
+          <a
+            href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e1a7f29f3266d25acd09415836291442&redirect_uri=http://localhost:8080/kakao"
           >
             <img alt="kakao-button" src="@/assets/images/kakao_login.png" />
           </a>
@@ -34,10 +46,18 @@
 
 <script>
 export default {
+  data() {
+    return {};
+  },
+  props: {
+    isLogin: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
-    login: function() {
-      //모달 닫히는게 필요
-      this.$router.push("join");
+    logout() {
+      this.$emit("logout");
     },
   },
 };

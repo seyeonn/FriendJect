@@ -1,7 +1,7 @@
 <template>
   <div class="main_study" style="height:100%">
     <div style="margin-top: 100px; margin-left: 220px;">
-    <studyroom-player />
+      <studyroom-player />
     </div>
     <div id="stopwatch" style="margin-top: 30px;">
       <!-- 스톱워치 기능 개발 -->
@@ -18,21 +18,33 @@
         </button>
       </div>
     </div>
-    <!-- 어제의 학습왕 조회 -->
+    <!-- 오늘의 학습왕 조회 -->
     <div class="studybest">{{ studybest }}</div>
 
-    <div class="comment" style="margin-top: 160px; margin-left: 122px;">
-      <span  v-show=!showInput>{{ com }}</span>
-      <input type="text" v-show=showInput v-model="value" class="input_comment"/>
-      <button class="w-btn w-btn-white" v-on:click = "showInput =!showInput" @click="setDefault()">{{regOrEdit}}</button>
+    <!-- 상태 메세지 등록 및 수정 -->
+    <div class="comment" v-if="userInfo != null" style="margin-top: 160px; margin-left: 122px;">
+      <span v-show="!showInput">{{ com }}</span>
+      <input
+        type="text"
+        v-show="showInput"
+        v-model="value"
+        class="input_comment"
+      />
+      <button
+        class="w-btn w-btn-white"
+        v-on:click="showInput = !showInput"
+        @click="setDefault()"
+      >
+        {{ regOrEdit }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import { regMember, regTime } from "@/api/member";
+import { regMember, regTime, getStudyBest } from "@/api/studyroom";
 import StudyroomPlayer from "./StudyroomPlayer.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Studyroom",
@@ -44,7 +56,7 @@ export default {
       elapsedTime: 0,
       timer: undefined,
       userInfo: {
-        userid: "aaaaa",
+        userid: this.getUserName,
         time: 0,
       },
       studybest: "",
@@ -57,9 +69,10 @@ export default {
   created() {
     // 스터디룸 입장 유저 감지
     console.log("studyroom entry");
+    console.log(this.getUserName);
     regMember(
       {
-        userid: this.userInfo.userid,
+        userid: this.getUserName,
         time: this.userInfo.time,
       },
       ({ data }) => {
@@ -70,31 +83,21 @@ export default {
       }
     );
 
-    // 어제의 학습왕 조회
-    axios
-      .get(`http://localhost:8081/studyroom`)
-      .then((response) => {
-        console.log("어제의 학습왕은?");
+    // 오늘의 학습왕 조회
+    getStudyBest(
+      (response) => {
+        console.log("오늘의 학습왕은?");
         console.log(response.data);
         this.studybest = response.data;
-      })
-      .catch();
-  },
-  mounted() {
-    // getStudyBest(
-    //         console.log("getstudyBest"),
-    //         ({ data }) => {
-    //           console.log("오늘의 학습왕은?");
-    //           console.log(data);
-    //           this.studybest = data;
-    //         },
-    //         (error) => {
-    //           console.log(error);
-    //         },
-    //       );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
   // 스톱워치 설정
   computed: {
+    ...mapGetters(["getUserName"]),
     formattedElapsedTime() {
       const date = new Date(null);
       date.setSeconds(this.elapsedTime / 1000);
@@ -119,18 +122,31 @@ export default {
       regTime(
         //this.$route.params.userid,
         {
-          userid: this.userInfo.userid,
+          userid: this.getUserName,
           time: this.elapsedTime / 1000,
         },
         ({ data }) => {
           console.log(data);
           this.userid = data;
+          alert("저장이 완료되었습니다.");
+
+          getStudyBest(
+            (response) => {
+              console.log("오늘의 학습왕은?");
+              console.log(response.data);
+              this.studybest = response.data;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
         },
         (error) => {
           console.log(error);
         }
       );
     },
+    // 상태 메세지 등록 및 수정
     setDefault() {
       console.log(this.value);
       this.com = this.value;
@@ -239,16 +255,28 @@ document.addEventListener("DOMContentLoaded", () => {
 .w-btn-white {
   padding: 6px 12px;
   background-color: rgba(234, 237, 240, 0.712);
+<<<<<<< HEAD
   color: #ebb24a;
+=======
+  color: #f9b225;
+>>>>>>> friendject/develop
 }
 
 .w-btn-white-outline {
   border: 3px solid rgba(234, 237, 240, 0.712);
+<<<<<<< HEAD
   color: #ebb24a;
 }
 
 .w-btn-white-outline:hover {
   color: #ebb24a;
+=======
+  color: #f9b225;
+}
+
+.w-btn-white-outline:hover {
+  color: #f9b225;
+>>>>>>> friendject/develop
   background: rgba(234, 237, 240, 0.712);
 }
 
