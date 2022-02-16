@@ -41,11 +41,12 @@
           팀원에게 받은 고유코드를 입력하세요!
         </p>
         <!-- 이부분 현재 바인딩이 안됨. code 바인딩해서 넘겨주기 -->
-        <router-link
-          :to="{ name: 'room', params: { code: '123' } }"
-          class="button"
-          >ROOM</router-link
-        >
+        <router-link 
+          :to="{ name: 'minime', 
+          params: { code: '123' }}" 
+          class="button">
+          MINIME
+        </router-link>
 
         <button class="button" @click="setIn">
           <span>Join</span>
