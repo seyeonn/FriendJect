@@ -5,6 +5,7 @@ import Room from "../views/Room.vue";
 import Search from "../views/Search.vue";
 import KakaoLogin from "../views/KakaoRedirect.vue";
 import Center from "../components/layout/Center.vue";
+import Minime from "../views/Minime.vue";
 
 //consult room
 import Consult from "../views/ConsultRoom.vue";
@@ -34,6 +35,11 @@ export const router = new VueRouter({
       path: "/main",
       name: "main",
       component: Search,
+    },
+    {
+      path: "/minime",
+      name: "minime",
+      component: Minime,
     },
     {
       path: "/room",

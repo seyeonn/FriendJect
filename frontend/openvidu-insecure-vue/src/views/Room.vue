@@ -2,6 +2,9 @@
   <div class="container" fluid>
     <div class="main">
       <div class="main-container">
+        <div class="cursor"> 
+          <img style="width: 200px;" :src=profileUrl alt="my_minime"> 
+        </div>
         <!-- <img
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
@@ -91,13 +94,13 @@
           </svg>
         </button>
         <span class="account-user"
-          >Quan Ha
+          >{{ this.myUserName }}
           <img
-            src="https://images.genius.com/2326b69829d58232a2521f09333da1b3.1000x1000x1.jpg"
+            :src= profileUrl
             alt=""
             class="account-profile"
           />
-          <span>▼</span>
+          <a href="#profileModal"> <b-icon-pencil-square></b-icon-pencil-square></a>
         </span>
       </div>
 
@@ -200,6 +203,25 @@
         <button>투표 생성하기</button>
       </div>
     </div>
+    <!-- 프로필 편집 모달 -->
+    <div id="profileModal" class="modal-window">
+      <div>
+        <a href="#" title="Close" class="modal-close">
+          <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
+        </a>
+        <h1>프로필 편집</h1>
+        <img
+              :src= profileUrl
+              alt="profile_img"
+              class="user-img"
+              @error="replaceImg"
+        />
+        <input id="input" @change="onInputImage" type="file" accept="image/*">
+        <button class="btn" @click="onChangProfile(userEmail)">변경</button>
+        <button class="btn" @click="onDeleteProfile(userEmail)">삭제</button>
+        
+      </div>
+    </div>
     <!-- chat -->
     <chat :session="session" :team-name="teamName" :chat-list="chatList"></chat>
   </div>
@@ -207,7 +229,9 @@
 
 <script>
 import axios from "axios";
+import jquery from 'jquery';
 import { getConsultLogList } from "@/api/consultroom.js";
+import { changProfile } from "@/api/room.js";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/UserVideo.vue";
 
@@ -258,6 +282,8 @@ export default {
     ...mapState(["consult_log", "store_sessionId"]),
     ...mapState(["myUserName"]),
     ...mapState(["kakaoId"]),
+    ...mapState(["profileUrl"]),
+    ...mapState(["userEmail"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
@@ -269,6 +295,18 @@ export default {
   },
   mounted() {
     this.joinSession();
+    jquery(document).ready(function(){
+    
+      jquery(document).mousemove(function(e){
+          var mouseX = e.pageX;
+          var mouseY = e.pageY;
+
+          jquery('.cursor').css({
+              left: mouseX + "px",
+              top : mouseY + "px"
+          })
+      })
+    })
   },
   methods: {
     ...mapActions(["setUserinfo"]),
@@ -596,6 +634,39 @@ export default {
         document.getElementById("mute").innerText = "음소거";
       }
     },
+    //프로필 이미지
+    replaceImg: function(event) {
+      event.target.src = "https://img.freepik.com/free-icon/x-symbol_318-1407.jpg"
+    },
+    onInputImage: function(file) {
+        this.image = file.target.files[0]
+        console.log(this.image)
+      },
+    onChangProfile: function(email) {
+      const imgfrm = new FormData() 
+      imgfrm.append('filename', this.image)
+        changProfile(
+          email,
+          imgfrm,
+          (res) => {
+            console.log(res.data + "프로필 변경");
+            this.setUserinfo;
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+    },
+    onDeleteProfile: function(email) {
+      axios.patch(`http://localhost:8081/api/profile/empty/${email}`
+          ).then(res => {
+              console.log(res)
+              this.setUserinfo
+          })
+          .catch(err => {
+              console.log(err)
+          })
+    },
   },
 };
 </script>
@@ -608,4 +679,14 @@ export default {
 video {
   width: 100px;
 }
+.cursor { 
+		position:absolute; 
+		top:0px; 
+		left: 0px; 
+		z-index: 9999; 
+		width: 250px; 
+		height: 100px; 
+		transform:translate(-50%, -50%); 
+}
+
 </style>

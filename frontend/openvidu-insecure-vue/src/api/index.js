@@ -6,6 +6,7 @@ import {
   ICE_BASE_URL,
   MEET_BASE_URL,
   CST_BASE_URL,
+  PROFILE_BASE_URL,
 } from "@/config";
 
 // axios 객체 생성
@@ -63,6 +64,15 @@ function consultRoomInstance() {
   });
   return instance;
 }
+function profileInstance() {
+  const instance = axios.create({
+    baseURL: PROFILE_BASE_URL,
+    headers: {
+      "Content-type": "multipart/form-data",
+    },
+  });
+  return instance;
+}
 
 export {
   apiInstance,
@@ -71,4 +81,5 @@ export {
   icebreakingInstance,
   meetingRoomInstance,
   consultRoomInstance,
+  profileInstance,
 };
