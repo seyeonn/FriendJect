@@ -39,19 +39,23 @@
 
     <b-row>
       <b-col class="box" style="margin-right:10%">
-        <router-link :to="'/room/studyroom'">study</router-link>
+         <router-link :to="'/room/studyroom'"><img :src="study_img" @mouseover="study_mouse" @mouseleave="study_leave"
+ class="door" /></router-link>
       </b-col>
       <b-col class="box">
-        <router-link :to="'/room/meetingroom'">Meeting</router-link>
+        <router-link :to="'/room/meetingroom'"><img :src="meet_img" @mouseover="meet_mouse" @mouseleave="meet_leave"
+ class="door" /></router-link>
       </b-col>
     </b-row>
 
     <b-row>
       <b-col class="box2" style="margin-right:10%">
-        <router-link :to="'/room/projectroom'">Project</router-link>
+        <router-link :to="'/room/projectroom'"><img :src="project_img" @mouseover="project_mouse" @mouseleave="project_leave"
+ class="door" /></router-link>
       </b-col>
       <b-col class="box2">
-        <router-link :to="'/room/consultroom'">Consult</router-link>
+        <router-link :to="'/room/consultroom'"><img :src="consult_img" @mouseover="consult_mouse" @mouseleave="consult_leave"
+ class="door" /></router-link>
       </b-col>
     </b-row>
   </div>
@@ -74,6 +78,10 @@ export default {
       min: 0,
       sec: 0,
       showtimer: true,
+      study_img: "https://i.imgur.com/RrhPVhJ.png",
+      meet_img: "https://i.imgur.com/okrgWZv.png",
+      project_img: "https://i.imgur.com/GBQxYDq.png",
+      consult_img: "https://i.imgur.com/l1XEp53.png"
     };
   },
   computed: {
@@ -145,6 +153,30 @@ export default {
         }, 1000);
       }
     },
+    study_mouse: function(){
+      this.study_img = "https://i.imgur.com/UpoyNOh.png"
+    },   
+    study_leave: function(){
+      this.study_img = "https://i.imgur.com/RrhPVhJ.png"
+    }, 
+    meet_mouse: function(){
+      this.meet_img = "https://i.imgur.com/o7r4iTg.png"
+    },   
+    meet_leave: function(){
+      this.meet_img = "https://i.imgur.com/okrgWZv.png"
+    }, 
+    project_mouse: function(){
+      this.project_img = "https://i.imgur.com/wU5poOo.png"
+    },   
+    project_leave: function(){
+      this.project_img = "https://i.imgur.com/GBQxYDq.png"
+    }, 
+    consult_mouse: function(){
+      this.consult_img = "https://i.imgur.com/1eRdXWT.png"
+    },   
+    consult_leave: function(){
+      this.consult_img = "https://i.imgur.com/l1XEp53.png"
+    }, 
   },
 };
 </script>
@@ -156,6 +188,14 @@ export default {
 <style>
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+img.door {
+  height: 200px;
+  width: 200px;
+}
+img.door:hover {
+  width: 200px;
+  height: 200px;
+}
 .icequestion {
   margin-left: 285px;
   width: 200px;
@@ -165,6 +205,12 @@ export default {
 .timer {
   margin-top: 210px;
   margin-left: -5px;
+  width: 170px;
+}
+.timer:active {
+  margin-top: 210px;
+  margin-left: -5px;
+  width: 170px;
 }
 .timer > input {
   width: 50px;
@@ -213,14 +259,13 @@ export default {
   background: rgba(234, 237, 240, 0.712);
 }
 .box {
-  padding-top: 5%;
+  padding-top: 0.8%;
   padding-bottom: 7%;
-  margin-left: 18%;
+  margin-left: 12.5%;
 }
 .box2 {
-  padding-top: 18%;
-  padding-bottom: 8%;
-  margin-left: 18%;
+  padding-top: 4.7%;
+  margin-left: 12.5%;
 }
 .cursor { 
 		position:absolute; 
