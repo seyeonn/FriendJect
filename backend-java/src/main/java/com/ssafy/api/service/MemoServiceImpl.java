@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.api.request.MemoGetListReq;
 import com.ssafy.api.request.MemoRegisterPostReq;
 import com.ssafy.api.response.MemoRes;
 import com.ssafy.db.dto.MemoDTO;
@@ -20,6 +23,9 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemoServiceImpl implements MemoService {
+	
+	private final EntityManager em;
+
 	private final MemoRepository memoRepository;
 
 	@Transactional 
@@ -53,5 +59,18 @@ public class MemoServiceImpl implements MemoService {
 		Memo memo = memoRepository.findById(memoId).get();
 		memo.setStatus(memoStatus);
 		System.out.println(memo.getStatus());
+	}
+	
+	public List<Memo> findMemoOfTeam(MemoGetListReq memoGetListReq) {
+		Long team_id = memoGetListReq.getTeamId();
+		MemoStatus status = memoGetListReq.getMemoStatus();
+		String jpql = "select m from Memo m where m.teamId = :team_id and m.status = :status";
+		List<Memo> memoList = em.createQuery(jpql, Memo.class).setParameter("team_id",team_id).setParameter("status",status).getResultList();
+		
+		for (Memo m : memoList) {
+			System.out.println(m.getContent());
+		}
+		
+		return memoList;
 	}
 }
