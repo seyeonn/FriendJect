@@ -14,7 +14,7 @@
 <script>
 import VueSelectImage from 'vue-select-image'
 import axios from 'axios'
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 
 export default {
     name: "minime",
@@ -68,11 +68,9 @@ export default {
     ...mapState(["userEmail"]),
     },
     methods: {
-        ...mapActions(["setUserinfo"]),
         onSelectImage(objectImage) {
             if (!objectImage.disabled) {
             this.singleSelected = Object.assign({}, this.singleSelected, objectImage);
-            // this.$emit("onselectimage", objectImage); // 자식 컴포넌트에서 이벤트를 선언
             }
         },
         postMinime: function(email) {
@@ -81,6 +79,7 @@ export default {
                 profileUrl: this.singleSelected.src
                 }).then(res => {
                     console.log(res)
+                    this.$store.commit("SET_ProfileUrl", this.singleSelected.src);
                     // this.setUserinfo 업데이트된 미니미로 변경x 수정필요
                     this.$router.push({ name: 'room'})
                 })
