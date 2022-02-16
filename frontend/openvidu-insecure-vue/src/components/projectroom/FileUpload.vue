@@ -27,6 +27,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 import { registerFile } from "@/api/projectroom.js";
+import { mapState } from "vuex";
 
 export default {
   name: "fileUpload",

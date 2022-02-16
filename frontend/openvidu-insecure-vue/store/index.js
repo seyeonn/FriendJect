@@ -7,15 +7,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     accessToken: "",
-<<<<<<< HEAD
-    // user pk
-    // id: "",
-    //  user user_email
-    store_ov: undefined,
-    store_session: undefined,
-=======
     kakaoId: "",
->>>>>>> upstream/develop
     userEmail: "",
     myUserName: "",
     profileUrl: "",
@@ -34,16 +26,7 @@ export const store = new Vuex.Store({
       if (state.accessToken) return true;
       return false;
     },
-<<<<<<< HEAD
-    get_ov(state) {
-      return(state.store_ov);
-    },
-    get_session(state) {
-      return(state.store_session);
-    }
-=======
     getUserName: (state) => state.myUserName,
->>>>>>> upstream/develop
   },
   mutations: {
     // accessToken 저장요청으로 localStorage에 저장
