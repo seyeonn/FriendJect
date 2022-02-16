@@ -1,6 +1,8 @@
 package com.ssafy.db.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -14,9 +16,6 @@ import lombok.Setter;
 @Getter @Setter @IdClass(JoinedTeamListId.class)
 @Table(name = "joinedteamlist")
 public class JoinedTeamList {
-	
-	@Id
-	private Long id;
 	
 	@Id
 	@ManyToOne

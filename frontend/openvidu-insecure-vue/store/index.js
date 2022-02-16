@@ -16,6 +16,10 @@ export const store = new Vuex.Store({
     messageList: [],
     loginUsers: [],
     userId: "",
+    teamInfo: [],
+    teamId: "",
+    teamName: "",
+    teamNumber: "",
   },
   getters: {
     isLogin: (state) => {
@@ -64,6 +68,23 @@ export const store = new Vuex.Store({
     SET_LOGIN_USERS: function(state, userdata) {
       state.loginUsers = userdata;
     },
+    SET_CURRENT_TEAM: function(state, teamInfo) {
+      state.teamId = teamInfo.teamId;
+      state.teamName = teamInfo.teamName;
+      state.teamNumber = teamInfo.teamNumber;
+    },
+    setTeamId(state, newTeamId) {
+      state.teamId = newTeamId;
+      //localStorage.setItem("teamId", newTeamId);
+    },
+    setTeamNumber(state, newTeamNumber) {
+      state.teamNumber = newTeamNumber;
+      //localStorage.setItem("teamNumber", newTeamNumber);
+    },
+    setTeamName(state, newTeamName) {
+      state.teamName = newTeamName;
+      //localStorage.setItem("teamId", newTeamId);
+    },
   },
   actions: {
     setUserinfo: function({ commit }, userdata) {
@@ -71,6 +92,9 @@ export const store = new Vuex.Store({
     },
     setLoginUsers: function({ commit }, userdata) {
       commit("SET_LOGIN_USERS", userdata);
+    },
+    setCurrentTeam: function({ commit }, teamInfo) {
+      commit("SET_CURRENT_TEAM", teamInfo);
     },
   },
 });

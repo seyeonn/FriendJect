@@ -6,8 +6,8 @@
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
-        <h4>팀 코드 : {{ $route.params.code }}</h4>
-        <h4>팀 네임 : {{ $route.params.name }}</h4>
+        <h4>팀 코드 : {{ this.$store.state.teamNumber }}</h4>
+        <h4>팀 네임 : {{ this.$store.state.teamName }}</h4>
         <button @click="leaveSession" value="Leave session">
           세션 나가기
         </button>
@@ -220,7 +220,7 @@ import UserListRow from "../components/UserListRow.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "main",
+  name: "room",
 
   data() {
     return {
@@ -232,7 +232,7 @@ export default {
       publisher: undefined,
       subscribers: [],
       mySessionId: "",
-      teamName: "",
+      teamCode: "",
       message: "",
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
       // myUserName: "Participant" + Math.floor(Math.random() * 100),
@@ -258,9 +258,13 @@ export default {
     ...mapState(["consult_log", "store_sessionId"]),
     ...mapState(["myUserName"]),
     ...mapState(["kakaoId"]),
+    ...mapState(["teamName"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
+  },
+  created() {
+    console.log(this.$route.params.code);
   },
   components: {
     Chat,
