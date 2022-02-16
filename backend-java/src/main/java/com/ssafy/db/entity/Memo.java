@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import com.ssafy.api.request.MemoRegisterPostReq;
 
 import lombok.AccessLevel;
@@ -38,13 +36,17 @@ public class Memo {
 	@Enumerated(EnumType.STRING)
 	private MemoStatus status = MemoStatus.TODO;
 	
+	@Column(name = "team_id")
+	private Long teamId;
+	
 	@Builder
-	public Memo(String title, String content, MemoStatus status) {
+	public Memo(String title, String content, MemoStatus status, Long teamId) {
 		this.title = title;
 		this.content = content;
 		if (status != null) {
 			this.status = status;
 		}
+		this.teamId = teamId;
 	}
 
 	/**
