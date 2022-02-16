@@ -1,33 +1,42 @@
 package com.ssafy.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * 유저 모델 정의.
  */
 @Entity
-@Getter
-@Setter
+@Getter @Setter
+@Table(name = "user")
+@NoArgsConstructor
 public class User {
-	@Id
-	String userEmail;
+	
+	@Id	@GeneratedValue
+	@Column(name = "user_id")
+	private Long id; 
+	
+	private String kakaoId;
+	
+	private String userEmail;
+	private String accessToken;
+	private String nickName;
+	private String profileUrl;
+	private Integer sessionState;
+	
+	@OneToMany(mappedBy = "user")
+	private List<JoinedTeamList> teamList = new ArrayList<>();
  
-	String nickName;
-	String accessToken;
-	String profileUrl;
-
-
-//    @JsonIgnore
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    String password;
 }

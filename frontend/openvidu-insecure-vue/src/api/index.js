@@ -1,5 +1,12 @@
 import axios from "axios";
-import { API_BASE_URL, PJT_BASE_URL, STU_BASE_URL, ICE_BASE_URL } from "@/config";
+import {
+  API_BASE_URL,
+  PJT_BASE_URL,
+  STU_BASE_URL,
+  MEET_BASE_URL,
+  CST_BASE_URL,
+  PROFILE_BASE_URL,
+} from "@/config";
 
 // axios 객체 생성
 function apiInstance() {
@@ -29,13 +36,49 @@ function studyRoomInstance() {
   });
   return instance;
 }
-function icebreakingInstance() {
+function centerInstance() {
   const instance = axios.create({
-    baseURL: ICE_BASE_URL,
+    baseURL: API_BASE_URL,
     headers: {
       "Content-type": "application/json",
     },
   });
   return instance;
 }
-export { apiInstance, projectRoomInstance, studyRoomInstance, icebreakingInstance };
+function meetingRoomInstance() {
+  const instance = axios.create({
+    baseURL: MEET_BASE_URL,
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  return instance;
+}
+function consultRoomInstance() {
+  const instance = axios.create({
+    baseURL: CST_BASE_URL,
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  return instance;
+}
+function profileInstance() {
+  const instance = axios.create({
+    baseURL: PROFILE_BASE_URL,
+    headers: {
+      "Content-type": "multipart/form-data",
+    },
+  });
+  return instance;
+}
+
+export {
+  apiInstance,
+  projectRoomInstance,
+  studyRoomInstance,
+  centerInstance,
+  meetingRoomInstance,
+  consultRoomInstance,
+  profileInstance,
+};

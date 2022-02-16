@@ -36,7 +36,11 @@ export default {
       isSelected: true,
     };
   },
+  computed: {
+    ...mapState(["myUserName"]),
+  },
   created() {
+    console.log(this.myUserName);
     let doc = document.createElement("script");
     doc.setAttribute("src", "your-link-here");
     document.head.appendChild(doc);
@@ -73,8 +77,9 @@ export default {
       $(".image-upload-wrap").show();
     },
     saveFile() {
-      let formData = new FormData();
+      var formData = new FormData();
       formData.append("file", this.file);
+      console.log(this.file);
       registerFile(
         formData,
         (response) => {

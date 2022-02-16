@@ -1,6 +1,5 @@
 <template>
   <div>
-     <Header />
     <div class="macbook" style="margin-top:5%">
       <div class="inner">
         <div class="screen">
@@ -112,15 +111,26 @@
     </div>
     <!-- <img src="@/assets/images/main.png" style="height:600px;" /> -->
     <div style="height:400px; background-color:#F9E7AD;"></div>
+    <button @click="callHello()">hello world</button>
   </div>
 </template>
 
 <script>
-import Header from "../components/layout/Header.vue";
+import axios from "axios";
 export default {
-  components: {
-    Header
-  }
+  methods: {
+    callHello() {
+      axios
+        .get("http://localhost:8081/api/hello")
+        .then((res) => {
+          console.log(res);
+          alert("hello");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 

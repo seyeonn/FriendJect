@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,22 +28,19 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/profile")
+@RequestMapping("api/profile")
 @CrossOrigin("*")
 public class ProfileController {
 	
 	UserService userService;
 	UserRepository userRepository;
 	
-	@GetMapping("/{userEmail}")
-	public Map<String, Object> user(@PathVariable String userEmail) {
-		
+	@PatchMapping("/minime/{userEmail}")
+	public String select_minime(@PathVariable String userEmail, @RequestBody Map<String, Object> body) {
 		User user = userService.findByUserEmail(userEmail);
-		Map<String, Object> obj = new HashMap<>();
-		obj.put("UserEmail", user.getUserEmail());
-		obj.put("NickName", user.getNickName());
-		obj.put("profile", user.getProfileUrl());
-		return obj;
+		user.setProfileUrl(body.get("profileUrl").toString());
+		userRepository.save(user);
+		return userEmail + " 회원의 프로필사진이 미니미로 변경었습니다";
 	}
 	
 	@PatchMapping("/{userEmail}")
@@ -74,16 +71,7 @@ public class ProfileController {
 		user.setProfileUrl("http://localhost:8080/image/" + userEmail + "/" + mFile.getOriginalFilename());	
 		userRepository.save(user);
 		return userEmail;
-	}
-	
-	@PatchMapping("/empty/{userEmail}")
-	public String image_init(@PathVariable String userEmail) {
-		User user = userService.findByUserEmail(userEmail);
-		user.setProfileUrl(null);
-		userRepository.save(user);
-		return userEmail + " 회원의 프로필사진이 초기화되었습니다";
-	}
-	
+	}	
 	
 	@GetMapping(value = {"image/{userEmail}/{imageName}"}, produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userSearch(@PathVariable("userEmail") String userEmail, @PathVariable("imageName") String imageName) throws IOException {
@@ -92,7 +80,4 @@ public class ProfileController {
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
 	}
-	
-	
-
 }

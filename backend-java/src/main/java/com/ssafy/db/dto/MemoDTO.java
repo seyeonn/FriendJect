@@ -20,12 +20,14 @@ public class MemoDTO {
 	@NotEmpty(message = "내용 입력은 필수입니다.")
 	private String content;
 	private MemoStatus status;
-
+	private Long teamId;
+	
 	public Memo toEntity() {
 		return Memo.builder()
 				.title(title)
 				.content(content)
 				.status(status)
+				.teamId(teamId)
 				.build();
 	}
 }
