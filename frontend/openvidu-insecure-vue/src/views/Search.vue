@@ -77,10 +77,10 @@
 
     <div>
       <h2 style="color:#3D3D3C; margin-left:10%">참여중인 프로젝트</h2>
-
+      <div></div>
       <ul id="v-for-object" class="demo">
         <li v-for="(value, index) in teams" :key="index">
-          {{ value }}
+          {{ value.name }}
         </li>
       </ul>
       <!-- 이부분 접속 했던 이력을 for 문으로 나타내기 -->
@@ -88,7 +88,7 @@
         <article class="information [ card ]">
           <dl class="details">
             <div v-for="(value, index) in teams" :key="index">
-              <dt># {{ this.teamnumtemp }}</dt>
+              <dt># {{ value }}</dt>
               <dd>[2팀] 콘푸로스트</dd>
               <dd>{{ teams.length }}</dd>
             </div>
@@ -118,7 +118,6 @@ export default {
       teamNum: "",
       teamName: "",
       teamInfo: "",
-      teamnumtemp: 3243,
       userId: localStorage.getItem("userId"),
     };
   },
@@ -158,7 +157,7 @@ export default {
         (error) => {
           if (error.response) {
             alert("존재하지 않는 팀 입니다.\n 팀 코드를 다시 확인해주세요");
-            this.$router.push({ name: "room" });
+            this.$router.go();
           }
         }
       );
@@ -193,7 +192,7 @@ export default {
         (error) => {
           if (error.response) {
             alert("존재하지 않는 팀 입니다.\n 팀 코드를 다시 확인해주세요");
-            this.$router.push({ name: "room" });
+            this.$router.go();
           }
         }
       );
