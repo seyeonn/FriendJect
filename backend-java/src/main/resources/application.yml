@@ -1,14 +1,3 @@
-management:
-  health:
-    diskspace:
-      enabled: 'true'
-    default:
-      enabled: 'true'
-    db:
-      enabled: 'true'
-  servlet:
-    context-path: /manage
-    
 spa:
   default-file: /dist/index.html
   
@@ -32,18 +21,6 @@ spring:
       username: friendject
     url: jdbc:mysql://54.180.140.55:3307/friendject?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
   
-  data:
-    web:
-      pageable:
-        one-indexed-parameters: 'true'
-  
-  http:
-    multipart:
-      enabled: 'false'
-      
-  mvc:
-    throw-exception-if-no-handler-found: 'true'
-    
   devtools:
     livereload:
       enabled: 'true'
@@ -52,11 +29,8 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 2MB
+      enabled: 'false'
       
-  resources:
-    static-locations: classpath:/dist/
-    add-mappings: 'false'
-    
 logging:
   level:
     org:
@@ -70,18 +44,4 @@ logging:
     
 server:
   port: 8081
-  compression:
-    enabled: 'true'
-    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
 
-build:
-  date: '@build.date@'
-  
-jwt:
-  expiration: '1296000000'
-  secret: dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa
-  
-springfox:
-  documentation:
-    swagger:
-      use-model-v3: 'false'

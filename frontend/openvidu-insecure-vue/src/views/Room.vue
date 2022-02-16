@@ -2,15 +2,15 @@
   <div class="container" fluid>
     <div class="main">
       <div class="main-container">
-        <div class="cursor"> 
-          <img style="width: 200px;" :src=profileUrl alt="my_minime"> 
+        <div class="cursor">
+          <img style="width: 200px;" :src="profileUrl" alt="my_minime" />
         </div>
         <!-- <img
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
-        <h4>팀 코드 : {{ $route.params.code }}</h4>
-        <h4>팀 네임 : {{ $route.params.name }}</h4>
+        <h4>팀 코드 : {{ this.$store.state.teamNumber }}</h4>
+        <h4>팀 네임 : {{ this.$store.state.teamName }}</h4>
         <button @click="leaveSession" value="Leave session">
           세션 나가기
         </button>
@@ -95,12 +95,10 @@
         </button>
         <span class="account-user"
           >{{ this.myUserName }}
-          <img
-            :src= profileUrl
-            alt=""
-            class="account-profile"
-          />
-          <a href="#profileModal"> <b-icon-pencil-square></b-icon-pencil-square></a>
+          <img :src="profileUrl" alt="" class="account-profile" />
+          <a href="#profileModal">
+            <b-icon-pencil-square></b-icon-pencil-square
+          ></a>
         </span>
       </div>
 
@@ -211,15 +209,14 @@
         </a>
         <h1>프로필 편집</h1>
         <img
-              :src= profileUrl
-              alt="profile_img"
-              class="user-img"
-              @error="replaceImg"
+          :src="profileUrl"
+          alt="profile_img"
+          class="user-img"
+          @error="replaceImg"
         />
-        <input id="input" @change="onInputImage" type="file" accept="image/*">
+        <input id="input" @change="onInputImage" type="file" accept="image/*" />
         <button class="btn" @click="onChangProfile(userEmail)">변경</button>
         <button class="btn" @click="onDeleteProfile(userEmail)">삭제</button>
-        
       </div>
     </div>
     <!-- chat -->
@@ -229,7 +226,7 @@
 
 <script>
 import axios from "axios";
-import jquery from 'jquery';
+import jquery from "jquery";
 import { getConsultLogList } from "@/api/consultroom.js";
 import { changProfile } from "@/api/room.js";
 import { OpenVidu } from "openvidu-browser";
@@ -244,7 +241,7 @@ import UserListRow from "../components/UserListRow.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "main",
+  name: "room",
 
   data() {
     return {
@@ -256,7 +253,7 @@ export default {
       publisher: undefined,
       subscribers: [],
       mySessionId: "",
-      teamName: "",
+      teamCode: "",
       message: "",
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
       // myUserName: "Participant" + Math.floor(Math.random() * 100),
@@ -284,9 +281,13 @@ export default {
     ...mapState(["kakaoId"]),
     ...mapState(["profileUrl"]),
     ...mapState(["userEmail"]),
+    ...mapState(["teamName"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
+  },
+  created() {
+    console.log(this.$route.params.code);
   },
   components: {
     Chat,
@@ -295,18 +296,17 @@ export default {
   },
   mounted() {
     this.joinSession();
-    jquery(document).ready(function(){
-    
-      jquery(document).mousemove(function(e){
-          var mouseX = e.pageX;
-          var mouseY = e.pageY;
+    jquery(document).ready(function() {
+      jquery(document).mousemove(function(e) {
+        var mouseX = e.pageX;
+        var mouseY = e.pageY;
 
-          jquery('.cursor').css({
-              left: mouseX + "px",
-              top : mouseY + "px"
-          })
-      })
-    })
+        jquery(".cursor").css({
+          left: mouseX + "px",
+          top: mouseY + "px",
+        });
+      });
+    });
   },
   methods: {
     ...mapActions(["setUserinfo"]),
@@ -636,36 +636,38 @@ export default {
     },
     //프로필 이미지
     replaceImg: function(event) {
-      event.target.src = "https://img.freepik.com/free-icon/x-symbol_318-1407.jpg"
+      event.target.src =
+        "https://img.freepik.com/free-icon/x-symbol_318-1407.jpg";
     },
     onInputImage: function(file) {
-        this.image = file.target.files[0]
-        console.log(this.image)
-      },
+      this.image = file.target.files[0];
+      console.log(this.image);
+    },
     onChangProfile: function(email) {
-      const imgfrm = new FormData() 
-      imgfrm.append('filename', this.image)
-        changProfile(
-          email,
-          imgfrm,
-          (res) => {
-            console.log(res.data + "프로필 변경");
-            this.setUserinfo;
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
+      const imgfrm = new FormData();
+      imgfrm.append("filename", this.image);
+      changProfile(
+        email,
+        imgfrm,
+        (res) => {
+          console.log(res.data + "프로필 변경");
+          this.setUserinfo;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     },
     onDeleteProfile: function(email) {
-      axios.patch(`http://localhost:8081/api/profile/empty/${email}`
-          ).then(res => {
-              console.log(res)
-              this.setUserinfo
-          })
-          .catch(err => {
-              console.log(err)
-          })
+      axios
+        .patch(`http://localhost:8081/api/profile/empty/${email}`)
+        .then((res) => {
+          console.log(res);
+          this.setUserinfo;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
@@ -679,14 +681,13 @@ export default {
 video {
   width: 100px;
 }
-.cursor { 
-		position:absolute; 
-		top:0px; 
-		left: 0px; 
-		z-index: 9999; 
-		width: 250px; 
-		height: 100px; 
-		transform:translate(-50%, -50%); 
+.cursor {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 9999;
+  width: 250px;
+  height: 100px;
+  transform: translate(-50%, -50%);
 }
-
 </style>

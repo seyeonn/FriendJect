@@ -40,14 +40,22 @@
         <p class="info" style="font-size:0.9rem;">
           팀원에게 받은 고유코드를 입력하세요!
         </p>
+        <b-input-group size="md">
+          <b-form-input
+            v-model="teamNum"
+            class="form-control"
+            type="text"
+          ></b-form-input>
+        </b-input-group>
         <!-- 이부분 현재 바인딩이 안됨. code 바인딩해서 넘겨주기 -->
-        <router-link 
-          :to="{ name: 'minime', 
-          params: { code: '123' }}" 
-          class="button">
+        <router-link
+          :to="{ name: 'minime', params: { code: '123' } }"
+          class="button"
+        >
           MINIME
         </router-link>
 
+        <b-button @click="checkTeamExists" class="button">ROOM</b-button>
         <button class="button" @click="setIn">
           <span>Join</span>
           <svg
@@ -75,13 +83,17 @@
         <article class="information [ card ]">
           <dl class="details">
             <div>
-              <dt>#2123</dt>
+              <dt># {{ this.teamnumtemp }}</dt>
               <dd>[2팀] 콘푸로스트</dd>
             </div>
           </dl>
-          <button class="button" style="background-color:#F9B225; color:white">
-            접속하기
-          </button>
+          <router-link
+            to="/room"
+            style="background-color:#F9B225; color:white"
+            tag="button"
+            @click.native="InlineButtonClickHandler"
+            >접속하기</router-link
+          >
         </article>
       </div>
     </div>
@@ -89,13 +101,81 @@
 </template>
 
 <script>
+import { getOneTeam, joinTeam } from "@/api/center.js";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "search",
   data() {
     return {
       message: "",
       test: "",
+      teamNum: "",
+      teamInfo: "",
+      teamnumtemp: 3243,
     };
+  },
+  computed: {
+    ...mapState(["teamId"]),
+    ...mapState(["teamNumber"]),
+    ...mapState(["teamName"]),
+  },
+  methods: {
+    ...mapActions(["setCurrentTeam"]),
+    InlineButtonClickHandler() {
+      //vuex에 저장 (teamName, teamId, teamNumber)
+      getOneTeam(
+        this.teamnumtemp,
+        (response) => {
+          this.setCurrentTeam({ ...response.data.data });
+          console.log(response.data.data);
+          this.$store.commit("setTeamId", response.data.data.id);
+          this.$store.commit("setTeamNumber", response.data.data.teamNumber);
+          this.$store.commit("setTeamName", response.data.data.name);
+        },
+        (error) => {
+          if (error.response) {
+            alert("존재하지 않는 팀 입니다.\n 팀 코드를 다시 확인해주세요");
+            this.$router.push({ name: "room" });
+          }
+        }
+      );
+    },
+    checkTeamExists() {
+      getOneTeam(
+        this.teamNum,
+        (response) => {
+          console.log(response.data.data);
+          console.log(localStorage.getItem("userId"));
+
+          this.teamInfo = {
+            userId: localStorage.getItem("userId"),
+            teamNumber: response.data.data.teamNumber,
+          };
+
+          console.log(this.teamInfo.teamNumber);
+          joinTeam(
+            this.teamInfo,
+            (response) => {
+              console.log(response.data);
+              //this.$router.push({ name: "room" });
+            },
+            (error) => {
+              if (error.response) {
+                console.log("이미 가입된 팀");
+                //this.$router.replace({ name: "room" });
+                //this.$router.push("/room/main");
+              }
+            }
+          );
+        },
+        (error) => {
+          if (error.response) {
+            alert("존재하지 않는 팀 입니다.\n 팀 코드를 다시 확인해주세요");
+            this.$router.push({ name: "room" });
+          }
+        }
+      );
+    },
   },
 };
 </script>

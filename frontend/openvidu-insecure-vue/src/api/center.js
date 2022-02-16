@@ -1,12 +1,30 @@
-import { icebreakingInstance } from "./index.js";
+import { apiInstance } from "./index.js";
 
-const api = icebreakingInstance();
+const api = apiInstance();
 
 function getQuestionList(success, fail) {
   api
-    .get(`questions`)
+    .get(`icebreaking/questions`)
     .then(success)
     .catch(fail);
 }
 
-export { getQuestionList };
+function getOneTeam(param, success, fail) {
+  api
+    .get("team", {
+      params: {
+        teamNumber: param,
+      },
+    })
+    .then(success)
+    .catch(fail);
+}
+
+function joinTeam(teamInfo, success, fail) {
+  api
+    .post(`team/join`, JSON.stringify(teamInfo))
+    .then(success)
+    .catch(fail);
+}
+
+export { getQuestionList, getOneTeam, joinTeam };
