@@ -85,6 +85,10 @@ export const store = new Vuex.Store({
       state.teamName = newTeamName;
       //localStorage.setItem("teamId", newTeamId);
     },
+    SET_ProfileUrl(state, newProfileUrl) {
+      state.profileUrl = newProfileUrl;
+      // localStorage.setItem("profileUrl", newProfileUrl);
+    },
   },
   actions: {
     setUserinfo: function({ commit }, userdata) {
@@ -95,6 +99,9 @@ export const store = new Vuex.Store({
     },
     setCurrentTeam: function({ commit }, teamInfo) {
       commit("SET_CURRENT_TEAM", teamInfo);
+    },
+    setProfileUrl: function({ commit }, userprofile) {
+      commit("SET_ProfileUrl", userprofile);
     },
   },
 });
