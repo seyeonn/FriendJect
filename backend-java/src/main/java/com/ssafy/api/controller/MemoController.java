@@ -2,13 +2,9 @@ package com.ssafy.api.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.api.request.MemoGetListReq;
 import com.ssafy.api.request.MemoListRegisterPostReq;
 import com.ssafy.api.request.MemoRegisterPostReq;
 import com.ssafy.api.response.MemoRes;
@@ -55,9 +52,10 @@ public class MemoController {
 	}
 	
 	@PostMapping("/memo/list")
-	@ApiOperation(value = "메모 리스트 작성", notes = "<strong> 메모를 리스트로 </strong> 작성한다. ") 
-	public ResponseEntity<? extends BaseResponseBody> uploadMemoList(@RequestBody List<MemoListRegisterPostReq> memoList, @RequestParam("status") MemoStatus memoStatus) throws IOException {
-		List<Memo> findMemos = memoService.findMemos(memoStatus);
+	@ApiOperation(value = "메모 리스트 작성", notes = "<strong> 메모를 리스트로 </strong> 등한다. ") 
+	public ResponseEntity<? extends BaseResponseBody> uploadMemoList(@RequestBody List<MemoListRegisterPostReq> memoList, @RequestParam("status") MemoStatus memoStatus, @RequestParam("teamId") Long teamId) throws IOException {
+		
+		List<Memo> findMemos = memoService.findMemoOfTeam(memoStatus, teamId);
 		
 		if (findMemos.size() < memoList.size()) { // memoStatus에 해당하는 메모 리스트가 줄어들었을 때
 			for (MemoListRegisterPostReq m : memoList) { 
@@ -71,13 +69,13 @@ public class MemoController {
 				}
 			}
 		} 
-		return ResponseFactory.badRequest();
+		return ResponseFactory.unauthorized();
 	}
 	
-	@GetMapping("/memo")
-	@ApiOperation(value = "메모 조회", notes = "<strong> 메모를 조회 </strong> 한다. ") 
-	public ResponseEntity<? extends BaseResponseBody> getMemoList(@RequestParam("status") MemoStatus memoStatus) {
-		List<Memo> findMemos = memoService.findMemos(memoStatus);
+	@GetMapping("/memo/list/{teamId}")
+	@ApiOperation(value = "메모 리스트 조회", notes = "<strong> 메모 리스트 조회 </strong> 한다. ") 
+	public ResponseEntity<? extends BaseResponseBody> getMemoList(@RequestParam("status") MemoStatus memoStatus, @PathVariable Long teamId) {
+		List<Memo> findMemos = memoService.findMemoOfTeam(memoStatus, teamId);
 		List<MemoRes> memoRes = findMemos.stream()
 				.map(m -> new MemoRes(m))
 				.collect(Collectors.toList());
