@@ -2,9 +2,6 @@
   <div class="container" fluid>
     <div class="main">
       <div class="main-container">
-        <div class="cursor"> 
-          <img style="width: 200px;" :src=profileUrl alt="my_minime"> 
-        </div>
         <!-- <img
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
@@ -218,7 +215,7 @@
         />
         <input id="input" @change="onInputImage" type="file" accept="image/*">
         <button class="btn" @click="onChangProfile(userEmail)">변경</button>
-        <button class="btn" @click="onDeleteProfile(userEmail)">삭제</button>
+        <button class="btn" @click="onInitProfile()">초기화</button>
         
       </div>
     </div>
@@ -229,7 +226,6 @@
 
 <script>
 import axios from "axios";
-import jquery from 'jquery';
 import { getConsultLogList } from "@/api/consultroom.js";
 import { changProfile } from "@/api/room.js";
 import { OpenVidu } from "openvidu-browser";
@@ -295,18 +291,6 @@ export default {
   },
   mounted() {
     this.joinSession();
-    jquery(document).ready(function(){
-    
-      jquery(document).mousemove(function(e){
-          var mouseX = e.pageX;
-          var mouseY = e.pageY;
-
-          jquery('.cursor').css({
-              left: mouseX + "px",
-              top : mouseY + "px"
-          })
-      })
-    })
   },
   methods: {
     ...mapActions(["setUserinfo"]),
@@ -657,15 +641,8 @@ export default {
           }
         );
     },
-    onDeleteProfile: function(email) {
-      axios.patch(`http://localhost:8081/api/profile/empty/${email}`
-          ).then(res => {
-              console.log(res)
-              this.setUserinfo
-          })
-          .catch(err => {
-              console.log(err)
-          })
+    onInitProfile: function() {
+      this.$router.push({name: 'minime'})  
     },
   },
 };
@@ -679,14 +656,4 @@ export default {
 video {
   width: 100px;
 }
-.cursor { 
-		position:absolute; 
-		top:0px; 
-		left: 0px; 
-		z-index: 9999; 
-		width: 250px; 
-		height: 100px; 
-		transform:translate(-50%, -50%); 
-}
-
 </style>
