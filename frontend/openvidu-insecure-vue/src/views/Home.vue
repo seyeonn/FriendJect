@@ -67,24 +67,36 @@ https://i.imgur.com/W7T9peT.png -->
           <b-row style="position: relative; top: 50px;">
             <b-col>
               <p>아이스브레이킹 타임</p>
+              
               <b-img
                 class="img"
                 src="https://i.imgur.com/WTNqLOC.png"
                 style="width:500px; height:500px;"
               ></b-img>
+
+              <b-img
+                class="gif"
+                src="https://user-images.githubusercontent.com/16666658/154550253-1c628c0b-d959-447a-82c7-4103fd500363.gif"
+                
+              ></b-img>
             </b-col>
 
             <b-col>
-              <p>브로드캐스팅 강제 투표</p>
+              <p> 투표 생성 기능</p>
               <b-img
                 class="img"
                 src="https://i.imgur.com/hmUi8wk.png"
                 style="width:500px; height:500px;"
               ></b-img>
+              <b-img
+                class="gif"
+                src="https://user-images.githubusercontent.com/16666658/154548119-d34b5993-9bc8-4b37-98b5-26857c0c18be.gif"
+                
+              ></b-img>
             </b-col>
           </b-row>
 
-          <b-row style="position: relative; top: -50px;">
+          <b-row style="position: relative; top: -300px;">
             <b-col>
               <p>사용중인 프로그램 탐지</p>
               <b-img
@@ -349,5 +361,12 @@ https://i.imgur.com/HN34fr6.jpg */
 .step1 {
   position: relative;
   left: 0px;
+}
+
+.gif {
+  position: relative;
+  top: -480px;
+  width:350px;
+  height:250px;
 }
 </style>
