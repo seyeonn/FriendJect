@@ -17,9 +17,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      password: ssafyb202t
-      username: friendject
-    url: jdbc:mysql://54.180.140.55:3307/friendject?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+      password: ssafy
+      username: root
+    url: jdbc:mysql://localhost:3306/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
   
   devtools:
     livereload:
@@ -27,9 +27,8 @@ spring:
       
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-      enabled: 'false'
+      max-file-size: 5MB
+      max-request-size: 5MB
       
 logging:
   level:

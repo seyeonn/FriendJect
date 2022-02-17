@@ -1,6 +1,5 @@
 <template>
   <!-- 메인이 되는 부분 -->
-
   <div>
     <!-- 반응형 메인 이미지 코드!! 주석 처리 되었으나, 재사용 할거같으니 지우지 마세용!!! -->
     <!-- <b-img :src="require('./assets/images/main.png')" fluid-gro></b-img> -->
@@ -15,7 +14,7 @@
 
 <script>
 import Header from "./components/layout/Header.vue";
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -30,7 +29,6 @@ export default {
     ...mapGetters(["isLogin"]),
   },
   methods: {
-    ...mapActions(["setLoginUsers"]),
     logout() {
       this.$store.commit("deleteToken");
       this.$router.replace("/");
@@ -40,9 +38,13 @@ export default {
     const accessToken = localStorage.getItem("accessToken") || "";
     const kakaoId = localStorage.getItem("kakaoId") || "";
     const userName = localStorage.getItem("myUserName") || "";
+    const profile = localStorage.getItem("profileUrl") || "";
+    const userEmail = localStorage.getItem("userEmail") || "";
     this.$store.commit("setToken", accessToken);
     this.$store.commit("setKakaoId", kakaoId);
     this.$store.commit("setUserName", userName);
+    this.$store.commit("SET_PROFILEURL", profile);
+    this.$store.commit("SET_USEREMAIL", userEmail);
   },
 };
 </script>

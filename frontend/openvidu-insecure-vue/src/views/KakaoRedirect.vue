@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     ...mapActions(["setUserinfo"]),
-    kako_api: function() {
+    kako_api: function () {
       axios
         .post(SIGNUP_URL, {
           code: this.$route.query.code,
@@ -40,6 +40,7 @@ export default {
     },
   },
   mounted() {
+    alert(this.$route.query.code);
     this.kako_api();
     // console.log(this.$route.query.code);
     // this.$router.replace("/join");

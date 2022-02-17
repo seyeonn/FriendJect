@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="macbook" style="margin-top:5%">
+    <div class="macbook" style="margin-top: 5%">
       <div class="inner">
         <div class="screen">
           <div class="face-one">
@@ -105,12 +105,10 @@
       <div class="shadow"></div>
     </div>
     <div class="wrapper">
-      <div class="typing-demo">
-        비대면 프로젝트도 대면처럼.
-      </div>
+      <div class="typing-demo">비대면 프로젝트도 대면처럼.</div>
     </div>
     <!-- <img src="@/assets/images/main.png" style="height:600px;" /> -->
-    <div style="height:400px; background-color:#F9E7AD;"></div>
+    <div style="height: 400px; background-color: #f9e7ad"></div>
     <button @click="callHello()">hello world</button>
   </div>
 </template>
@@ -121,9 +119,10 @@ export default {
   methods: {
     callHello() {
       axios
-        .get("http://localhost:8081/api/hello")
+        .get("https://i6b202.p.ssafy.io/api/hello")
         .then((res) => {
           console.log(res);
+          alert(res);
           alert("hello");
         })
         .catch((err) => {

@@ -2,15 +2,16 @@
   <div class="container" fluid>
     <div class="main">
       <div class="main-container">
+        <div class="cursor">
+          <img style="width: 200px;" :src="profileUrl" alt="my_minime" />
+        </div>
         <!-- <img
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
         <h4>팀 코드 : {{ this.$store.state.teamNumber }}</h4>
         <h4>팀 네임 : {{ this.$store.state.teamName }}</h4>
-        <button @click="leaveSession" value="Leave session">
-          세션 나가기
-        </button>
+        <button @click="leaveSession" value="Leave session">세션 나가기</button>
         <input
           type="button"
           class="btn btn-info"
@@ -22,18 +23,18 @@
 
           <user-video
             :stream-manager="mainStreamManager"
-            style="width:200px;"
+            style="width: 200px"
           ></user-video>
 
           <!-- 화면공유 캠 -->
           <user-video
             :stream-manager="screenShare"
-            style="width:200px;"
+            style="width: 200px"
           ></user-video>
 
           <!-- 접속자 캠 -->
           <user-video
-            style="width:200px;"
+            style="width: 200px"
             v-for="sub in subscribers"
             :key="sub.stream.connection.connectionId"
             :stream-manager="sub"
@@ -93,20 +94,20 @@
             />
           </svg>
         </button>
-        <span class="account-user"
-          >{{ this.myUserName }}
-          <img :src="profileUrl" alt="" class="account-profile" />
-          <a href="#profileModal">
-            <b-icon-pencil-square></b-icon-pencil-square
-          ></a>
-        </span>
+        <span class="account-user">{{ this.myUserName }}</span>
       </div>
 
-      <div style="text-align:center;" v-on:click="getLog">
+      <span class="account-user">
+        <img :src="profileUrl" alt="" class="account-profile" />
+        <a href="#profileModal">
+          <b-icon-pencil-square></b-icon-pencil-square
+        ></a>
+      </span>
+      <div style="text-align: center" v-on:click="getLog">
         <a href="#consultLog"> <img src="https://i.imgur.com/TomnxTd.png" style="width: 160px;"/> </a>
       </div>
 
-      <div style="text-align:center;">
+      <div style="text-align: center">
         <!-- 투표는 openvidu의 브로드캐스팅 참고해야할듯.. -->
         <a href="#vot"> <img src="https://i.imgur.com/BPgngsm.png" style="width: 160px;"/> </a>
       </div>
@@ -123,8 +124,10 @@
     </div>
 
     <!-- 상담 모달 -->
+
     <div id="consultLog" class="modal-consult">
       <div style="width:70%">
+
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
@@ -160,17 +163,19 @@
 
     <!-- 투표 모달 -->
     <div id="vot" class="modal-vot">
-      <div style="width:40%">
+      <div style="width: 40%">
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
 
-        <img src="https://i.imgur.com/H6aJjTA.png" style="
-        width: 400px;
+        <img
+          src="https://i.imgur.com/H6aJjTA.png"
+          style="width: 400px;
         height: 150px;
-        margin-left: -50;
+        margin-left: -50px;
         margin-top: -20px;
-        "/>
+        "
+        />
         <!-- <div><small>Check out</small></div> -->
         <div>
           질문
@@ -178,7 +183,7 @@
             v-model="votTitle"
             type="text"
             class="form-control"
-            style="width:80%"
+            style="width: 80%"
             placeholder="투표 질문을 입력해주세요."
           />
           <br />
@@ -188,15 +193,17 @@
         <button @click="add" class="w-btn w-btn-indigo">답변 추가</button>
 
         <div v-for="item in items" :key="item.idx">
-          {{item.index }}. <input v-model="item.value" class="voteinput" /> 
-          <button @click="del" class="delb"><b-icon icon="x-circle-fill" scale="2" variant="white"></b-icon></button>
+          {{ item.index }}. <input v-model="item.value" class="voteinput" />
+          <button @click="del" class="delb">
+            <b-icon icon="x-circle-fill" scale="2" variant="white"></b-icon>
+          </button>
         </div>
 
         <!-- {{ items }} -->
 
         <div>
           <b-form-checkbox v-model="checked" name="check-button" switch>
-            강제 투표 
+            강제 투표
             <!-- <b>(Checked: {{ checked }})</b> -->
           </b-form-checkbox>
         </div>
@@ -207,7 +214,8 @@
               'http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3'
             )
           "
-        class="w-btn w-btn-green" >
+          class="w-btn w-btn-green"
+        >
           audioPlayer
         </button>
 
@@ -235,6 +243,7 @@
         />
         <input id="input" @change="onInputImage" type="file" accept="image/*" />
         <button class="btn" @click="onChangProfile(userEmail)" style="margin-top: 10px">변경</button>
+        <button class="btn" @click="onDeleteProfile(userEmail)" style="margin-top: 10px">삭제</button>
         <button class="btn" @click="onInitProfile" style="margin-top: 10px">초기화</button>
       </div>
     </div>
@@ -245,6 +254,8 @@
 
 <script>
 import axios from "axios";
+import jquery from "jquery";
+import { API_BASE_URL } from "@/config";
 import { getConsultLogList } from "@/api/consultroom.js";
 import { changProfile } from "@/api/room.js";
 import { OpenVidu } from "openvidu-browser";
@@ -314,14 +325,25 @@ export default {
   },
   mounted() {
     this.joinSession();
+    jquery(document).ready(function() {
+      jquery(document).mousemove(function(e) {
+        var mouseX = e.pageX;
+        var mouseY = e.pageY;
+
+        jquery(".cursor").css({
+          left: mouseX + "px",
+          top: mouseY + "px",
+        });
+      });
+    });
   },
   methods: {
-    ...mapActions(["setUserinfo"]),
     ...mapActions([
       "set_consult_room_member",
       "set_consult_question",
       "push_sub",
       "set_sesstion_id",
+      "setProfileUrl",
     ]),
 
     play: function(sound) {
@@ -336,11 +358,11 @@ export default {
       this.items.push({ index: this.items_cnt, value: "" });
     },
     del: function() {
-      if (this.items.length > 0) { 
-     this.items.pop(); 
-     this.items_cnt--;
-     //arrInputValue.pop();
-  }
+      if (this.items.length > 0) {
+        this.items.pop();
+        this.items_cnt--;
+        //arrInputValue.pop();
+      }
     },
     randomNumber: function() {
       var num = Math.floor(Math.random() * 10000) + 1000;
@@ -665,15 +687,28 @@ export default {
         imgfrm,
         (res) => {
           console.log(res.data + "프로필 변경");
-          this.setUserinfo;
+          this.setProfileUrl(
+            API_BASE_URL + "profile/image/" + email + "/" + this.image.name
+          );
         },
         (err) => {
           console.log(err);
         }
       );
     },
+    onDeleteProfile: function(email) {
+      axios
+        .patch(`http://localhost:8081/api/profile/empty/${email}`)
+        .then((res) => {
+          console.log(res);
+          this.setUserinfo;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     onInitProfile: function() {
-      this.$router.push({name: 'minime'})  
+      this.$router.push({ name: "minime" });
     },
   },
 };
@@ -687,6 +722,7 @@ export default {
 video {
   width: 100px;
 }
+
 button {
   background-color: rgba(234, 237, 240, 0.842);
   color: #f9b225;
@@ -702,5 +738,14 @@ button {
   transition: 0.25s;
   margin-right: 5px;
   margin-bottom: 5px;
+}
+.cursor {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 9999;
+  width: 250px;
+  height: 100px;
+  transform: translate(-50%, -50%);
 }
 </style>

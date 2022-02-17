@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,7 +25,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class User {
 	
-	@Id	@GeneratedValue
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private Long id; 
 	
@@ -34,9 +36,12 @@ public class User {
 	private String accessToken;
 	private String nickName;
 	private String profileUrl;
-	private Integer sessionState;
 	
 	@OneToMany(mappedBy = "user")
 	private List<JoinedTeamList> teamList = new ArrayList<>();
  
+	public void addTeamList(JoinedTeamList joinedTeamList) {
+		teamList.add(joinedTeamList);
+		joinedTeamList.setUser(this);
+	}
 }
