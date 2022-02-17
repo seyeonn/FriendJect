@@ -74,11 +74,12 @@ export default {
           alt: "winter_tiger",
         },
       ],
+      userEmail: localStorage.getItem("userEmail"),
     };
   },
   computed: {
     ...mapState(["profileUrl"]),
-    ...mapState(["userEmail"]),
+    // ...mapState(["userEmail"]),
   },
   methods: {
     onSelectImage(objectImage) {

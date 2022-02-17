@@ -1,6 +1,5 @@
 package com.ssafy.db.entity;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,11 +36,11 @@ public class User {
 	private String nickName;
 	private String profileUrl;
 	
-	@OneToMany(mappedBy = "user")
-	private List<JoinedTeamList> teamList = new ArrayList<>();
- 
-	public void addTeamList(JoinedTeamList joinedTeamList) {
-		teamList.add(joinedTeamList);
-		joinedTeamList.setUser(this);
-	}
+//	@OneToMany(mappedBy = "user")
+//	private List<JoinedTeamList> teamList = new ArrayList<>();
+// 
+//	public void addTeamList(JoinedTeamList joinedTeamList) {
+//		teamList.add(joinedTeamList);
+//		joinedTeamList.setUser(this);
+//	}
 }

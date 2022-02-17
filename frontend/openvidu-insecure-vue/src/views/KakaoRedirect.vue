@@ -28,6 +28,8 @@ export default {
           this.$store.commit("setToken", res.data.accessToken);
           this.$store.commit("setKakaoId", res.data.kakaoId);
           this.$store.commit("setUserName", res.data.nickName);
+          this.$store.commit("SET_USEREMAIL", res.data.userEmail);
+          this.$store.commit("SET_PROFILEURL", res.data.profileUrl);
           this.$store.commit("setUserId", res.data.id);
 
           this.$router.replace("/main");
