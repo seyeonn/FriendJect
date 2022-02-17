@@ -183,7 +183,6 @@ export default {
           documentItem,
           (res) => {
             console.log(res.data + "번 글 작성완료");
-            location.reload();
           },
           (err) => {
             console.log(err);
@@ -202,7 +201,6 @@ export default {
           documentItem,
           (res) => {
             console.log(res.data + "번 글 수정완료");
-            location.reload();
           },
           (err) => {
             console.log(err);
@@ -216,7 +214,6 @@ export default {
         targetId,
         (res) => {
           console.log(res.data + "번 글 삭제완료");
-          location.reload();
         },
         (error) => {
           console.log(error);
