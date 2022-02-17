@@ -42,8 +42,8 @@
               <td>
                 {{ randomUploader() }}
               </td>
-              <td>{{ returnFileSize(file.size) }}</td>
-              <td>{{ timeForToday(file.modifiedDate) }}</td>
+              <td>{{ this.returnFileSize(file.size) }}</td>
+              <td>{{ this.timeForToday(file.modifiedDate) }}</td>
             </tr>
           </tbody>
         </table>
