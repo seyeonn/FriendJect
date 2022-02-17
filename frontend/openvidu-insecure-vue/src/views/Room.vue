@@ -103,7 +103,7 @@
       </div>
 
       <span class="account-user">
-        <img :src="profileUrl" alt="" class="account-profile" />
+        <img :src="profileUrl" alt="" class="account-profile" @error="replaceImg" />
         <a href="#profileModal">
           <b-icon-pencil-square></b-icon-pencil-square
         ></a>
@@ -302,13 +302,6 @@
           style="margin-top: 10px"
         >
           변경
-        </button>
-        <button
-          class="btn"
-          @click="onDeleteProfile(userEmail)"
-          style="margin-top: 10px"
-        >
-          삭제
         </button>
         <button class="btn" @click="onInitProfile" style="margin-top: 10px">
           초기화
@@ -753,7 +746,7 @@ export default {
     //프로필 이미지
     replaceImg: function (event) {
       event.target.src =
-        "https://img.freepik.com/free-icon/x-symbol_318-1407.jpg";
+        "https://user-images.githubusercontent.com/83205029/153934715-f7d13f2d-52c0-4f9a-bcb8-7c91defcd6d2.png";
     },
     onInputImage: function (file) {
       this.image = file.target.files[0];
@@ -775,17 +768,6 @@ export default {
           console.log(err);
         }
       );
-    },
-    onDeleteProfile: function (email) {
-      axios
-        .patch(`http://localhost:8081/api/profile/empty/${email}`)
-        .then((res) => {
-          console.log(res);
-          this.setUserinfo;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
     onInitProfile: function () {
       this.$router.push({ name: "minime" });
