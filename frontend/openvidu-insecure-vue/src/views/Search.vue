@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="overflow:auto; height:100%;">
     <div class="cards" style="width: 100%">
       <article
         class="information [ card ]"
@@ -50,15 +50,8 @@
             type="text"
           ></b-form-input>
         </b-input-group>
-        <!-- 이부분 현재 바인딩이 안됨. code 바인딩해서 넘겨주기 -->
-        <router-link
-          :to="{ name: 'minime', params: { code: '123' } }"
-          class="button"
-        >
-          MINIME
-        </router-link>
-
-        <b-button @click="checkTeamExists" class="button">ROOM</b-button>
+        <br />
+        <!-- <b-button @click="checkTeamExists" class="button">ROOM</b-button> -->
         <button class="button" @click="checkTeamExists">
           <span>Join</span>
           <svg
@@ -78,7 +71,7 @@
       </article>
     </div>
 
-    <div>
+    <div style="height:800px;">
       <h2 style="color: #3d3d3c; margin-left: 10%">참여중인 프로젝트</h2>
       <!-- 이부분 접속 했던 이력을 for 문으로 나타내기 -->
       <div class="cards" style="width: 100%">
@@ -97,7 +90,7 @@
             to="/room"
             style="background-color: #f9b225; color: white"
             tag="button"
-            @click.native="goToRoom(value.id)"
+            @click.native="goToRoom(value.teamNumber)"
             >접속하기</router-link
           >
         </article>
@@ -116,14 +109,15 @@ export default {
       message: "",
       test: "",
       teamNum: "",
+      teamName: "",
       teamInfo: "",
+      teamTempInfo: "",
       userId: localStorage.getItem("userId"),
       teams: [],
     };
   },
   created() {
     // 참여중인 프로젝트 목록
-    console.log(this.userId);
     getTeamList(
       this.userId,
       (response) => {
@@ -139,19 +133,22 @@ export default {
   computed: {
     ...mapState(["teamId"]),
     ...mapState(["teamNumber"]),
-    ...mapState(["teamName"]),
   },
   methods: {
     ...mapActions(["setCurrentTeam"]),
     // 참여중인 프로젝트 접속
-    goToRoom(id) {
-      console.log(id);
+    goToRoom(number) {
       //vuex에 저장 (teamName, teamId, teamNumber)
       getOneTeam(
-        id,
+        number,
         (response) => {
-          this.setCurrentTeam({ ...response.data.data });
           console.log(response.data.data);
+          this.teamInfo = {
+            ...response.data.data,
+            teamName: response.data.data.name,
+          };
+          this.setCurrentTeam({ ...this.teamInfo });
+
           this.$store.commit("setTeamId", response.data.data.id);
           this.$store.commit("setTeamNumber", response.data.data.teamNumber);
           this.$store.commit("setTeamName", response.data.data.name);
@@ -173,29 +170,39 @@ export default {
           console.log(response.data.data);
 
           this.teamInfo = {
-            userId: this.userId,
-            teamNumber: response.data.data.teamNumber,
+            ...response.data.data,
+            teamName: response.data.data.name,
           };
 
-          console.log(this.teamInfo.teamNumber);
+          this.teamTempInfo = {
+            userId: this.userId,
+            teamNumber: this.teamNum,
+          };
+          console.log(this.teamTempInfo);
           joinTeam(
-            this.teamInfo,
+            this.teamTempInfo,
             (response) => {
-              console.log(response.data);
-              //this.$router.push({ name: "room" });
+              //store에 현재 생성된 팀 정보 저장
+              this.setCurrentTeam({
+                ...this.teamInfo,
+              });
+              // localStorage에 teamId 갱신해주는 역할
+              localStorage.setItem("teamId", response.data.data);
+              // this.$router.push({ name: "room" });
+              this.$router.push({ name: "minime" });
             },
             (error) => {
               if (error.response) {
-                console.log("이미 가입된 팀");
-                //this.$router.replace({ name: "room" });
-                //this.$router.push("/room/main");
+                alert(
+                  "이미 가입된 팀입니다.\n참여중인 프로젝트를 다시 확인해주세요."
+                );
               }
             }
           );
         },
         (error) => {
           if (error.response) {
-            alert("존재하지 않는 팀 입니다.\n 팀 코드를 다시 확인해주세요");
+            alert("존재하지 않는 팀 입니다.\n팀 코드를 다시 확인해주세요.");
             this.$router.go();
           }
         }
@@ -203,8 +210,10 @@ export default {
     },
     // 팀 생성
     randomNumber() {
-      this.teamNum = Math.random().toString(36).substr(2, 11);
-      console.log(this.teamNum);
+      this.teamNum = Math.random()
+        .toString(36)
+        .substr(2, 11);
+
       createTeam(
         {
           userId: localStorage.getItem("userId"),
@@ -212,9 +221,21 @@ export default {
           teamNum: this.teamNum,
         },
         (response) => {
-          this.arrTodo = response.data.data;
+          console.log(response.data.data); // team_id 반환
+
+          this.teamInfo = {
+            teamId: response.data.data,
+            teamName: this.teamName,
+            teamNumber: this.teamNum,
+          };
+          //store에 현재 생성된 팀 정보 저장
+          this.setCurrentTeam({
+            ...this.teamInfo,
+          });
+          // localStorage에 teamId 갱신해주는 역할
+          localStorage.setItem("teamId", response.data.data);
+
           // 팀 생성과 동시에 이동
-          // TODO 바로 복사 되는 기능?
           this.$router.push({ name: "minime" }); // 화면이 안 움직임 아놔
         },
         (error) => {
