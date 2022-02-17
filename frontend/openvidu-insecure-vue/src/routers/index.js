@@ -8,7 +8,7 @@ import Center from "../components/layout/Center.vue";
 import Minime from "../views/Minime.vue";
 //consult room
 import Consult from "../views/ConsultRoom.vue";
-
+import PageNotFound from "../views/PageNotFound.vue";
 // project room
 import Project from "../views/Project.vue";
 import MemoBoard from "../components/projectroom/MemoBoard.vue";
@@ -91,6 +91,15 @@ export const router = new VueRouter({
       path: "/consultroom",
       name: "consultroom",
       component: Consult,
+    },
+    {
+      path: "/404",
+      name: "notFound",
+      component: PageNotFound,
+    },
+    {
+      path: "*",
+      redirect: "/404",
     },
     {
       path: "/studyroom",
