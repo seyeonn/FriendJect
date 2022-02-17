@@ -8,9 +8,7 @@
           /> -->
         <h4>팀 코드 : {{ this.$store.state.teamNumber }}</h4>
         <h4>팀 네임 : {{ this.$store.state.teamName }}</h4>
-        <button @click="leaveSession" value="Leave session">
-          세션 나가기
-        </button>
+        <button @click="leaveSession" value="Leave session">세션 나가기</button>
         <input
           type="button"
           class="btn btn-info"
@@ -22,18 +20,18 @@
 
           <user-video
             :stream-manager="mainStreamManager"
-            style="width:200px;"
+            style="width: 200px"
           ></user-video>
 
           <!-- 화면공유 캠 -->
           <user-video
             :stream-manager="screenShare"
-            style="width:200px;"
+            style="width: 200px"
           ></user-video>
 
           <!-- 접속자 캠 -->
           <user-video
-            style="width:200px;"
+            style="width: 200px"
             v-for="sub in subscribers"
             :key="sub.stream.connection.connectionId"
             :stream-manager="sub"
@@ -99,11 +97,11 @@
         </span>
       </div>
 
-      <div style="text-align:center;" v-on:click="getLog">
+      <div style="text-align: center" v-on:click="getLog">
         <a href="#consultLog"> <div>상담내역보기</div> </a>
       </div>
 
-      <div style="text-align:center;">
+      <div style="text-align: center">
         <!-- 투표는 openvidu의 브로드캐스팅 참고해야할듯.. -->
         <a href="#vot"> <div>투표 생성하기</div> </a>
       </div>
@@ -121,7 +119,7 @@
 
     <!-- 상담 모달 -->
     <div id="consultLog" class="modal-window">
-      <div style="width:70%">
+      <div style="width: 70%">
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
@@ -152,17 +150,20 @@
 
     <!-- 투표 모달 -->
     <div id="vot" class="modal-vot">
-      <div style="width:40%">
+      <div style="width: 40%">
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
 
-        <img src="https://i.imgur.com/H6aJjTA.png" style="
-        width: 400px;
-        height: 150px;
-        margin-left: -50;
-        margin-top: -20px;
-        "/>
+        <img
+          src="https://i.imgur.com/H6aJjTA.png"
+          style="
+            width: 400px;
+            height: 150px;
+            margin-left: -50;
+            margin-top: -20px;
+          "
+        />
         <!-- <div><small>Check out</small></div> -->
         <div>
           질문
@@ -170,7 +171,7 @@
             v-model="votTitle"
             type="text"
             class="form-control"
-            style="width:80%"
+            style="width: 80%"
             placeholder="투표 질문을 입력해주세요."
           />
           <br />
@@ -180,15 +181,17 @@
         <button @click="add" class="w-btn w-btn-indigo">답변 추가</button>
 
         <div v-for="item in items" :key="item.idx">
-          {{item.index }}. <input v-model="item.value" class="voteinput" /> 
-          <button @click="del" class="delb"><b-icon icon="x-circle-fill" scale="2" variant="white"></b-icon></button>
+          {{ item.index }}. <input v-model="item.value" class="voteinput" />
+          <button @click="del" class="delb">
+            <b-icon icon="x-circle-fill" scale="2" variant="white"></b-icon>
+          </button>
         </div>
 
         <!-- {{ items }} -->
 
         <div>
           <b-form-checkbox v-model="checked" name="check-button" switch>
-            강제 투표 
+            강제 투표
             <!-- <b>(Checked: {{ checked }})</b> -->
           </b-form-checkbox>
         </div>
@@ -199,7 +202,8 @@
               'http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3'
             )
           "
-        class="w-btn w-btn-green" >
+          class="w-btn w-btn-green"
+        >
           audioPlayer
         </button>
 
@@ -310,30 +314,30 @@ export default {
       "set_sesstion_id",
     ]),
 
-    play: function(sound) {
+    play: function (sound) {
       if (sound) {
         var audio = new Audio(sound);
         audio.play();
       }
     },
 
-    add: function() {
+    add: function () {
       this.items_cnt++;
       this.items.push({ index: this.items_cnt, value: "" });
     },
-    del: function() {
-      if (this.items.length > 0) { 
-     this.items.pop(); 
-     this.items_cnt--;
-     //arrInputValue.pop();
-  }
+    del: function () {
+      if (this.items.length > 0) {
+        this.items.pop();
+        this.items_cnt--;
+        //arrInputValue.pop();
+      }
     },
-    randomNumber: function() {
+    randomNumber: function () {
       var num = Math.floor(Math.random() * 10000) + 1000;
       this.mySessionId = num;
       this.joinSession;
     },
-    changeTab: function(value) {
+    changeTab: function (value) {
       this.currentTab = value;
       if (this.currentTab == "Con102sultRoom") {
         //여기서 카운트를 늘려줘야함, 누른사람 아이디 넘겨주기.
@@ -342,7 +346,7 @@ export default {
         alert("접속");
       }
     },
-    getLog: function() {
+    getLog: function () {
       console.log("상담 기록 조회");
       this.log = [];
       // TODO: userId 불러와야함!!
@@ -358,7 +362,7 @@ export default {
         }
       );
     },
-    exit: function() {
+    exit: function () {
       this.currentTab = "Center";
     },
 
@@ -367,7 +371,7 @@ export default {
     },
 
     // openvidu methods
-    joinSession: function() {
+    joinSession: function () {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -635,15 +639,15 @@ export default {
       }
     },
     //프로필 이미지
-    replaceImg: function(event) {
+    replaceImg: function (event) {
       event.target.src =
         "https://img.freepik.com/free-icon/x-symbol_318-1407.jpg";
     },
-    onInputImage: function(file) {
+    onInputImage: function (file) {
       this.image = file.target.files[0];
       console.log(this.image);
     },
-    onChangProfile: function(email) {
+    onChangProfile: function (email) {
       const imgfrm = new FormData();
       imgfrm.append("filename", this.image);
       changProfile(
@@ -658,8 +662,8 @@ export default {
         }
       );
     },
-    onInitProfile: function() {
-      this.$router.push({name: 'minime'})  
+    onInitProfile: function () {
+      this.$router.push({ name: "minime" });
     },
   },
 };
