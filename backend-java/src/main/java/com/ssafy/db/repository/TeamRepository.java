@@ -10,5 +10,5 @@ import com.ssafy.db.entity.Team;
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
-	Optional<Team> findByTeamNumber(String teamNumber);
+	Optional<Team> findById(Long teamId);
 }
