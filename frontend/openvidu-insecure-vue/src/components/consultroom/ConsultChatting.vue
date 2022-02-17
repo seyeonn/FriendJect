@@ -35,7 +35,7 @@
             name: 'save',
             bindKey: { win: 'Ctrl-S', mac: 'Command-S' },
             exec: dataSumit,
-            readOnly: true,
+            readOnly: false,
           },
         ]"
       />
@@ -127,6 +127,7 @@
 
 <script>
 import AceEditor from "vuejs-ace-editor";
+import {mapActions} from "vuex";
 
 export default {
   data() {
@@ -144,11 +145,13 @@ export default {
   },
 
   methods: {
+   ...mapActions(["set_code"]),
     dataSumit() {
       //code here
       alert("소스코드가 정상적으로 저장되었습니다.");
       this.saveCode = this.content;
       console.log(this.content);
+      this.set_code(this.saveCode);
     },
     editorInit: function () {
       require("brace/ext/language_tools"); //language extension prerequsite...
