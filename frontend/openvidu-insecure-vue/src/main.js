@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import Vuex from "vuex";
-import { router } from "./routers/index.js";
+import router from './router'
 import { store } from "../store/index.js";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
@@ -15,6 +15,7 @@ Vue.use(IconsPlugin);
 Vue.use(Vuex);
 
 Vue.config.productionTip = false;
+
 
 new Vue({
   render: (h) => h(App),

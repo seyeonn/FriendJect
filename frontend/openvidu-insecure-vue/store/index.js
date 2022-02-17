@@ -94,6 +94,12 @@ export const store = new Vuex.Store({
       state.userEmail = newUserEmail;
       localStorage.setItem("userEmail", newUserEmail);
     },
+    SET_OV(state, ov) {
+      state.store_ov = ov;
+    },
+    SET_SESSTION(state, session) {
+      state.store_session = session;
+    }
   },
   actions: {
     setUserinfo: function({ commit }, userdata) {
@@ -108,5 +114,11 @@ export const store = new Vuex.Store({
     setUserEmail: function({ commit }, userEmail) {
       commit("SET_USEREMAIL", userEmail);
     },
+    set_ov({commit}, ov) {
+      commit("SET_OV", ov);
+    },
+    set_session({commit}, session) {
+      commit("SET_SESSOIN", session);
+    }
   },
 });

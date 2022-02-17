@@ -1,4 +1,4 @@
-.modal-window {
+.modal-profile {
     position: fixed;
     background-color: rgba(94, 93, 93, 0.25);
     top: 0;
@@ -22,7 +22,8 @@
       left: 40%;
       transform: translate(-50%, -50%);
       padding: 2em;
-      background: white;
+      background: rgb(214, 237, 252);
+      border: #72b5ec solid 5px;
     }
     header {
       font-weight: bold;
@@ -58,13 +59,13 @@
   
   
   
-  .modal-window {
+  .modal-profile {
     & > div {
       border-radius: 1rem;
     }
   }
   
-  .modal-window div:not(:last-of-type) {
+  .modal-profile div:not(:last-of-type) {
     margin-bottom: 15px;
   }
   
@@ -107,6 +108,7 @@
       transform: translate(-50%, -50%);
       padding: 2em;
       background: rgb(255, 212, 148);
+      border: #fdb556 solid 5px;
     }
     header {
       font-weight: bold;
@@ -203,4 +205,50 @@
   .voteinput {
     border: 2px solid #519d9e;
     border-radius: 10px;
+  }
+
+  .modal-consult {
+    position: fixed;
+    background-color: rgba(94, 93, 93, 0.25);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    &:target {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    & > div {
+      width: 400px;
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      transform: translate(-50%, -50%);
+      padding: 2em;
+      background: #f1dc96;
+      border: #e9c962 solid 5px;
+    }
+    header {
+      font-weight: bold;
+    }
+    h1 {
+      font-size: 150%;
+      margin: 0 0 15px;
+    }
+  }
+  
+  .modal-consult {
+    & > div {
+      border-radius: 1rem;
+    }
+  }
+  
+  .modal-consult div:not(:last-of-type) {
+    margin-bottom: 15px;
   }
