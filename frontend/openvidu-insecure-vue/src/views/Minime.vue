@@ -13,8 +13,8 @@
 
 <script>
 import VueSelectImage from 'vue-select-image'
-import axios from 'axios'
 import { mapState } from "vuex";
+import { selectMinimi } from "@/api/room.js";
 
 export default {
     name: "minime",
@@ -74,19 +74,22 @@ export default {
             }
         },
         postMinime: function(email) {
-            if(this.singleSelected.src) {
-            axios.patch(`http://localhost:8081/api/profile/minime/${email}`, {
+          if(this.singleSelected.src) {
+            selectMinimi(
+              email, 
+              {
                 profileUrl: this.singleSelected.src
-                }).then(res => {
-                    console.log(res)
-                    this.$store.commit("SET_ProfileUrl", this.singleSelected.src);
-                    // this.setUserinfo 업데이트된 미니미로 변경x 수정필요
-                    this.$router.push({ name: 'room'})
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-            }
+              }, 
+              (res) => {
+                console.log(res);
+                this.$store.commit("SET_PROFILEURL", this.singleSelected.src);
+                this.$router.push({ name: 'room'});
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
+          }
         },
     },
 }
