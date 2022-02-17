@@ -42,8 +42,8 @@
               <td>
                 {{ randomUploader() }}
               </td>
-              <td>{{ file.returnSize }}</td>
-              <td>{{ file.modifiedAt }}</td>
+              <td>{{ file.size }}</td>
+              <td>{{ file.modifiedDate }}</td>
             </tr>
           </tbody>
         </table>
