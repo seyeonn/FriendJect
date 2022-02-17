@@ -46,7 +46,7 @@ public class ProfileController {
 	
 	@PatchMapping("/{userEmail}")
 	public String image_insert(@PathVariable String userEmail, @RequestParam(value = "filename", required = false) MultipartFile mFile) throws Exception {
-		String upload_path = "\\home\\ubuntu\\ssafy\\userpofileimg\\" + userEmail;
+		String upload_path = "/home/ubuntu/ssafy/userpofileimg/" + userEmail;
 		File uploadFolder = new File(upload_path);
 		if(!uploadFolder.exists()) {
 			try{
@@ -68,7 +68,7 @@ public class ProfileController {
 	        }
 		User user = userService.findByUserEmail(userEmail);
 		
-		mFile.transferTo(new File(upload_path + "\\" + mFile.getOriginalFilename()));  // 경로에 이미지 저장
+		mFile.transferTo(new File(upload_path + "/" + mFile.getOriginalFilename()));  // 경로에 이미지 저장
 		user.setProfileUrl("https://i6b202.p.ssafy.io/api/profile/image/" + userEmail + "/" + mFile.getOriginalFilename());	
 		userRepository.save(user);
 		return userEmail;
@@ -76,7 +76,7 @@ public class ProfileController {
 	
 	@GetMapping(value = {"image/{userEmail}/{imageName}"}, produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userSearch(@PathVariable("userEmail") String userEmail, @PathVariable("imageName") String imageName) throws IOException {
-		InputStream imageStream = new FileInputStream("\\home\\ubuntu\\ssafy\\userpofileimg\\" + userEmail + "\\" + imageName);
+		InputStream imageStream = new FileInputStream("/home/ubuntu/ssafy/userpofileimg/" + userEmail + "/" + imageName);
 		byte[] imageByteArray = org.apache.commons.io.IOUtils.toByteArray(imageStream);
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
