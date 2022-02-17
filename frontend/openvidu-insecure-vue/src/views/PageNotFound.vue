@@ -3,7 +3,6 @@
   <div class="container">
     <div class="p-0 mx-3 d-flex justify-content-between align-items-center">
       <span class="mt-5 fs-1">죄송합니다</span>
-      <img class="mt-3" src="@/assets/images/main-icon.png" width="100rem">
     </div>
     <p class="mt-4 mx-3">요청하신 페이지를 찾을 수 없습니다 😥</p>
     <p class="mx-3">더 나은 서비스를 위해서,</p>
@@ -62,11 +61,7 @@
 export default {
   methods: {
     goToMain() {
-      if (localStorage.getItem('token')) {
-        this.$router.push({ name: 'FeedMain' })
-      } else {
-        this.$router.push({ name: 'Login' })
-      }
+      this.$router.push({ name: 'main' })
     },
     goBack() {
       this.$router.go(-1)
