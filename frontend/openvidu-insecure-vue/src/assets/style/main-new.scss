@@ -98,8 +98,12 @@ html {
 .main {
  flex-grow: 1;
  display: flex;
+ height: 100vh;
  flex-direction: column;
  background-color: #F9B225;
+ background-repeat: no-repeat;
+ background-size: cover;
+ background-position: center;
  background-image: url('https://user-images.githubusercontent.com/16666658/152679443-8c070b9c-e627-4037-8c89-50b824892178.png');
 }
 

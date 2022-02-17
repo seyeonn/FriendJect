@@ -11,7 +11,7 @@
           /> -->
         <h4>팀 코드 : {{ this.$store.state.teamNumber }}</h4>
         <h4>팀 네임 : {{ this.$store.state.teamName }}</h4>
-        <button @click="leaveSession" value="Leave session">세션 나가기</button>
+        
         <input
           type="button"
           class="btn btn-info"
@@ -36,7 +36,7 @@
         </b-row>
         <!-- 네비게이션 부분 -->
 
-        <div style="position: relative; z-index: 1">
+        <div style="position: relative; z-index: 5; background-color:pink; height:100%;">
           <router-link :to="'/room'"
             ><img
               src="https://i.imgur.com/2QnSMDT.png"
@@ -48,8 +48,9 @@
           <button type="button" id="mute" @click="audioOnAndOff()">
             음소거
           </button>
+          <button @click="leaveSession" value="Leave session">프로젝트 나가기</button>
           <!-- 각 방 들어가는 부분 -->
-          <router-view v-on:upstream="upstream"> </router-view>
+          <router-view v-on:upstream="upstream" style="height:110vh"> </router-view>
         </div>
 
         <!-- 화면공유 캠 -->

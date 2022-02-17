@@ -33,7 +33,7 @@
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
 
-        <div style="text-align: center; width: 90%"></div>
+        <div style="text-align: center; width: 90%"> {{ solution }}</div>
         <!-- <div><small>Check out</small></div> -->
       </div>
     </div>
