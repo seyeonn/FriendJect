@@ -24,6 +24,7 @@ export default {
           this.setUserinfo({
             ...res.data,
           });
+          console.log(res.data);
           // 올바른 인적사항이 response 되면 accessToken 저장요청
           this.$store.commit("setToken", res.data.accessToken);
           this.$store.commit("setKakaoId", res.data.kakaoId);
@@ -42,6 +43,8 @@ export default {
   },
   created() {
     this.kako_api();
+    // 서버 라우터 확인용 alert
+    //alert(this.$route.query.code);
     // console.log(this.$route.query.code);
     // this.$router.replace("/join");
   },
