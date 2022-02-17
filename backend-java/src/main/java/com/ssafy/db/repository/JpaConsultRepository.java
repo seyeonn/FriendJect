@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import com.ssafy.db.entity.ConsultLog;
+import com.ssafy.db.entity.ConsultLogList;
 import com.ssafy.db.entity.SolutionBook;
 
 @Repository
@@ -29,11 +30,11 @@ public class JpaConsultRepository implements ConsultRepository {
 
 
 	@Override
-	public List<ConsultLog> getConsultLog(String q_user_id) {
-		String qlString = "select m from ConsultLog m where m.q_user_id = :q_user_id";
+	public List<ConsultLogList> getConsultLog(String q_user_id) {
+		String qlString = "select m from ConsultLogList m where m.q_user_id = :q_user_id";
 		String name = "q_user_id";
 		
-		List<ConsultLog> log = em.createQuery( qlString, ConsultLog.class)
+		List<ConsultLogList> log = em.createQuery( qlString, ConsultLogList.class)
 		.setParameter( name, q_user_id)
 		.getResultList();
 		
@@ -42,7 +43,7 @@ public class JpaConsultRepository implements ConsultRepository {
 
 
 	@Override
-	public ConsultLog setConsultLog(ConsultLog consultlog) {
+	public ConsultLogList setConsultLog(ConsultLogList consultlog) {
 		// TODO Auto-generated method stub
 		em.persist(consultlog);
 		return consultlog;
