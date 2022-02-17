@@ -39,12 +39,6 @@ public class ConsultController {
 	
 	@GetMapping("/book")
 	@ApiOperation(value = "해결의 책", notes = "<strong>아이디와 패스워드</strong>를 통해 로그인 한다.")
-	@ApiResponses({
-        @ApiResponse(code = 200, message = "성공", response = UserLoginPostRes.class),
-        @ApiResponse(code = 401, message = "인증 실패", response = BaseResponseBody.class),
-        @ApiResponse(code = 404, message = "사용자 없음", response = BaseResponseBody.class),
-        @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
-    })
 	public SolutionBook book() throws Exception {
 		//랜덤 숫자 리턴
 		Random rand = new Random();
@@ -55,27 +49,20 @@ public class ConsultController {
 	
 	@GetMapping("/consult")
 	@ResponseBody
-	public List<ConsultLog> getConsult(@RequestParam("userId") String userId) throws Exception {
+	public List<ConsultLogList> getConsult(@RequestParam("userId") String userId) throws Exception {
 		System.out.println(userId);
 		return consultService.getConsultLog(userId);
 	}
 	
 	
 	@PostMapping("/consult")
-	@ApiOperation(value = "상담 기록 저장") 
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "성공"),
-        @ApiResponse(code = 401, message = "인증 실패"),
-        @ApiResponse(code = 404, message = "사용자 없음"),
-        @ApiResponse(code = 500, message = "서버 오류")
-    })
+	@ApiOperation(value = "상담 기록 저장")
 	public ResponseEntity<? extends BaseResponseBody> setConsult(
-			@RequestBody @ApiParam(value="상담기록 저장", required = true) ConsultLog consultlog) throws Exception {
+			@RequestBody @ApiParam(value="상담기록 저장", required = true) ConsultLogList consultlog) throws Exception {
 		
-		Optional<ConsultLog> consultLog = Optional.ofNullable(consultService.setConsultLog(consultlog));
+		Optional<ConsultLogList> consultLog = Optional.ofNullable(consultService.setConsultLog(consultlog));
 		return ResponseFactory.ok();
 	}
-	
 	
 }
 

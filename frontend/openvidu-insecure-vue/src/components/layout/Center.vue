@@ -1,6 +1,7 @@
 <template>
   <div class="main_center" style="height:100%">
     <div>
+
       <div class="cursor"> 
         <img style="width: 200px;" :src=profileUrl alt="my_minime"> 
       </div>
@@ -58,6 +59,7 @@
  class="door" /></router-link>
       </b-col>
     </b-row>
+
   </div>
 </template>
 
