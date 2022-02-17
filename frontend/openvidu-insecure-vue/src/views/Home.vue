@@ -182,7 +182,7 @@ https://i.imgur.com/W7T9peT.png -->
                   <b-img
                     thumbnail
                     fluid
-                    src="https://i.imgur.com/sECguMj.jpg"
+                    src="https://i.imgur.com/JVL9X2f.jpg"
                     alt="Image 3"
                     style="height:240px;"
                   ></b-img>
