@@ -114,6 +114,7 @@ import {
   registerMemoList,
 } from "@/api/projectroom.js";
 import MemoElement from "@/components/projectroom/child/MemoElement.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "memoboard",
@@ -134,28 +135,34 @@ export default {
       arrTested: [],
       arrDone: [],
       currentTeamId: "",
+      teamId: "",
     };
   },
-
+  computed: {
+    ...mapState(["teamId"]),
+    ...mapState(["teamNumber"]),
+    ...mapState(["teamName"]),
+  },
   watch: {
-    arrTodo: function() {
+    arrTodo: function () {
       this.updateStatusList(this.arrTodo, "TODO");
     },
-    arrInProgress: function() {
+    arrInProgress: function () {
       this.updateStatusList(this.arrInProgress, "INPROGRESS");
     },
-    arrTested: function() {
+    arrTested: function () {
       this.updateStatusList(this.arrTested, "TESTING");
     },
-    arrDone: function() {
+    arrDone: function () {
       this.updateStatusList(this.arrDone, "DONE");
     },
   },
   created() {
-    this.currentTeamId = localStorage.getItem("teamId");
+    this.teamId = localStorage.getItem("teamId");
+    console.log(this.teamId);
     getMemoList(
       "TODO",
-      this.currentTeamId,
+      this.teamId,
       (response) => {
         this.arrTodo = response.data.data;
       },
@@ -163,10 +170,9 @@ export default {
         console.log(error);
       }
     );
-    console.log("test");
     getMemoList(
       "INPROGRESS",
-      this.currentTeamId,
+      this.teamId,
       (response) => {
         this.arrInProgress = response.data.data;
       },
@@ -174,10 +180,9 @@ export default {
         console.log(error);
       }
     );
-    console.log("test");
     getMemoList(
       "TESTING",
-      this.currentTeamId,
+      this.teamId,
       (response) => {
         this.arrTested = response.data.data;
       },
@@ -185,10 +190,9 @@ export default {
         console.log(error);
       }
     );
-    console.log("test");
     getMemoList(
       "DONE",
-      this.currentTeamId,
+      this.teamId,
       (response) => {
         this.arrDone = response.data.data;
       },
@@ -206,7 +210,7 @@ export default {
     },
     writeNewMemo() {
       registerMemo({
-        teamId: this.currentTeamId,
+        teamId: this.teamId,
         title: this.newTitle,
         content: this.newContent,
         status: "TODO",
@@ -214,7 +218,7 @@ export default {
       this.$router.go();
     },
     updateStatusList(arr, status) {
-      registerMemoList(arr, status, this.currentTeamId);
+      registerMemoList(arr, status, this.teamId);
     },
   },
 };

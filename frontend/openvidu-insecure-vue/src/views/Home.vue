@@ -246,6 +246,7 @@ https://i.imgur.com/W7T9peT.png -->
 
 <script>
 export default {};
+
 </script>
 
 <style scoped>
