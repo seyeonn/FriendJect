@@ -720,7 +720,7 @@ export default {
         (res) => {
           console.log(res.data + "프로필 변경");
           this.setProfileUrl(
-            API_BASE_URL + "profile/image/" + email + "/" + this.image.name
+            API_BASE_URL + "/profile/image/" + email + "/" + this.image.name
           );
         },
         (err) => {
