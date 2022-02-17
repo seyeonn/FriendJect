@@ -1,6 +1,7 @@
 <template>
   <div class="main_center" style="height:100%">
     <div>
+
       <div class="cursor"> 
         <img style="width: 200px;" :src=profileUrl alt="my_minime"> 
       </div>
@@ -58,6 +59,7 @@
  class="door" /></router-link>
       </b-col>
     </b-row>
+
   </div>
 </template>
 
@@ -111,20 +113,20 @@ export default {
     },
     // 아이스 브레이킹 질문 랜덤 조회
     icebreaking() {
-      console.log("아이스 브레이킹");
-      this.questions = [];
-      getQuestionList(
-        (response) => {
-          console.log(response.data);
+      // console.log("아이스 브레이킹");
+      // this.questions = [];
+      // getQuestionList(
+      //   (response) => {
+      //     console.log(response.data);
 
-          for (var i = 0; i < 5; i++) {
-            this.questions.push(response.data[i].question);
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      //     for (var i = 0; i < 5; i++) {
+      //       this.questions.push(response.data[i].question);
+      //     }
+      //   },
+      //   (error) => {
+      //     console.log(error);
+      //   }
+      // );
     },
     // 아이스 브레이킹 타이머
     submit() {
@@ -132,7 +134,6 @@ export default {
       var min2 = parseInt(this.min);
       var sec2 = parseInt(this.sec);
       var x;
-      console.log(time2);
 
       if (time2 >= 1860) {
         alert("30분까지만 가능합니다. 재설정 해주세요.");
@@ -147,11 +148,26 @@ export default {
 
           if (time2 < 0) {
             clearInterval(x);
-            document.getElementById("demo").innerHTML = "BAAM!!";
+            document.getElementById("demo").innerHTML = '<img src="https://i.imgur.com/hIIcPI9.png" style="margin-left: -60px; margin-top:-125px; width: 200px; height:200px;"/>';
             audio.play();
           }
         }, 1000);
       }
+
+      console.log("아이스 브레이킹");
+      this.questions = [];
+      getQuestionList(
+        (response) => {
+          console.log(response.data);
+
+          for (var i = 0; i < 5; i++) {
+            this.questions.push(response.data[i].question);
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
     study_mouse: function(){
       this.study_img = "https://i.imgur.com/UpoyNOh.png"
@@ -203,12 +219,12 @@ img.door:hover {
   font-size: 14px;
 }
 .timer {
-  margin-top: 210px;
+  margin-top: 170px;
   margin-left: -5px;
   width: 170px;
 }
 .timer:active {
-  margin-top: 210px;
+  margin-top: 170px;
   margin-left: -5px;
   width: 170px;
 }
