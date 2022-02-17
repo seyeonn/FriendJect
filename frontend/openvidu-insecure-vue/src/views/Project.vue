@@ -2,13 +2,13 @@
   <b-container fluid class="p-1" style="background-color: white; height: 100%">
     <div>
       <b-tabs content-class="m-3" fill>
-        <!-- <b-tab
+        <b-tab
           title="메모보드"
           active
           class="shadow-sm p-3 mb-5 bg-white rounded"
           ><memo-board></memo-board
-        ></b-tab> -->
-        <b-tab title="자료실"><file-list></file-list></b-tab>
+        ></b-tab>
+        <!-- <b-tab title="자료실"><file-list></file-list></b-tab> -->
       </b-tabs>
     </div>
   </b-container>
