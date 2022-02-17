@@ -28,7 +28,6 @@
 <script>
 import { mapState } from "vuex";
 import { registerFile } from "@/api/projectroom.js";
-import { mapState } from "vuex";
 
 export default {
   name: "fileUpload",
