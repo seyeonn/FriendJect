@@ -2,7 +2,8 @@
   <b-row class="m-5">
     <b-col cols="7 mt-5 ml-5"
       ><div id="app" class="grid p-8">
-        <h3><b>File Table</b> 📄</h3>
+        <img src="https://i.imgur.com/naGbUBF.png" style="width: 150px; hieght: 70px;">
+        <!-- <h3><b>File Table</b> 📄</h3> -->
         <table>
           <thead>
             <tr>
@@ -43,7 +44,9 @@
       </div>
     </b-col>
     <b-col cols="4 p-5 center" class="rounded border border-warning m-4"
-      ><h4><b>파일 올리기</b>👇</h4>
+      >
+      <img src="https://i.imgur.com/J7TRws3.png" style="width: 150px; hieght: 70px;">
+      <!-- <h4><b>파일 올리기</b>👇</h4> -->
       <file-upload />
     </b-col>
   </b-row>
