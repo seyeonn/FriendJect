@@ -99,11 +99,15 @@ https://i.imgur.com/W7T9peT.png -->
 
           <b-row style="position: relative; top: -300px;">
             <b-col>
-              <p>사용중인 프로그램 탐지</p>
+              <p>코드 에디터 기능</p>
               <b-img
                 class="img"
                 src="https://i.imgur.com/mUkw3i3.png"
                 style="width:500px; height:500px;"
+              ></b-img>
+               <b-img
+                class="gif2"
+                src="https://user-images.githubusercontent.com/16666658/154573320-a49127ed-04d1-4ab1-93aa-52a41402a4f9.gif"
               ></b-img>
             </b-col>
             <b-col>
@@ -112,6 +116,10 @@ https://i.imgur.com/W7T9peT.png -->
                 class="img"
                 src="https://i.imgur.com/jW4ODvo.png"
                 style="width:500px; height:500px;"
+              ></b-img>
+              <b-img
+                class="gif"
+                src="https://user-images.githubusercontent.com/16666658/154572426-31cec45c-db42-4dd3-b049-ded0bc9e7b01.gif"
               ></b-img>
             </b-col>
           </b-row>
@@ -375,4 +383,14 @@ https://i.imgur.com/HN34fr6.jpg */
   width:350px;
   height:250px;
 }
+
+
+.gif2 {
+  position: relative;
+  top: -480px;
+  width:300px;
+  height:320px;
+}
+
+
 </style>
