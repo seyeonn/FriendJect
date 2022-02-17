@@ -44,7 +44,10 @@
 
         <!-- 네비게이션 부분 -->
         <div>
-          <router-link :to="'/room'">각 방 나가기</router-link>
+          <router-link :to="'/room'"><img src="https://i.imgur.com/2QnSMDT.png" style="
+        width: 170px;
+        height: 60px;
+        "/></router-link>
           <button type="button" id="camera" @click="videoOnAndOff()">
             비디오 끄기
           </button>
@@ -93,6 +96,7 @@
         </button>
         <span class="account-user">{{ this.myUserName }}</span>
       </div>
+
       <span class="account-user">
         <img :src="profileUrl" alt="" class="account-profile" />
         <a href="#profileModal">
@@ -100,12 +104,12 @@
         ></a>
       </span>
       <div style="text-align: center" v-on:click="getLog">
-        <a href="#consultLog"> <div>상담내역보기</div> </a>
+        <a href="#consultLog"> <img src="https://i.imgur.com/TomnxTd.png" style="width: 160px;"/> </a>
       </div>
 
       <div style="text-align: center">
         <!-- 투표는 openvidu의 브로드캐스팅 참고해야할듯.. -->
-        <a href="#vot"> <div>투표 생성하기</div> </a>
+        <a href="#vot"> <img src="https://i.imgur.com/BPgngsm.png" style="width: 160px;"/> </a>
       </div>
 
       <div class="side-wrapper contacts">
@@ -120,13 +124,20 @@
     </div>
 
     <!-- 상담 모달 -->
-    <div id="consultLog" class="modal-window">
-      <div style="width: 70%">
+
+    <div id="consultLog" class="modal-consult">
+      <div style="width:70%">
+
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
 
-        <h1>지난 상담내역보기</h1>
+        <img src="https://i.imgur.com/reE2Tgo.png" style="
+        width: 520px;
+        height: 200px;
+        margin-left: -50;
+        margin-top: -20px;
+        "/>
         <!-- <div><small>Check out</small></div> -->
 
         <div>
@@ -212,12 +223,18 @@
       </div>
     </div>
     <!-- 프로필 편집 모달 -->
-    <div id="profileModal" class="modal-window">
+    <div id="profileModal" class="modal-profile">
       <div>
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
-        <h1>프로필 편집</h1>
+        
+        <img src="https://i.imgur.com/ExHH7bv.png" style="
+        width: 300px;
+        height: 110px;
+        margin-top: -20px;
+        margin-bottom: 10px;
+        "/>
         <img
           :src="profileUrl"
           alt="profile_img"
@@ -225,9 +242,9 @@
           @error="replaceImg"
         />
         <input id="input" @change="onInputImage" type="file" accept="image/*" />
-        <button class="btn" @click="onChangProfile(userEmail)">변경</button>
-        <button class="btn" @click="onDeleteProfile(userEmail)">삭제</button>
-        <button class="btn" @click="onInitProfile">초기화</button>
+        <button class="btn" @click="onChangProfile(userEmail)" style="margin-top: 10px">변경</button>
+        <button class="btn" @click="onDeleteProfile(userEmail)" style="margin-top: 10px">삭제</button>
+        <button class="btn" @click="onInitProfile" style="margin-top: 10px">초기화</button>
       </div>
     </div>
     <!-- chat -->
@@ -704,6 +721,23 @@ export default {
 
 video {
   width: 100px;
+}
+
+button {
+  background-color: rgba(234, 237, 240, 0.842);
+  color: #f9b225;
+  position: relative;
+  border: none;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 15px;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 .cursor {
   position: absolute;
