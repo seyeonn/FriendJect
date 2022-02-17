@@ -127,18 +127,19 @@ export const router = new VueRouter({
     },
   ],
 });
+
 // 전역 가드
 // https://router.vuejs.org/kr/guide/advanced/navigation-guards.html#%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%A8-%E1%84%80%E1%85%A1%E1%84%83%E1%85%B3
-router.beforeEach((to, from, next) => {
-  const accessToken = localStorage.getItem("accessToken");
-  if (to.name === "/") {
-    if (accessToken) {
-      next({ name: "main" });
-    }
-  } else if (to.name === "main") {
-    if (!accessToken) {
-      next({ name: "/" });
-    }
-  }
-  next();
-});
+// router.beforeEach((to, from, next) => {
+//   const accessToken = localStorage.getItem("accessToken");
+//   if (to.name === "/") {
+//     if (accessToken) {
+//       next({ name: "main" });
+//     }
+//   } else if (to.name === "main") {
+//     if (!accessToken) {
+//       next({ name: "/" });
+//     }
+//   }
+//   next();
+// });

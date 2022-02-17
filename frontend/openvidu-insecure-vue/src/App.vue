@@ -23,7 +23,7 @@ export default {
     return {};
   },
   components: {
-    Header,
+   Header,
   },
   computed: {
     ...mapState(["accessToken"]),
