@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header :is-login="isLogin" @logout="logout" />
     <b-list-group class="scroll" v-b-scrollspy:listgroup-ex>
       <b-img
         src="https://i.imgur.com/r7gPgHQ.png"
@@ -257,7 +258,12 @@ https://i.imgur.com/W7T9peT.png -->
 </template>
 
 <script>
-export default {};
+import Header from "../components/layout/Header.vue";
+export default {
+  components: {
+    Header,
+  },
+};
 
 </script>
 
