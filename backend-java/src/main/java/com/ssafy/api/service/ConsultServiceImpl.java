@@ -11,7 +11,7 @@ import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.*;
 
 @Service("consultService")
-@Transactional
+@Transactional(readOnly = true)
 public class ConsultServiceImpl implements ConsultService {
 	
 	@Autowired
@@ -27,7 +27,7 @@ public class ConsultServiceImpl implements ConsultService {
 			
 	}
 
-	@Override
+	@Transactional
 	public ConsultLogList setConsultLog(ConsultLogList consultlog) throws Exception {
 		// TODO Auto-generated method stub
 		return JpaConsultRepository.setConsultLog(consultlog);

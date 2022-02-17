@@ -5,18 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.db.entity.Studyroom;
 import com.ssafy.db.repository.StudyRoomRepository;
 
 @Service("studyroomService")
+@Transactional(readOnly = true)
 public class StudyRoomServiceImpl implements StudyRoomService{
 
 	@Autowired
 	StudyRoomRepository studyroomRepository;
 
 	/* 열람실에 입장한 유저의 정보를 가져와서 해당 userid가 0인지 확인(새로 들어온 유저 확인) 후 db에 entryuser 저장*/
-	@Override
+	@Transactional 
 	public Studyroom entryUser(Studyroom userEntryInfo) {
 		if(studyroomRepository.countByUserid(userEntryInfo.getUserid()) == 0) {
 			Studyroom user = new Studyroom();
@@ -30,13 +32,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 
 	/* userid로 user 조회 - 데이터 return */
-	@Override
 	public Studyroom getUserByUserId(String userid) {
 		return studyroomRepository.findByUserid(userid).get();
 	}
 
 	/* userid로 user를 찾아서 time 업데이트 */
-	@Override
+	@Transactional 
 	   public Studyroom saveTime(String userid, int time) {
 	      Studyroom user = getUserByUserId(userid);
 	      user.setTime(time);
