@@ -17,4 +17,5 @@ public class UserClassRepository {
 	public User findOne(Long id) {
 		return em.find(User.class, id); 
 	}
+	
 }
