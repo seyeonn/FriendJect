@@ -3,7 +3,7 @@
     <div class="main">
       <div class="main-container">
         <div class="cursor">
-          <img style="width: 200px;" :src="profileUrl" alt="my_minime" />
+          <img style="width: 200px" :src="profileUrl" alt="my_minime" />
         </div>
         <!-- <img
             src="@/assets/images/main_day.png"
@@ -36,14 +36,11 @@
         </b-row>
         <!-- 네비게이션 부분 -->
 
-        <div style="position: relative; z-index: 1;">
+        <div style="position: relative; z-index: 1">
           <router-link :to="'/room'"
             ><img
               src="https://i.imgur.com/2QnSMDT.png"
-              style="
-        width: 170px;
-        height: 60px;
-        "
+              style="width: 170px; height: 60px"
           /></router-link>
           <button type="button" id="camera" @click="videoOnAndOff()">
             비디오 끄기
@@ -58,7 +55,13 @@
         <!-- 화면공유 캠 -->
         <user-video
           :stream-manager="screenShare"
-          style="width:600px; top:-500px; left:1%; position: relative; z-index: 2;"
+          style="
+            width: 600px;
+            top: -500px;
+            left: 1%;
+            position: relative;
+            z-index: 2;
+          "
         >
         </user-video>
       </div>
@@ -107,14 +110,14 @@
       </span>
       <div style="text-align: center" v-on:click="getLog">
         <a href="#consultLog">
-          <img src="https://i.imgur.com/TomnxTd.png" style="width: 160px;" />
+          <img src="https://i.imgur.com/TomnxTd.png" style="width: 160px" />
         </a>
       </div>
 
       <div style="text-align: center">
         <!-- 투표는 openvidu의 브로드캐스팅 참고해야할듯.. -->
         <a href="#vot">
-          <img src="https://i.imgur.com/BPgngsm.png" style="width: 160px;" />
+          <img src="https://i.imgur.com/BPgngsm.png" style="width: 160px" />
         </a>
       </div>
 
@@ -132,7 +135,7 @@
     <!-- 상담 모달 -->
 
     <div id="consultLog" class="modal-consult">
-      <div style="width:70%">
+      <div style="width: 70%">
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
@@ -140,11 +143,11 @@
         <img
           src="https://i.imgur.com/reE2Tgo.png"
           style="
-        width: 520px;
-        height: 200px;
-        margin-left: -50;
-        margin-top: -20px;
-        "
+            width: 520px;
+            height: 200px;
+            margin-left: -50;
+            margin-top: -20px;
+          "
         />
         <!-- <div><small>Check out</small></div> -->
 
@@ -178,11 +181,12 @@
 
         <img
           src="https://i.imgur.com/H6aJjTA.png"
-          style="width: 400px;
-        height: 150px;
-        margin-left: -50px;
-        margin-top: -20px;
-        "
+          style="
+            width: 400px;
+            height: 150px;
+            margin-left: -50px;
+            margin-top: -20px;
+          "
         />
         <!-- <div><small>Check out</small></div> -->
         <div>
@@ -240,11 +244,11 @@
         <img
           src="https://i.imgur.com/ExHH7bv.png"
           style="
-        width: 300px;
-        height: 110px;
-        margin-top: -20px;
-        margin-bottom: 10px;
-        "
+            width: 300px;
+            height: 110px;
+            margin-top: -20px;
+            margin-bottom: 10px;
+          "
         />
         <img
           :src="profileUrl"
@@ -350,8 +354,8 @@ export default {
   },
   mounted() {
     this.joinSession();
-    jquery(document).ready(function() {
-      jquery(document).mousemove(function(e) {
+    jquery(document).ready(function () {
+      jquery(document).mousemove(function (e) {
         var mouseX = e.pageX;
         var mouseY = e.pageY;
 
@@ -371,34 +375,34 @@ export default {
       "setProfileUrl",
     ]),
     //최상위에서 비디오를 내려주는 코드입니다. 비디오, 화면공유 포함.
-    upstream: function() {
+    upstream: function () {
       console.log("최상위 도달");
       this.screenVideo();
     },
-    play: function(sound) {
+    play: function (sound) {
       if (sound) {
         var audio = new Audio(sound);
         audio.play();
       }
     },
 
-    add: function() {
+    add: function () {
       this.items_cnt++;
       this.items.push({ index: this.items_cnt, value: "" });
     },
-    del: function() {
+    del: function () {
       if (this.items.length > 0) {
         this.items.pop();
         this.items_cnt--;
         //arrInputValue.pop();
       }
     },
-    randomNumber: function() {
+    randomNumber: function () {
       var num = Math.floor(Math.random() * 10000) + 1000;
       this.mySessionId = num;
       this.joinSession;
     },
-    changeTab: function(value) {
+    changeTab: function (value) {
       this.currentTab = value;
       if (this.currentTab == "Con102sultRoom") {
         //여기서 카운트를 늘려줘야함, 누른사람 아이디 넘겨주기.
@@ -407,7 +411,7 @@ export default {
         alert("접속");
       }
     },
-    getLog: function() {
+    getLog: function () {
       console.log("상담 기록 조회");
       this.log = [];
       // TODO: userId 불러와야함!!
@@ -423,7 +427,7 @@ export default {
         }
       );
     },
-    exit: function() {
+    exit: function () {
       this.currentTab = "Center";
     },
 
@@ -432,7 +436,7 @@ export default {
     },
 
     // openvidu methods
-    joinSession: function() {
+    joinSession: function () {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -578,7 +582,7 @@ export default {
     },
 
     copyTeamCode() {
-      const copyText = this.$route.params.code;
+      const copyText = this.$store.state.teamNumber;
       console.log(copyText);
 
       const text_team_code = document.createElement("input");
@@ -703,15 +707,15 @@ export default {
       }
     },
     //프로필 이미지
-    replaceImg: function(event) {
+    replaceImg: function (event) {
       event.target.src =
         "https://img.freepik.com/free-icon/x-symbol_318-1407.jpg";
     },
-    onInputImage: function(file) {
+    onInputImage: function (file) {
       this.image = file.target.files[0];
       console.log(this.image);
     },
-    onChangProfile: function(email) {
+    onChangProfile: function (email) {
       const imgfrm = new FormData();
       imgfrm.append("filename", this.image);
       changProfile(
@@ -728,7 +732,7 @@ export default {
         }
       );
     },
-    onDeleteProfile: function(email) {
+    onDeleteProfile: function (email) {
       axios
         .patch(`http://localhost:8081/api/profile/empty/${email}`)
         .then((res) => {
@@ -739,12 +743,12 @@ export default {
           console.log(err);
         });
     },
-    onInitProfile: function() {
+    onInitProfile: function () {
       this.$router.push({ name: "minime" });
     },
     cvote() {
       alert("투표 생성이 완료되었습니다.");
-    }
+    },
   },
 };
 </script>
