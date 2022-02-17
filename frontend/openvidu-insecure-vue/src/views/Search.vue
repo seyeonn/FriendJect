@@ -1,5 +1,7 @@
 <template>
+
   <div style="overflow:auto; height:100%; background-color:white;">
+    <Header :is-login="isLogin" @logout="logout" />
     <div class="cards" style="width: 100%">
       <article
         class="information [ card ]"
@@ -102,6 +104,7 @@
 <script>
 import { getOneTeam, joinTeam, createTeam, getTeamList } from "@/api/center.js";
 import { mapActions, mapState } from "vuex";
+import Header from "../components/layout/Header.vue";
 export default {
   name: "search",
   data() {
@@ -116,6 +119,7 @@ export default {
       teams: [],
     };
   },
+  components:{ Header},
   created() {
     // 참여중인 프로젝트 목록
     getTeamList(
