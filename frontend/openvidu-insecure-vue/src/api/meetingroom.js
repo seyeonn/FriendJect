@@ -10,16 +10,16 @@ function getOneDocument(targetId, success, fail) {
     .catch(fail);
 }
 
-function getDocumentList(success, fail) {
+function getDocumentList(teamId, success, fail) {
   api
-    .get(`document`)
+    .get(`document/list/${teamId}`)
     .then(success)
     .catch(fail);
 }
 
-function registerDocument(documentItem, success, fail) {
+function registerDocument(teamId, documentItem, success, fail) {
   api
-    .post(`document/`, documentItem)
+    .post(`document/${teamId}`, documentItem)
     .then(success)
     .catch(fail);
 }
