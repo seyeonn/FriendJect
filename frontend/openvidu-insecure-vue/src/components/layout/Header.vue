@@ -30,7 +30,7 @@
         <div style="text-align: center; margin-top: 50px">
           
           <a
-            href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e1a7f29f3266d25acd09415836291442&redirect_uri=http://i6b202.p.ssafy.io/kakao"
+            href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e1a7f29f3266d25acd09415836291442&redirect_uri=https://i6b202.p.ssafy.io/kakao"
           >
           <!-- 서버에 올릴 때<a
             href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e1a7f29f3266d25acd09415836291442&redirect_uri=http://localhost:8080/kakao"
