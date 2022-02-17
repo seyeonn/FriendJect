@@ -34,7 +34,7 @@
             ></file-list-row> -->
             <tr
               class="list__tr"
-              @click.prevent="downloadFile()"
+              @click.prevent="downloadFile(file.id)"
               v-for="(file, index) in files"
               :key="index"
             >
@@ -42,8 +42,8 @@
               <td>
                 {{ randomUploader() }}
               </td>
-              <td>{{ file.size }}</td>
-              <td>{{ file.modifiedDate }}</td>
+              <td>{{ returnFileSize(file.size) }}</td>
+              <td>{{ timeForToday(file.modifiedDate) }}</td>
             </tr>
           </tbody>
         </table>
