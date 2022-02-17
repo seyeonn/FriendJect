@@ -37,9 +37,9 @@ public class KakaoController {
     
     @PostMapping("login")
     @ApiOperation(value = "로그인 및 회원가입", notes = "<strong> 로그인과 동시에 회원가입 </strong> 을 진행한다.") 
-    public ResponseEntity<User> home(@RequestBody Map<String, String> requestData) throws Exception{
+    public ResponseEntity<User> home(@RequestBody String code) throws Exception{
 
-    	String code = requestData.get("code");
+//    	String code = requestData.get("code");
         System.out.println("###인가코드###" + code);
         HashMap<String, Object> token = kakaoService.getAccessToken(code);
         

@@ -3,10 +3,7 @@ import { apiInstance } from "./index.js";
 const api = apiInstance();
 
 function createUser(code, success, fail) {
-  api
-    .post(`login`, { params: { code: code } })
-    .then(success)
-    .catch(fail);
+  api.post(`login`, code).then(success).catch(fail);
 }
 
 function getQuestionList(success, fail) {
