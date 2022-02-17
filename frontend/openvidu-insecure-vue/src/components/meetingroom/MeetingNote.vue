@@ -118,6 +118,7 @@ export default {
       postable: true,
       showDetail: false,
       editable: false,
+      currentTeamId: "",
     };
   },
   filters: {
@@ -171,13 +172,15 @@ export default {
       this.postable = false;
       this.showDetail = false;
     },
-    postDocument: function() {
+    postDocument: function(currentTeamId) {
       const documentItem = {
         title: this.title,
         content: this.content,
+        currentTeamId: this.currentTeamId
       };
       if (documentItem.title && documentItem.content) {
         registerDocument(
+          currentTeamId,
           documentItem,
           (res) => {
             console.log(res.data + "번 글 작성완료");
@@ -222,9 +225,12 @@ export default {
       );
     },
   },
+  created: function() {
+    this.currentTeamId = localStorage.getItem("teamId");
+  },
 };
 </script>
 
 <style lang="scss">
-@import "@/assets/style/meetingroom/meetingnote.scss";</style
->>
+@import "@/assets/style/meetingroom/meetingnote.scss";
+</style>
