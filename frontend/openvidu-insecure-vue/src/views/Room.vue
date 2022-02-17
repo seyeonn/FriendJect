@@ -9,15 +9,26 @@
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
           /> -->
-        <h4>팀 코드 : {{ this.$store.state.teamNumber }}</h4>
-        <h4>팀 네임 : {{ this.$store.state.teamName }}</h4>
+
+        <!-- https://i.imgur.com/SphM1rA.png
+https://i.imgur.com/nImP0UC.png
+https://i.imgur.com/B4WaufK.png -->
+
+        <b-row>
+          <b-col>
+            <img src="https://i.imgur.com/SphM1rA.png" class="team-code-name" />
+            <p class="myprops">{{ this.$store.state.teamNumber }} zz</p>
+          </b-col>
+          <b-col>
+          <img src="https://i.imgur.com/nImP0UC.png" @click="copyTeamCode" class="copybtn"/>
+          </b-col>
+          <b-col>
+            <img src="https://i.imgur.com/B4WaufK.png" class="team-name" />
+            <p class="myprops2">{{ this.$store.state.teamName }} zz</p>
+          </b-col>
+        </b-row>
+
         
-        <input
-          type="button"
-          class="btn btn-info"
-          @click="copyTeamCode"
-          value="팀코드 복사"
-        />
         <b-row id="roomHeader">
           <!-- 방장 캠 -->
 
@@ -36,7 +47,14 @@
         </b-row>
         <!-- 네비게이션 부분 -->
 
-        <div style="position: relative; z-index: 5; background-color:pink; height:100%;">
+        <div
+          style="
+            position: relative;
+            z-index: 5;
+            background-color: pink;
+            height: 100%;
+          "
+        >
           <router-link :to="'/room'"
             ><img
               src="https://i.imgur.com/2QnSMDT.png"
@@ -48,9 +66,12 @@
           <button type="button" id="mute" @click="audioOnAndOff()">
             음소거
           </button>
-          <button @click="leaveSession" value="Leave session">프로젝트 나가기</button>
+          <button @click="leaveSession" value="Leave session">
+            프로젝트 나가기
+          </button>
           <!-- 각 방 들어가는 부분 -->
-          <router-view v-on:upstream="upstream" style="height:110vh"> </router-view>
+          <router-view v-on:upstream="upstream" style="height: 110vh">
+          </router-view>
         </div>
 
         <!-- 화면공유 캠 -->
@@ -373,7 +394,6 @@ export default {
 
       subList: [],
       consult_log: [{ 질문: "함수 구현 방법", 답변: "코드 참조" }],
-
     };
   },
   computed: {
@@ -395,7 +415,7 @@ export default {
     Chat,
     UserVideo,
     UserListRow,
-    AceEditor
+    AceEditor,
   },
   mounted() {
     this.joinSession();
@@ -835,5 +855,35 @@ button {
   width: 250px;
   height: 100px;
   transform: translate(-50%, -50%);
+}
+
+.team-code-name {
+  width: 250px;
+  position: relative;
+}
+
+.team-name {
+  width:260;
+  position: relative;
+  left: -100px;
+  top: -10px;
+}
+.myprops {
+  position: relative;
+  top: -65px;
+  left: 220px;
+}
+
+.myprops2 {
+  position: relative;
+  top: -65px;
+  left: 130px;
+}
+
+.copybtn {
+  width:120px;
+  position: relative;
+  left: -120px;
+  top:30px;
 }
 </style>
