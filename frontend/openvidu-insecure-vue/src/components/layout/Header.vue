@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container fluid class="bv-example-row" style="height:120px;">
+    <b-container fluid class="bv-example-row" style="height:120px; background-color:white;">
       <b-row>
         <b-col><img class="logo" src="@/assets/images/logo.png"/></b-col>
         <b-col cols="8"></b-col>
