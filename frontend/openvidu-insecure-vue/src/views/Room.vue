@@ -227,7 +227,7 @@
           audioPlayer
         </button>
 
-        <button class="w-btn w-btn-green2">투표 생성하기</button>
+        <button class="w-btn w-btn-green2" @click="cvote">투표 생성하기</button>
       </div>
     </div>
     <!-- 프로필 편집 모달 -->
@@ -742,6 +742,9 @@ export default {
     onInitProfile: function() {
       this.$router.push({ name: "minime" });
     },
+    cvote() {
+      alert("투표 생성이 완료되었습니다.");
+    }
   },
 };
 </script>

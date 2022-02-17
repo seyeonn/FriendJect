@@ -35,7 +35,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
 <script>
-import axios from "axios";
+import {getOneBook} from "@/api/consultroom";
 
 export default {
   data() {
@@ -51,13 +51,22 @@ export default {
     },
     solutionBook: function() {
       console.log("책 조회");
-      axios
-        .get(`http://localhost:8081/consultroom/book`)
-        .then((response) => {
-          console.log(response.data.text);
-          this.solution = response.data.text;
-        })
-        .catch();
+      getOneBook(
+        ({ data }) => {
+        console.log(data.text);
+        this.solution = data.text;
+      },
+      (error) => {
+        console.log(error);
+      }
+      )
+      // axios
+      //   .get(`http://localhost:8081/consultroom/book`)
+      //   .then((response) => {
+      //     console.log(response.data.text);
+      //     this.solution = response.data.text;
+      //   })
+      //   .catch();
     },
 
     mouseover: function() {

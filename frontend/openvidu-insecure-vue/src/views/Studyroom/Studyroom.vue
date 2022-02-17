@@ -21,11 +21,15 @@
     <!-- 오늘의 학습왕 조회 -->
     <div class="studybest">{{ studybest }}</div>
 
+<div class="cal"> 
+    <studyroom-dday />
+    </div>
+
     <!-- 상태 메세지 등록 및 수정 -->
     <div
       class="comment"
       v-if="userInfo != null"
-      style="margin-top: 160px; margin-left: 122px"
+      style="margin-left: 910px; margin-top: 70px;"
     >
       <span v-show="!showInput">{{ com }}</span>
       <input
@@ -48,12 +52,14 @@
 <script>
 import { regMember, regTime, getStudyBest } from "@/api/studyroom";
 import StudyroomPlayer from "./StudyroomPlayer.vue";
+import StudyroomDday from "./StudyroomDday.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Studyroom",
   components: {
     StudyroomPlayer,
+    StudyroomDday
   },
   data() {
     return {
@@ -201,6 +207,10 @@ document.addEventListener("DOMContentLoaded", () => {
 <style scoped>
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+.comment {
+  font-size: 17px;
+  color: rgb(51, 51, 51);
+}
 .studybest {
   font-size: 46px;
   margin-top: -100;
@@ -257,6 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
 .w-btn-white {
+  margin-left: 10px;
   padding: 6px 12px;
   background-color: rgba(234, 237, 240, 0.712);
   color: #f9b225;
@@ -300,5 +311,11 @@ document.addEventListener("DOMContentLoaded", () => {
 .w-btn-green2-outline:hover {
   background-color: #519d9e;
   color: #9dc8c8;
+}
+.cal {
+  width: 160px;
+  height: 100px;
+  margin-left: 180px;
+  margin-top: 100px;
 }
 </style>
