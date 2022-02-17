@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-container fluid class="bv-example-row" style="height:10%">
+    <b-container fluid class="bv-example-row" style="height:120px;">
       <b-row>
-        <b-col><img class="logo" src="@/assets/images/logo.png"/></b-col>
+        <b-col><img class="logo" src="@/assets/images/logo.png" /></b-col>
         <b-col cols="8"></b-col>
         <b-col>
           <b-button

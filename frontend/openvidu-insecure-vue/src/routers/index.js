@@ -6,10 +6,9 @@ import Search from "../views/Search.vue";
 import KakaoLogin from "../views/KakaoRedirect.vue";
 import Center from "../components/layout/Center.vue";
 import Minime from "../views/Minime.vue";
-
 //consult room
 import Consult from "../views/ConsultRoom.vue";
-
+import PageNotFound from "../views/PageNotFound.vue";
 // project room
 import Project from "../views/Project.vue";
 import MemoBoard from "../components/projectroom/MemoBoard.vue";
@@ -94,6 +93,15 @@ export const router = new VueRouter({
       component: Consult,
     },
     {
+      path: "/404",
+      name: "notFound",
+      component: PageNotFound,
+    },
+    {
+      path: "*",
+      redirect: "/404",
+    },
+    {
       path: "/studyroom",
       name: "studyroom",
       component: Study,
@@ -128,18 +136,19 @@ export const router = new VueRouter({
     },
   ],
 });
+
 // 전역 가드
 // https://router.vuejs.org/kr/guide/advanced/navigation-guards.html#%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%A8-%E1%84%80%E1%85%A1%E1%84%83%E1%85%B3
-router.beforeEach((to, from, next) => {
-  const accessToken = localStorage.getItem("accessToken");
-  if (to.name === "/") {
-    if (accessToken) {
-      next({ name: "main" });
-    }
-  } else if (to.name === "main") {
-    if (!accessToken) {
-      next({ name: "/" });
-    }
-  }
-  next();
-});
+// router.beforeEach((to, from, next) => {
+//   const accessToken = localStorage.getItem("accessToken");
+//   if (to.name === "/") {
+//     if (accessToken) {
+//       next({ name: "main" });
+//     }
+//   } else if (to.name === "main") {
+//     if (!accessToken) {
+//       next({ name: "/" });
+//     }
+//   }
+//   next();
+// });
