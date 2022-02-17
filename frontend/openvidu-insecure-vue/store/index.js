@@ -11,10 +11,8 @@ export const store = new Vuex.Store({
     userEmail: "",
     myUserName: "",
     profileUrl: "",
-    sessionState: 0,
     message: "",
     messageList: [],
-    loginUsers: [],
     userId: "",
     teamInfo: [],
     teamId: "",
@@ -26,6 +24,7 @@ export const store = new Vuex.Store({
       if (state.accessToken) return true;
       return false;
     },
+    getUserName: (state) => state.myUserName,
   },
   mutations: {
     // accessToken 저장요청으로 localStorage에 저장
@@ -65,9 +64,6 @@ export const store = new Vuex.Store({
       state.sessionState = userdata["sessionState"];
       state.userId = userdata["userId"];
     },
-    SET_LOGIN_USERS: function(state, userdata) {
-      state.loginUsers = userdata;
-    },
     SET_CURRENT_TEAM: function(state, teamInfo) {
       state.teamId = teamInfo.teamId;
       state.teamName = teamInfo.teamName;
@@ -85,23 +81,27 @@ export const store = new Vuex.Store({
       state.teamName = newTeamName;
       //localStorage.setItem("teamId", newTeamId);
     },
-    SET_ProfileUrl(state, newProfileUrl) {
+    SET_PROFILEURL(state, newProfileUrl) {
       state.profileUrl = newProfileUrl;
-      // localStorage.setItem("profileUrl", newProfileUrl);
+      localStorage.setItem("profileUrl", newProfileUrl);
+    },
+    SET_USEREMAIL(state, newUserEmail) {
+      state.userEmail = newUserEmail;
+      localStorage.setItem("userEmail", newUserEmail);
     },
   },
   actions: {
     setUserinfo: function({ commit }, userdata) {
       commit("SET_USERINFO", userdata);
     },
-    setLoginUsers: function({ commit }, userdata) {
-      commit("SET_LOGIN_USERS", userdata);
-    },
     setCurrentTeam: function({ commit }, teamInfo) {
       commit("SET_CURRENT_TEAM", teamInfo);
     },
     setProfileUrl: function({ commit }, userprofile) {
-      commit("SET_ProfileUrl", userprofile);
+      commit("SET_PROFILEURL", userprofile);
+    },
+    setUserEmail: function({ commit }, userEmail) {
+      commit("SET_USEREMAIL", userEmail);
     },
   },
 });
