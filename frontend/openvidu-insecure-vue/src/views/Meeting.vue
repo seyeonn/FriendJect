@@ -32,12 +32,14 @@ export default {
     return {
       // 회의록 전체 글
       allDocuments: [],
+      currentTeamId: "",
     };
   },
   methods: {
     // db에서 전체 글 목록 가져오기
     getAllDocuments: function() {
       getDocumentList(
+        this.currentTeamId,
         (res) => {
           console.log(res);
           this.allDocuments = res.data;
@@ -49,9 +51,8 @@ export default {
     },
   },
   created: function() {
+    this.currentTeamId = localStorage.getItem("teamId");
     this.getAllDocuments();
   },
 };
 </script>
-
-<style></style>

@@ -88,15 +88,15 @@
             />
           </svg>
         </button>
-        <span class="account-user"
-          >{{ this.myUserName }}
+        <span class="account-user">{{ this.myUserName }}</span>
+      </div>
+      <span class="account-user"
+          >
           <img :src="profileUrl" alt="" class="account-profile" />
           <a href="#profileModal">
             <b-icon-pencil-square></b-icon-pencil-square
           ></a>
-        </span>
-      </div>
-
+      </span>
       <div style="text-align: center" v-on:click="getLog">
         <a href="#consultLog"> <div>상담내역보기</div> </a>
       </div>
@@ -235,6 +235,7 @@
 
 <script>
 import axios from "axios";
+import { API_BASE_URL } from "@/config";
 import { getConsultLogList } from "@/api/consultroom.js";
 import { changProfile } from "@/api/room.js";
 import { OpenVidu } from "openvidu-browser";
@@ -306,12 +307,12 @@ export default {
     this.joinSession();
   },
   methods: {
-    ...mapActions(["setUserinfo"]),
     ...mapActions([
       "set_consult_room_member",
       "set_consult_question",
       "push_sub",
       "set_sesstion_id",
+      "setProfileUrl",
     ]),
 
     play: function (sound) {
@@ -655,7 +656,7 @@ export default {
         imgfrm,
         (res) => {
           console.log(res.data + "프로필 변경");
-          this.setUserinfo;
+          this.setProfileUrl(API_BASE_URL + "profile/image/" + email +"/"+ this.image.name);
         },
         (err) => {
           console.log(err);

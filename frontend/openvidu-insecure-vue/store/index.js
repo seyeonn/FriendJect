@@ -86,9 +86,13 @@ export const store = new Vuex.Store({
       state.teamName = newTeamName;
       //localStorage.setItem("teamId", newTeamId);
     },
-    SET_ProfileUrl(state, newProfileUrl) {
+    SET_PROFILEURL(state, newProfileUrl) {
       state.profileUrl = newProfileUrl;
-      // localStorage.setItem("profileUrl", newProfileUrl);
+      localStorage.setItem("profileUrl", newProfileUrl);
+    },
+    SET_USEREMAIL(state, newUserEmail) {
+      state.userEmail = newUserEmail;
+      localStorage.setItem("userEmail", newUserEmail);
     },
   },
   actions: {
@@ -102,7 +106,10 @@ export const store = new Vuex.Store({
       commit("SET_CURRENT_TEAM", teamInfo);
     },
     setProfileUrl: function({ commit }, userprofile) {
-      commit("SET_ProfileUrl", userprofile);
+      commit("SET_PROFILEURL", userprofile);
+    },
+    setUserEmail: function({ commit }, userEmail) {
+      commit("SET_USEREMAIL", userEmail);
     },
   },
 });

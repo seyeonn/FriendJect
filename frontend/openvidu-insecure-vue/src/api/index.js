@@ -72,6 +72,15 @@ function profileInstance() {
   });
   return instance;
 }
+function minimeInstance() {
+  const instance = axios.create({
+    baseURL: PROFILE_BASE_URL,
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  return instance;
+}
 
 export {
   apiInstance,
@@ -81,4 +90,5 @@ export {
   meetingRoomInstance,
   consultRoomInstance,
   profileInstance,
+  minimeInstance,
 };
