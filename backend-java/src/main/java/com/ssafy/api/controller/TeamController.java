@@ -50,11 +50,12 @@ public class TeamController {
 		return ResponseFactory.ok(teamService.findByUserId(userId));
 	}
 	
-	@GetMapping("/{teamId}")
-	public ResponseEntity<? extends BaseResponseBody> getOneTeam(@PathVariable Long teamId) {
+	@GetMapping("/{teamNum}")
+	public ResponseEntity<? extends BaseResponseBody> getOneTeam(@PathVariable String teamNum) {
 		try {
-			System.out.println(teamId);
-			Team team = teamService.findByTeamId(teamId).get();
+			System.out.println("**************teamNumber : "+teamNum);
+			Team team = teamService.findByTeamId(teamNum).get();
+			System.out.println("$$$$$$$$$$$$$$$$ team :"+team);
 			return ResponseFactory.ok(team);
 		} catch (Exception e) {
 			e.getStackTrace();

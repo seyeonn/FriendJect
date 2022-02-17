@@ -47,13 +47,14 @@ public class TeamServiceImpl implements TeamService {
 		
 		em.persist(joinedTeamList);
 		
-		return user.getId();
+		return team.getId();
 	}
 
 	@Transactional
 	public Long join(JoinTeamPostReq joinTeamPostReq) {
 		
 		User user = userClassRepository.findOne(joinTeamPostReq.getUserId());
+		System.out.println("#$@$#@$@#$ : "+joinTeamPostReq.getUserId());
 		
 		String team_number = joinTeamPostReq.getTeamNumber().toString();
 		String jpql = "select m from Team m where m.teamNumber = :team_number";
@@ -89,8 +90,8 @@ public class TeamServiceImpl implements TeamService {
 		return team;
 	}
 
-	public Optional<Team> findByTeamId(Long teamId) {
-		return teamRepository.findById(teamId);
+	public Optional<Team> findByTeamId(String teamNum) {
+		return teamRepository.findByTeamNumber(teamNum);
 	}
 
 }
