@@ -50,14 +50,14 @@ export default {
     doc.setAttribute("src", "your-link-here");
     document.head.appendChild(doc);
   },
-  mounted() {
-    $(".image-upload-wrap").bind("dragover", function () {
-      $(".image-upload-wrap").addClass("image-dropping");
-    });
-    $(".image-upload-wrap").bind("dragleave", function () {
-      $(".image-upload-wrap").removeClass("image-dropping");
-    });
-  },
+  // mounted() {
+  //   $(".image-upload-wrap").bind("dragover", function () {
+  //     $(".image-upload-wrap").addClass("image-dropping");
+  //   });
+  //   $(".image-upload-wrap").bind("dragleave", function () {
+  //     $(".image-upload-wrap").removeClass("image-dropping");
+  //   });
+  // },
   methods: {
     readURL(event) {
       var input = event.target;

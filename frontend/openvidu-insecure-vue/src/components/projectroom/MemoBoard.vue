@@ -26,7 +26,10 @@
       <div class="col-3">
         <div class="p-2 alert alert-secondary">
           <!-- <img src="https://i.imgur.com/3tiJ0H5.png" style="width: 300px; height: 500px;"> -->
-          <img src="https://i.imgur.com/0jPMGpI.png" style="width: 170px; margin-left: 40px; height: 50px;">
+          <img
+            src="https://i.imgur.com/0jPMGpI.png"
+            style="width: 170px; margin-left: 40px; height: 50px"
+          />
           <!-- <h3 class="title">To do</h3> -->
           <!-- Backlog draggable component. Pass arrBackLog to list prop -->
           <draggable
@@ -47,7 +50,10 @@
 
       <div class="col-3">
         <div class="p-2 alert alert-primary">
-          <img src="https://i.imgur.com/em5L9m7.png" style="width: 170px;  margin-left: 40px; height: 50px;">
+          <img
+            src="https://i.imgur.com/em5L9m7.png"
+            style="width: 170px; margin-left: 40px; height: 50px"
+          />
           <!-- <h3 class="title">In Progress</h3> -->
           <!-- In Progress draggable component. Pass arrInProgress to list prop -->
           <draggable
@@ -68,7 +74,10 @@
 
       <div class="col-3">
         <div class="p-2 alert alert-warning">
-          <img src="https://i.imgur.com/tvwDVTq.png" style="width: 170px;  margin-left: 40px; height: 50px;">
+          <img
+            src="https://i.imgur.com/tvwDVTq.png"
+            style="width: 170px; margin-left: 40px; height: 50px"
+          />
           <!-- <h3 class="title">Testing</h3> -->
           <!-- Testing draggable component. Pass arrTested to list prop -->
           <draggable
@@ -89,7 +98,10 @@
 
       <div class="col-3">
         <div class="p-2 alert alert-success">
-          <img src="https://i.imgur.com/GZdSrxP.png" style="width: 170px;  margin-left: 40px; height: 50px;">
+          <img
+            src="https://i.imgur.com/GZdSrxP.png"
+            style="width: 170px; margin-left: 40px; height: 50px"
+          />
           <!-- <h3 class="title">Done</h3> -->
           <!-- Done draggable component. Pass arrDone to list prop -->
           <draggable
@@ -139,6 +151,7 @@ export default {
       arrInProgress: [],
       arrTested: [],
       arrDone: [],
+
       currentTeamId: "",
       teamId: "",
     };
@@ -247,7 +260,7 @@ export default {
   height: 10rem;
   margin: auto;
   background: #ffeaa6;
-  border: #F9B225 0.2rem solid;
+  border: #f9b225 0.2rem solid;
   border-radius: 0.2rem;
   padding: 0.4rem;
 }
