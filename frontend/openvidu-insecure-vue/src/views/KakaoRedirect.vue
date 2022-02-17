@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     ...mapActions(["setUserinfo"]),
-    kako_api: function () {
+    kakao_api: function () {
       axios
         .post(SIGNUP_URL, {
           code: this.$route.query.code,
@@ -40,8 +40,10 @@ export default {
     },
   },
   mounted() {
-    alert(this.$route.query.code);
-    this.kako_api();
+    // 서버 라우터 확인용 alert
+    //alert(this.$route.query.code);
+
+    this.kakao_api();
     // console.log(this.$route.query.code);
     // this.$router.replace("/join");
   },

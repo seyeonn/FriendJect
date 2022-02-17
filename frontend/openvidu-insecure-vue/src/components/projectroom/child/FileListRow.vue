@@ -1,7 +1,9 @@
 <template>
   <tr class="list__tr" @click.prevent="downloadFile()">
     <td>{{ this.name }}</td>
-    <td>{{ this.type }}</td>
+    <td>
+      {{ randomUploader() }}
+    </td>
     <td>{{ this.returnSize }}</td>
     <td>{{ this.modifiedAt }}</td>
   </tr>
@@ -19,6 +21,7 @@ export default {
       file: "",
       returnSize: "",
       modifiedAt: "",
+      uploader: "",
     };
   },
   props: {
@@ -32,8 +35,11 @@ export default {
     this.modifiedAt = timeForToday(this.modifiedDate);
     this.returnSize = returnFileSize(this.size);
   },
-
   methods: {
+    randomUploader() {
+      var arr = new Array("정채은", "김주향", "안세연", "이소라", "송진섭");
+      return arr[Math.floor(Math.random() * arr.length)];
+    },
     downloadFile() {
       getFileInfo(
         this.id,
