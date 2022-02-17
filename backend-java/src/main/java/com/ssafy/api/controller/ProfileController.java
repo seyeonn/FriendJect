@@ -68,7 +68,7 @@ public class ProfileController {
 		User user = userService.findByUserEmail(userEmail);
 		
 		mFile.transferTo(new File(upload_path + "\\" + mFile.getOriginalFilename()));  // 경로에 이미지 저장
-		user.setProfileUrl("http://localhost:8080/image/" + userEmail + "/" + mFile.getOriginalFilename());	
+		user.setProfileUrl("https://i6b202.p.ssafy.io/api/profile/" + userEmail + "/" + mFile.getOriginalFilename());	
 		userRepository.save(user);
 		return userEmail;
 	}	
