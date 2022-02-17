@@ -26,7 +26,7 @@
       <b-col sm="7">
         <div class="form" v-if="postable">
           <div class="mt-3_2">
-            <h3>Add Meetingnote</h3>
+            <img src="https://i.imgur.com/WJhZ9Lm.png" style="width: 200px; height: 70px;">
           </div>
           <div>
             <div>
