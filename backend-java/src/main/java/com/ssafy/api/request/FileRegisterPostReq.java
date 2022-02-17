@@ -1,5 +1,7 @@
 package com.ssafy.api.request;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,4 +10,6 @@ import lombok.Setter;
 public class FileRegisterPostReq {
 	private Long teamId;
 	private String nickName;
+	
+	private MultipartFile file;
 }

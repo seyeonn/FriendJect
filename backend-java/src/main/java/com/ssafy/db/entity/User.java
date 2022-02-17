@@ -40,4 +40,8 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<JoinedTeamList> teamList = new ArrayList<>();
  
+	public void addTeamList(JoinedTeamList joinedTeamList) {
+		teamList.add(joinedTeamList);
+		joinedTeamList.setUser(this);
+	}
 }

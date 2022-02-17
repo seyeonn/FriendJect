@@ -4,22 +4,16 @@ const api = projectRoomInstance();
 
 // 자료실 APIs
 function getFileInfo(fileId, success, fail) {
-  api
-    .get(`files/${fileId}`)
-    .then(success)
-    .catch(fail);
+  api.get(`files/${fileId}`).then(success).catch(fail);
 }
 
 function getFileList(success, fail) {
-  api
-    .get(`files`)
-    .then(success)
-    .catch(fail);
+  api.get(`files`).then(success).catch(fail);
 }
 
-function registerFile(file, success, fail) {
+function registerFile(formData, success, fail) {
   api
-    .post(`files`, file, {
+    .post(`files`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -37,10 +31,7 @@ function getMemoList(memoStatus, teamId, success, fail) {
 }
 
 function registerMemo(memo, success, fail) {
-  api
-    .post(`memo`, JSON.stringify(memo))
-    .then(success)
-    .catch(fail);
+  api.post(`memo`, JSON.stringify(memo)).then(success).catch(fail);
 }
 
 function registerMemoList(memolist, param, teamId, success, fail) {
@@ -56,17 +47,11 @@ function registerMemoList(memolist, param, teamId, success, fail) {
 }
 
 function modifyMemo(memoId, memo, success, fail) {
-  api
-    .put(`memo/${memoId}`, JSON.stringify(memo))
-    .then(success)
-    .catch(fail);
+  api.put(`memo/${memoId}`, JSON.stringify(memo)).then(success).catch(fail);
 }
 
 function deleteMemo(memoId, success, fail) {
-  api
-    .delete(`memo/${memoId}`)
-    .then(success)
-    .fail(fail);
+  api.delete(`memo/${memoId}`).then(success).fail(fail);
 }
 
 export {
