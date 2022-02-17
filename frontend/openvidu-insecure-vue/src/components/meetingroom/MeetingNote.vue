@@ -172,15 +172,14 @@ export default {
       this.postable = false;
       this.showDetail = false;
     },
-    postDocument: function(currentTeamId) {
+    postDocument: function() {
       const documentItem = {
         title: this.title,
         content: this.content,
-        currentTeamId: this.currentTeamId
+        teamId: this.currentTeamId,
       };
       if (documentItem.title && documentItem.content) {
         registerDocument(
-          currentTeamId,
           documentItem,
           (res) => {
             console.log(res.data + "번 글 작성완료");
@@ -225,7 +224,7 @@ export default {
       );
     },
   },
-  created: function() {
+  mounted: function() {
     this.currentTeamId = localStorage.getItem("teamId");
   },
 };

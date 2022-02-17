@@ -17,9 +17,9 @@ function getDocumentList(teamId, success, fail) {
     .catch(fail);
 }
 
-function registerDocument(teamId, documentItem, success, fail) {
+function registerDocument(documentItem, success, fail) {
   api
-    .post(`document/${teamId}`, documentItem)
+    .post(`document/`, documentItem)
     .then(success)
     .catch(fail);
 }
