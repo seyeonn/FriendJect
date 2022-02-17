@@ -17,14 +17,14 @@ https://i.imgur.com/B4WaufK.png -->
         <b-row>
           <b-col>
             <img src="https://i.imgur.com/SphM1rA.png" class="team-code-name" />
-            <p class="myprops">{{ this.$store.state.teamNumber }} zz</p>
+            <p class="myprops">{{ this.$store.state.teamNumber }}</p>
           </b-col>
           <b-col>
           <img src="https://i.imgur.com/nImP0UC.png" @click="copyTeamCode" class="copybtn"/>
           </b-col>
           <b-col>
             <img src="https://i.imgur.com/B4WaufK.png" class="team-name" />
-            <p class="myprops2">{{ this.$store.state.teamName }} zz</p>
+            <p class="myprops2">{{ this.$store.state.teamName }}</p>
           </b-col>
         </b-row>
 
@@ -343,6 +343,7 @@ https://i.imgur.com/B4WaufK.png -->
 </template>
 
 <script>
+
 import axios from "axios";
 import jquery from "jquery";
 import { API_BASE_URL } from "@/config";
