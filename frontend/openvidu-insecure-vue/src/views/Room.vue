@@ -550,7 +550,7 @@ export default {
       this.publisher = undefined;
       this.subscribers = [];
       this.OV = undefined;
-
+      localStorage.removeItem("teamId");
       window.removeEventListener("beforeunload", this.leaveSession);
       this.$router.push({ name: "main" });
     },

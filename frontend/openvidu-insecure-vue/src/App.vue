@@ -35,16 +35,16 @@ export default {
     },
   },
   created() {
-    const accessToken = localStorage.getItem("accessToken") || "";
-    const kakaoId = localStorage.getItem("kakaoId") || "";
-    const userName = localStorage.getItem("myUserName") || "";
-    const profile = localStorage.getItem("profileUrl") || "";
-    const userEmail = localStorage.getItem("userEmail") || "";
-    this.$store.commit("setToken", accessToken);
-    this.$store.commit("setKakaoId", kakaoId);
-    this.$store.commit("setUserName", userName);
-    this.$store.commit("SET_PROFILEURL", profile);
-    this.$store.commit("SET_USEREMAIL", userEmail);
+    // const accessToken = localStorage.getItem("accessToken") || "";
+    // const kakaoId = localStorage.getItem("kakaoId") || "";
+    // const userName = localStorage.getItem("myUserName") || "";
+    // const profile = localStorage.getItem("profileUrl") || "";
+    // const userEmail = localStorage.getItem("userEmail") || "";
+    // this.$store.commit("setToken", accessToken);
+    // this.$store.commit("setKakaoId", kakaoId);
+    // this.$store.commit("setUserName", userName);
+    // this.$store.commit("SET_PROFILEURL", profile);
+    // this.$store.commit("SET_USEREMAIL", userEmail);
   },
 };
 </script>

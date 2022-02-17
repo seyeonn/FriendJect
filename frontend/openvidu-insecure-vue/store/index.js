@@ -49,10 +49,16 @@ export const store = new Vuex.Store({
       state.kakaoId = "";
       state.myUserName = "";
       state.userId = "";
+      state.userEmail = "";
+      state.profileUrl = "";
+      state.teamId = "";
       localStorage.removeItem("accessToken");
       localStorage.removeItem("kakaoId");
       localStorage.removeItem("myUserName");
       localStorage.removeItem("userId");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("profileUrl");
+      localStorage.removeItem("teamId");
     },
     // 카카오 로그인으로 유저정보가 들어왔는지 확인
     SET_USERINFO: function(state, userdata) {
@@ -61,7 +67,6 @@ export const store = new Vuex.Store({
       state.accessToken = userdata["accessToken"];
       state.userEmail = userdata["userEmail"];
       state.profileUrl = userdata["profileUrl"];
-      state.sessionState = userdata["sessionState"];
       state.userId = userdata["userId"];
     },
     SET_CURRENT_TEAM: function(state, teamInfo) {
