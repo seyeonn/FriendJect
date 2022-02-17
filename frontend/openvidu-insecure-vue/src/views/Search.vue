@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow:auto; height:100%;">
+  <div style="overflow:auto; height:100%; background-color:white;">
     <div class="cards" style="width: 100%">
       <article
         class="information [ card ]"

@@ -1,21 +1,28 @@
 <template>
-  <div style="margin-top:5%;">
-    <div style="margin-left:70%">
-      <b-button @click="exitConsult">상담종료하기</b-button>
+  <div style="margin-top: 5%; height:100%; overflow:auto;">
+    <div style="margin-left: 60%">
+       <b-img
+        src="https://i.imgur.com/tyBPQPf.png"
+        style="width:180px;"
+        @click="exitConsult"
+      ></b-img>
     </div>
-    <div style="margin-top: 50px;">
-      <h2>프렌젝트 코드에디터</h2>
+    <div style="margin-top: 10px; text-align:center; height:1000px;">
+      <b-img
+        src="https://i.imgur.com/5bJ55eZ.png"
+        style="width:220px;"
+      ></b-img>
       <AceEditor
         v-model="content"
         @init="editorInit"
         lang="javascript"
         theme="monokai"
         width="100%"
-        height="450px"
+        height="400px"
         :options="{
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,
-          fontSize: 14,
+          fontSize: 16,
           highlightActiveLine: true,
           enableSnippets: true,
           showLineNumbers: true,
@@ -44,8 +51,11 @@
       v-model="modalState"
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
+        <b-img
+        src="https://i.imgur.com/SiWCJCf.png"
+        style="width:400px;"
+      ></b-img>
         <b-form-group
-          label="질문을 간단히 작성해주세요."
           label-for="name-input"
           invalid-feedback="Name is required"
           :state="questionState"
@@ -58,8 +68,12 @@
           ></b-form-input>
         </b-form-group>
 
+         <b-img
+        src="https://i.imgur.com/2TWcHpK.png"
+        style="width:400px;"
+      ></b-img>
+
         <b-form-group
-          label="해결방안을 간단히 작성해주세요."
           label-for="name-input"
           invalid-feedback="Name is required"
           :state="questionState"
@@ -72,7 +86,10 @@
           ></b-form-input>
         </b-form-group>
 
-        <p>해당 내용과 코드 기록은 상담내역보기에서 확인 가능합니다.</p>
+        <p> <b-img
+        src="https://i.imgur.com/X3ReYJh.png"
+        style="width:300px;"
+      ></b-img></p>
       </form>
     </b-modal>
     <!-- <h2>저장된 코드 </h2>
@@ -133,7 +150,7 @@ export default {
       this.saveCode = this.content;
       console.log(this.content);
     },
-    editorInit: function() {
+    editorInit: function () {
       require("brace/ext/language_tools"); //language extension prerequsite...
       require("brace/mode/html");
       require("brace/mode/javascript"); //language
@@ -142,7 +159,7 @@ export default {
       require("brace/snippets/javascript"); //snippet
     },
 
-    exitConsult: function() {
+    exitConsult: function () {
       this.modalState = !this.modalState;
     },
     checkFormValidity() {
