@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class ConsultLog {
+public class ConsultLogList {
 	
 	@Id @GeneratedValue
 	@Column(name = "no")

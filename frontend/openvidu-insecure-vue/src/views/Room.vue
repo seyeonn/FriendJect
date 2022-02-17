@@ -18,20 +18,13 @@
           @click="copyTeamCode"
           value="팀코드 복사"
         />
-        <b-row>
+        <b-row id="roomHeader">
           <!-- 방장 캠 -->
 
           <user-video
             :stream-manager="mainStreamManager"
             style="width: 200px"
           ></user-video>
-
-          <!-- 화면공유 캠 -->
-          <user-video
-            :stream-manager="screenShare"
-            style="width: 200px"
-          ></user-video>
-
           <!-- 접속자 캠 -->
           <user-video
             style="width: 200px"
@@ -41,24 +34,33 @@
             @click.native="updateMainVideoStreamManager(sub)"
           />
         </b-row>
-
         <!-- 네비게이션 부분 -->
-        <div>
-          <router-link :to="'/room'"><img src="https://i.imgur.com/2QnSMDT.png" style="
+
+        <div style="position: relative; z-index: 1;">
+          <router-link :to="'/room'"
+            ><img
+              src="https://i.imgur.com/2QnSMDT.png"
+              style="
         width: 170px;
         height: 60px;
-        "/></router-link>
+        "
+          /></router-link>
           <button type="button" id="camera" @click="videoOnAndOff()">
             비디오 끄기
           </button>
           <button type="button" id="mute" @click="audioOnAndOff()">
             음소거
           </button>
-          <button @click="screenVideo()">화면공유</button>
-
           <!-- 각 방 들어가는 부분 -->
-          <router-view></router-view>
+          <router-view v-on:upstream="upstream"> </router-view>
         </div>
+
+        <!-- 화면공유 캠 -->
+        <user-video
+          :stream-manager="screenShare"
+          style="width:600px; top:-500px; left:1%; position: relative; z-index: 2;"
+        >
+        </user-video>
       </div>
     </div>
     <div class="right-side" :class="{ active: rightSide }">
@@ -104,12 +106,16 @@
         ></a>
       </span>
       <div style="text-align: center" v-on:click="getLog">
-        <a href="#consultLog"> <img src="https://i.imgur.com/TomnxTd.png" style="width: 160px;"/> </a>
+        <a href="#consultLog">
+          <img src="https://i.imgur.com/TomnxTd.png" style="width: 160px;" />
+        </a>
       </div>
 
       <div style="text-align: center">
         <!-- 투표는 openvidu의 브로드캐스팅 참고해야할듯.. -->
-        <a href="#vot"> <img src="https://i.imgur.com/BPgngsm.png" style="width: 160px;"/> </a>
+        <a href="#vot">
+          <img src="https://i.imgur.com/BPgngsm.png" style="width: 160px;" />
+        </a>
       </div>
 
       <div class="side-wrapper contacts">
@@ -127,17 +133,19 @@
 
     <div id="consultLog" class="modal-consult">
       <div style="width:70%">
-
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
 
-        <img src="https://i.imgur.com/reE2Tgo.png" style="
+        <img
+          src="https://i.imgur.com/reE2Tgo.png"
+          style="
         width: 520px;
         height: 200px;
         margin-left: -50;
         margin-top: -20px;
-        "/>
+        "
+        />
         <!-- <div><small>Check out</small></div> -->
 
         <div>
@@ -228,13 +236,16 @@
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
-        
-        <img src="https://i.imgur.com/ExHH7bv.png" style="
+
+        <img
+          src="https://i.imgur.com/ExHH7bv.png"
+          style="
         width: 300px;
         height: 110px;
         margin-top: -20px;
         margin-bottom: 10px;
-        "/>
+        "
+        />
         <img
           :src="profileUrl"
           alt="profile_img"
@@ -242,9 +253,23 @@
           @error="replaceImg"
         />
         <input id="input" @change="onInputImage" type="file" accept="image/*" />
-        <button class="btn" @click="onChangProfile(userEmail)" style="margin-top: 10px">변경</button>
-        <button class="btn" @click="onDeleteProfile(userEmail)" style="margin-top: 10px">삭제</button>
-        <button class="btn" @click="onInitProfile" style="margin-top: 10px">초기화</button>
+        <button
+          class="btn"
+          @click="onChangProfile(userEmail)"
+          style="margin-top: 10px"
+        >
+          변경
+        </button>
+        <button
+          class="btn"
+          @click="onDeleteProfile(userEmail)"
+          style="margin-top: 10px"
+        >
+          삭제
+        </button>
+        <button class="btn" @click="onInitProfile" style="margin-top: 10px">
+          초기화
+        </button>
       </div>
     </div>
     <!-- chat -->
@@ -285,7 +310,7 @@ export default {
       teamCode: "",
       message: "",
       // 이부분만 카카오 닉네임으로 설정해주시면 됩니다.
-      // myUserName: "Participant" + Math.floor(Math.random() * 100),
+      //myUserName: "Participant" + Math.floor(Math.random() * 100),
 
       //탭 전환
       currentTab: "Center",
@@ -345,7 +370,11 @@ export default {
       "set_sesstion_id",
       "setProfileUrl",
     ]),
-
+    //최상위에서 비디오를 내려주는 코드입니다. 비디오, 화면공유 포함.
+    upstream: function() {
+      console.log("최상위 도달");
+      this.screenVideo();
+    },
     play: function(sound) {
       if (sound) {
         var audio = new Audio(sound);
@@ -407,10 +436,12 @@ export default {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
+      this.set_ov(this.OV);
       // --- Init a session ---
       this.session = this.OV.initSession();
 
       // --- Specify the actions when events take place in the session ---
+
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
@@ -460,7 +491,8 @@ export default {
         this.session
           .connect(token, { clientData: this.myUserName })
           .then(() => {
-            this.sessionId = this.$route.params.code;
+            this.set_session(this.session);
+            this.sessionId = this.mySessionId;
             // --- Get your own camera stream with the desired properties ---
             // var path = (location.pathname.slice(-1) == "/" ? location.pathname : location.pathname + "/");
             //     window.history.pushState("", "", path + '#' + this.store_sessionId);
@@ -539,10 +571,10 @@ export default {
         insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
         mirror: false, // Whether to mirror your local video or not
       });
-      this.screenShare = publisher;
-      this.publisher = publisher;
 
-      this.session.publish(this.publisher);
+      this.screenShare = publisher;
+      //this.publisher = publisher;
+      this.session.publish(this.screenShare);
     },
 
     copyTeamCode() {
