@@ -17,7 +17,7 @@ export default {
     ...mapActions(["setUserinfo"]),
     kakao_api() {
       createUser(
-        { code: this.$route.query.code },
+        this.$route.query.code,
         (res) => {
           this.setUserinfo({
             ...res.data,

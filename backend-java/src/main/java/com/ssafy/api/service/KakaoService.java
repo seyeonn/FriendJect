@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,7 @@ import com.ssafy.db.repository.UserRepository;
 @Service
 @Transactional(readOnly = true)
 public class KakaoService {
-	
+	@Autowired
 	private final UserRepository userRepository;
 	
 	public KakaoService(UserRepository userRepository) {
@@ -49,9 +50,9 @@ public class KakaoService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=e1a7f29f3266d25acd09415836291442");  //본인이 발급받은 key
+//            sb.append("&client_id=e1a7f29f3266d25acd09415836291442");  //본인이 발급받은 key
             sb.append("&redirect_uri=https://i6b202.p.ssafy.io/kakao");     // 본인이 설정해 놓은 경로 서버용
-//            sb.append("&redirect_uri=http://localhost:8080/kakao");     // 본인이 설정해 놓은 경로 test용
+            sb.append("&redirect_uri=http://localhost:8080/kakao");     // 본인이 설정해 놓은 경로 test용
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -139,12 +140,8 @@ public class KakaoService {
             userInfo.put("email", email);
             userInfo.put("profile_image", profile_image);
 
-            User user = new User();
-            user.setKakaoId(kakao_id);
-            user.setNickName(nickname);
-            user.setAccessToken(access_Token);
-            user.setUserEmail(email);
-            user.setProfileUrl(profile_image);
+            
+            User user = getUserEmail(userInfo);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -159,7 +156,9 @@ public class KakaoService {
 		return userRepository.findByUserEmail(email).orElseGet(()-> JoinNewUserWithEmail(userInfo));  		 	
     }
     
+    @Transactional
     public User JoinNewUserWithEmail(HashMap<String, Object> userInfo){
+    	System.out.println("=================");
         User user = new User();
         user.setKakaoId((String) userInfo.get("kakao_id"));
         user.setUserEmail((String) userInfo.get("email"));

@@ -58,7 +58,7 @@ export default new Router({
       path: "/room",
       name: "room",
       component: Room,
-      redirect: "room/main",
+      redirect: "room/center",
       props: true,
       children: [
         {
@@ -67,8 +67,8 @@ export default new Router({
           component: Study,
         },
         {
-          path: "main",
-          name: "main",
+          path: "center",
+          name: "center",
           component: Center,
         },
         {
@@ -100,53 +100,6 @@ export default new Router({
           ],
         },
       ],
-    },
-    {
-      path: "/consultroom",
-      name: "consultroom",
-      component: Consult,
-    },
-    {
-      path: "/404",
-      name: "notFound",
-      component: PageNotFound,
-    },
-    {
-      path: "*",
-      redirect: "/404",
-    },
-    {
-      path: "/studyroom",
-      name: "studyroom",
-      component: Study,
-    },
-    {
-      path: "/kakao",
-      name: "kakao",
-      component: KakaoLogin,
-    },
-    {
-      path: "/projectroom",
-      name: "projectroom",
-      component: Project,
-      redirect: "/projectroom/memos",
-      children: [
-        {
-          path: "memos",
-          name: "memoboard",
-          component: MemoBoard,
-        },
-        {
-          path: "files",
-          name: "filelist",
-          component: FileList,
-        },
-      ],
-    },
-    {
-      path: "meetingroom",
-      name: "meetingroom",
-      component: Meeting,
     },
   ],
 });
