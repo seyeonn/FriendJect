@@ -2,9 +2,6 @@
   <div class="container" fluid>
     <div class="main">
       <div class="main-container">
-        <div class="cursor">
-          <img style="width: 200px" :src="profileUrl" alt="my_minime" />
-        </div>
         <!-- <img
             src="@/assets/images/main_day.png"
             style="width:100%; height:100%"
@@ -315,7 +312,6 @@
 
 <script>
 import axios from "axios";
-import jquery from "jquery";
 import { API_BASE_URL } from "@/config";
 import { getConsultLogList } from "@/api/consultroom.js";
 import { changProfile } from "@/api/room.js";
@@ -391,17 +387,6 @@ export default {
   },
   mounted() {
     this.joinSession();
-    jquery(document).ready(function () {
-      jquery(document).mousemove(function (e) {
-        var mouseX = e.pageX;
-        var mouseY = e.pageY;
-
-        jquery(".cursor").css({
-          left: mouseX + "px",
-          top: mouseY + "px",
-        });
-      });
-    });
   },
   methods: {
     ...mapActions([
