@@ -1,39 +1,12 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-
-Vue.use(VueRouter)
-
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/main',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Search.vue')
-  }
-]
-
-export const router = new VueRouter({
-  mode: 'history',
-  routes
-})
-
-// import Vue from "vue";
-// import VueRouter from "vue-router";
-// import Home from "../views/Home.vue";
+import Vue from "vue";
+import Router from "vue-router";
+import Home from "../views/Home.vue";
 // import Room from "../views/Room.vue";
-//  import Search from "../views/Search.vue";
+import Search from "../views/Search.vue";
 // import KakaoLogin from "../views/KakaoRedirect.vue";
 // import Center from "../components/layout/Center.vue";
 // import Minime from "../views/Minime.vue";
-// // consult room
+// consult room
 // import Consult from "../views/ConsultRoom.vue";
 // import PageNotFound from "../views/PageNotFound.vue";
 // // // project room
@@ -47,8 +20,23 @@ export const router = new VueRouter({
 // // // study room
 // import Study from "../views/Studyroom/Studyroom.vue";
 
-// Vue.use(VueRouter);
+Vue.use(Router);
 
+export default new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: Home,
+    },
+    {
+      path: "/main",
+      name: "main",
+      component: Search,
+    },
+  ],
+});
 
 // export const router = new VueRouter({
 //   mode: 'history',
@@ -166,20 +154,18 @@ export const router = new VueRouter({
 //   ],
 // });
 
-// export default router;
-
-// // 전역 가드
-// // https://router.vuejs.org/kr/guide/advanced/navigation-guards.html#%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%A8-%E1%84%80%E1%85%A1%E1%84%83%E1%85%B3
-// // router.beforeEach((to, from, next) => {
-// //   const accessToken = localStorage.getItem("accessToken");
-// //   if (to.name === "/") {
-// //     if (accessToken) {
-// //       next({ name: "main" });
-// //     }
-// //   } else if (to.name === "main") {
-// //     if (!accessToken) {
-// //       next({ name: "/" });
-// //     }
-// //   }
-// //   next();
-// // });
+// 전역 가드
+// https://router.vuejs.org/kr/guide/advanced/navigation-guards.html#%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%A8-%E1%84%80%E1%85%A1%E1%84%83%E1%85%B3
+// router.beforeEach((to, from, next) => {
+//   const accessToken = localStorage.getItem("accessToken");
+//   if (to.name === "/") {
+//     if (accessToken) {
+//       next({ name: "main" });
+//     }
+//   } else if (to.name === "main") {
+//     if (!accessToken) {
+//       next({ name: "/" });
+//     }
+//   }
+//   next();
+// });
