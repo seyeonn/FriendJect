@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-container fluid class="bv-example-row" style="height: 120px">
+    <b-container fluid class="bv-example-row" style="height:120px;">
       <b-row>
-        <b-col><img class="logo" src="@/assets/images/logo.png" /></b-col>
+        <b-col><img class="logo" src="@/assets/images/logo.png"/></b-col>
         <b-col cols="8"></b-col>
         <b-col>
           <b-button
@@ -31,7 +31,7 @@
           <!-- 서버에 올릴 때 <a
             href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e1a7f29f3266d25acd09415836291442&redirect_uri=http://localhost:8080/kakao"
           >-->
-          <a
+           <a
             href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e1a7f29f3266d25acd09415836291442&redirect_uri=https://i6b202.p.ssafy.io/kakao"
           >
             <img alt="kakao-button" src="@/assets/images/kakao_login.png" />

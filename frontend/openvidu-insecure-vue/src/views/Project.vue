@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="p-1" style="background-color:white; height:100%">
+  <b-container fluid class="p-1" style="background-color: white; height: 100%">
     <div>
       <b-tabs content-class="m-3" fill>
         <b-tab
@@ -15,7 +15,7 @@
 </template>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-import FileList from "../components/projectroom/FileList.vue";
+import FileList from "@/components/projectroom/FileList.vue";
 import FileUpload from "@/components/projectroom/FileUpload.vue";
 import MemoBoard from "@/components/projectroom/MemoBoard.vue";
 
