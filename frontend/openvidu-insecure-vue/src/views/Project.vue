@@ -8,7 +8,7 @@
           class="shadow-sm p-3 mb-5 bg-white rounded"
           ><memo-board></memo-board
         ></b-tab>
-        <!-- <b-tab title="자료실"><file-list></file-list></b-tab> -->
+        <b-tab title="자료실"><file-list></file-list></b-tab>
       </b-tabs>
     </div>
   </b-container>
