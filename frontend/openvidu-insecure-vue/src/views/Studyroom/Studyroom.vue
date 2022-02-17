@@ -255,16 +255,28 @@ document.addEventListener("DOMContentLoaded", () => {
 .w-btn-white {
   padding: 6px 12px;
   background-color: rgba(234, 237, 240, 0.712);
+<<<<<<< HEAD
+  color: #ebb24a;
+=======
   color: #f9b225;
+>>>>>>> friendject/develop
 }
 
 .w-btn-white-outline {
   border: 3px solid rgba(234, 237, 240, 0.712);
+<<<<<<< HEAD
+  color: #ebb24a;
+}
+
+.w-btn-white-outline:hover {
+  color: #ebb24a;
+=======
   color: #f9b225;
 }
 
 .w-btn-white-outline:hover {
   color: #f9b225;
+>>>>>>> friendject/develop
   background: rgba(234, 237, 240, 0.712);
 }
 
