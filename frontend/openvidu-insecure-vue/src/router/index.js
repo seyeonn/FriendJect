@@ -3,7 +3,7 @@ import Router from "vue-router";
 import Home from "../views/Home.vue";
 // import Room from "../views/Room.vue";
 import Search from "../views/Search.vue";
-// import KakaoLogin from "../views/KakaoRedirect.vue";
+import KakaoLogin from "../views/KakaoRedirect.vue";
 // import Center from "../components/layout/Center.vue";
 // import Minime from "../views/Minime.vue";
 // consult room
@@ -23,12 +23,17 @@ import PageNotFound from "../views/PageNotFound.vue";
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  mode: "history",
   routes: [
     {
       path: "/",
       name: "home",
       component: Home,
+    },
+    {
+      path: "/kakao",
+      name: "kakao",
+      component: KakaoLogin,
     },
     {
       path: "/main",
