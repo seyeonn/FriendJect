@@ -1,19 +1,16 @@
 package com.ssafy.db.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 유저 모델 정의.
@@ -35,7 +32,7 @@ public class User {
 	private String accessToken;
 	private String nickName;
 	private String profileUrl;
-	
+//	
 //	@OneToMany(mappedBy = "user")
 //	private List<JoinedTeamList> teamList = new ArrayList<>();
 // 
@@ -43,4 +40,14 @@ public class User {
 //		teamList.add(joinedTeamList);
 //		joinedTeamList.setUser(this);
 //	}
+	
+	@Builder 
+	public User(String kakaoId, String userEmail, String accessToken, String nickName, String profileUrl) {
+		this.kakaoId = kakaoId;
+		this.userEmail = userEmail;
+		this.accessToken = accessToken;
+		this.nickName = nickName;
+		this.profileUrl = profileUrl;
+		
+	}
 }

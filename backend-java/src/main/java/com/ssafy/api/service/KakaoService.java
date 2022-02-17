@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,6 +19,7 @@ import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class KakaoService {
 	
 	private final UserRepository userRepository;
@@ -92,6 +94,7 @@ public class KakaoService {
     }
     
     // 사용자 정보 받아오기
+    @Transactional
     public HashMap<String, Object> getUserInfo (String access_Token) {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
@@ -136,8 +139,14 @@ public class KakaoService {
             userInfo.put("email", email);
             userInfo.put("profile_image", profile_image);
 
+            User user = new User();
+            user.setKakaoId(kakao_id);
+            user.setNickName(nickname);
+            user.setAccessToken(access_Token);
+            user.setUserEmail(email);
+            user.setProfileUrl(profile_image);
+            
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return userInfo;
