@@ -1,9 +1,9 @@
 <template>
-  <div class="main_study" style="height:100%">
-    <div style="margin-top: 100px; margin-left: 220px;">
+  <div class="main_study" style="height: 100%">
+    <div style="margin-top: 100px; margin-left: 220px">
       <studyroom-player />
     </div>
-    <div id="stopwatch" style="margin-top: 30px;">
+    <div id="stopwatch" style="margin-top: 30px">
       <!-- 스톱워치 기능 개발 -->
       <div class="stopwatch">{{ formattedElapsedTime }} &nbsp;&nbsp;</div>
       <div class="watch">
@@ -22,7 +22,11 @@
     <div class="studybest">{{ studybest }}</div>
 
     <!-- 상태 메세지 등록 및 수정 -->
-    <div class="comment" v-if="userInfo != null" style="margin-top: 160px; margin-left: 122px;">
+    <div
+      class="comment"
+      v-if="userInfo != null"
+      style="margin-top: 160px; margin-left: 122px"
+    >
       <span v-show="!showInput">{{ com }}</span>
       <input
         type="text"

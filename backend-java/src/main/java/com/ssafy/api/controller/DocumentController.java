@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,12 +34,14 @@ public class DocumentController {
 	
 	DocumentRepository documentRepoisitory;
 	
-	@GetMapping
+	@GetMapping("list/{teamId}")
 	@ApiOperation(value = "회의록 조회", notes = "<strong> 회의록 전체 </strong> 를 조회한다. ") 
-	public List<Map<String, Object>> list() {
+	public List<Map<String, Object>> list(@PathVariable String teamId) {
 		List<Map<String, Object>> result = new ArrayList<>();
-		Sort sort = Sort.by(Sort.Direction.DESC, "id"); 
-		documentRepoisitory.findAll(sort).forEach(documentList -> {
+		List<Document> option = documentRepoisitory.findByTeamIdOrderByIdDesc(teamId);
+		if (option.isEmpty())
+			return null;
+		option.forEach(documentList -> {
 			Map<String, Object> obj = new HashMap<>();
 			obj.put("id", documentList.getId());
 			obj.put("title", documentList.getTitle());
@@ -72,6 +73,7 @@ public class DocumentController {
 				.title(body.get("title").toString())
 				.content(body.get("content").toString())
 				.meetingTime(LocalDateTime.now())
+				.teamId(body.get("teamId").toString())
 				.build()).getId();
 	}
 	
