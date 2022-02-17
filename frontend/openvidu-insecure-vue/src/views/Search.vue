@@ -36,8 +36,12 @@
           </svg>
         </button>
       </article>
+<<<<<<< HEAD
+      <article class="information [ card ]" style="width:40%">
+=======
 
       <article class="information [ card ]" style="width: 40%">
+>>>>>>> upstream/develop
         <span class="tag">기존 프로젝트에 참여하기</span>
         <h2 class="title">팀 코드로 참가</h2>
         <p class="info" style="font-size: 0.9rem">
@@ -57,7 +61,6 @@
         >
           MINIME
         </router-link>
-
         <b-button @click="checkTeamExists" class="button">ROOM</b-button>
         <button class="button" @click="checkTeamExists">
           <span>Join</span>

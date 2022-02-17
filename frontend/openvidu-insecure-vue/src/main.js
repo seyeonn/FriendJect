@@ -16,6 +16,7 @@ Vue.use(Vuex);
 
 Vue.config.productionTip = false;
 
+
 new Vue({
   render: (h) => h(App),
   router,
