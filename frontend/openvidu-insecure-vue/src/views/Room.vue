@@ -152,7 +152,46 @@
         <!-- <div><small>Check out</small></div> -->
 
         <div>
-          <b-table striped hover :items="consult_log"></b-table>
+          <b-table
+            class="tables"
+            striped
+            hover
+            :items="consult_log"
+            :outlined="outlined"
+          ></b-table>
+          <details>
+            <summary>코드보기</summary>
+            <span>
+              <AceEditor
+                v-model="codeLog"
+                @init="editorInit"
+                lang="javascript"
+                theme="monokai"
+                width="100%"
+                height="150px"
+                :options="{
+                  enableBasicAutocompletion: true,
+                  enableLiveAutocompletion: true,
+                  fontSize: 20,
+                  highlightActiveLine: true,
+                  enableSnippets: true,
+                  showLineNumbers: true,
+                  tabSize: 2,
+                  showPrintMargin: false,
+                  showGutter: true,
+                  readOnly: true,
+                }"
+                :commands="[
+                  {
+                    name: 'save',
+                    bindKey: { win: 'Ctrl-S', mac: 'Command-S' },
+                    exec: dataSumit,
+                    readOnly: true,
+                  },
+                ]"
+              />
+            </span>
+          </details>
         </div>
 
         <!-- <b-list-group>
@@ -220,7 +259,7 @@
           </b-form-checkbox>
         </div>
 
-        <button
+        <!-- <button
           @click="
             play(
               'http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3'
@@ -229,7 +268,7 @@
           class="w-btn w-btn-green"
         >
           audioPlayer
-        </button>
+        </button> -->
 
         <button class="w-btn w-btn-green2" @click="cvote">투표 생성하기</button>
       </div>
@@ -289,6 +328,7 @@ import { getConsultLogList } from "@/api/consultroom.js";
 import { changProfile } from "@/api/room.js";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/UserVideo.vue";
+import AceEditor from "vuejs-ace-editor";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
@@ -331,15 +371,18 @@ export default {
       audioEnabled: true,
 
       subList: [],
+      consult_log: [{ 질문: "함수 구현 방법", 답변: "코드 참조" }],
+
     };
   },
   computed: {
-    ...mapState(["consult_log", "store_sessionId"]),
+    ...mapState(["store_sessionId"]),
     ...mapState(["myUserName"]),
     ...mapState(["kakaoId"]),
     ...mapState(["profileUrl"]),
     ...mapState(["userEmail"]),
     ...mapState(["teamName"]),
+    ...mapState(["codeLog"]),
     currentTabComponent() {
       return "tab-" + this.currentTab.toLowerCase();
     },
@@ -351,6 +394,7 @@ export default {
     Chat,
     UserVideo,
     UserListRow,
+    AceEditor
   },
   mounted() {
     this.joinSession();
@@ -757,6 +801,10 @@ export default {
 @import "@/assets/style/main-new.scss";
 @import "@/assets/style/consultLog_modal.scss";
 @import "@/assets/style/join_room.scss";
+
+.tables {
+  background-color: white;
+}
 
 video {
   width: 100px;

@@ -1,11 +1,14 @@
 <template>
-  <div>
+  <div style="height:100%; overflow:auto;">
+
+    <div style="height:1000px;">
     <div class="mb-1rem"></div>
     <vue-select-image :dataImages="dataImages" @onselectimage="onSelectImage">
     </vue-select-image>
     <button class="mb-1rem button basic outline" @click="postMinime(userEmail)">
       선택
     </button>
+    </div>
   </div>
 </template>
 

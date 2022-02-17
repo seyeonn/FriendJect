@@ -18,6 +18,7 @@ export const store = new Vuex.Store({
     teamId: "",
     teamName: "",
     teamNumber: "",
+    codeLog: "",
   },
   getters: {
     isLogin: (state) => {
@@ -99,6 +100,9 @@ export const store = new Vuex.Store({
     },
     SET_SESSTION(state, session) {
       state.store_session = session;
+    },
+    SET_CODE(state, code) {
+      state.codeLog = code;
     }
   },
   actions: {
@@ -119,6 +123,9 @@ export const store = new Vuex.Store({
     },
     set_session({commit}, session) {
       commit("SET_SESSOIN", session);
+    },
+    set_code({commit}, code) {
+      commit("SET_CODE", code)
     }
   },
 });
