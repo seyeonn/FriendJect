@@ -6,7 +6,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import axios from "axios";
+// import axios from "axios";
 // import { SIGNUP_URL } from "@/config";
 import { createUser } from "@/api/center.js";
 export default {
