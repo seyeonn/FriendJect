@@ -216,7 +216,7 @@
           </b-form-checkbox>
         </div>
 
-        <button
+        <!-- <button
           @click="
             play(
               'http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3'
@@ -225,7 +225,7 @@
           class="w-btn w-btn-green"
         >
           audioPlayer
-        </button>
+        </button> -->
 
         <button class="w-btn w-btn-green2" @click="cvote">투표 생성하기</button>
       </div>
