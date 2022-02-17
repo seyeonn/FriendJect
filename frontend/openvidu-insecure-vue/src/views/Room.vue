@@ -120,6 +120,50 @@
 
       <div class="side-wrapper contacts">
         <div class="side-title">접속 중인 팀원</div>
+        <div class="user">
+            <img
+              src='https://user-images.githubusercontent.com/83205029/153934686-1582bb31-bc21-43ca-a78f-1ac21530af3b.png'
+              alt=""
+              class="user-img"
+            />
+            <div class="username">
+              송진섭
+              <div class="album-date">게임 중</div>
+            </div>
+        </div>
+        <div class="user">
+            <img
+              src='https://user-images.githubusercontent.com/83205029/153934682-074d5222-905f-4c9b-ac86-bf2b75e6faa6.png'
+              alt=""
+              class="user-img"
+            />
+            <div class="username">
+              안세연
+              <div class="album-date">코딩 중</div>
+            </div>
+        </div>
+        <div class="user">
+            <img
+              src='https://user-images.githubusercontent.com/83205029/153934643-f07bb826-bce4-4b58-a4d6-4f78bb69cd71.png'
+              alt=""
+              class="user-img"
+            />
+            <div class="username">
+              이소라
+            </div>
+            <div class="album-date">웹서핑 중</div>
+        </div>
+        <div class="user">
+            <img
+              src='https://user-images.githubusercontent.com/83205029/153934672-c1e3436d-d5f6-4072-bef3-c678d7f329d8.png'
+              alt=""
+              class="user-img"
+            />
+            <div class="username">
+              정채은
+              <div class="album-date">코딩 중</div>
+            </div>
+        </div>
         <user-list-row
           v-for="sub in subscribers"
           :key="sub.stream.connection.data"
