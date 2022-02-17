@@ -27,6 +27,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 import { registerFile } from "@/api/projectroom.js";
+import { mapState } from "vuex";
 
 export default {
   name: "fileUpload",
@@ -34,22 +35,26 @@ export default {
     return {
       file: "",
       isSelected: true,
+      username: "",
+      teamId: "",
     };
   },
   computed: {
     ...mapState(["myUserName"]),
   },
   created() {
-    console.log(this.myUserName);
+    this.username = localStorage.getItem("myUserName");
+    this.teamId = localStorage.getItem("teamId");
+    console.log(this.teamId);
     let doc = document.createElement("script");
     doc.setAttribute("src", "your-link-here");
     document.head.appendChild(doc);
   },
   mounted() {
-    $(".image-upload-wrap").bind("dragover", function() {
+    $(".image-upload-wrap").bind("dragover", function () {
       $(".image-upload-wrap").addClass("image-dropping");
     });
-    $(".image-upload-wrap").bind("dragleave", function() {
+    $(".image-upload-wrap").bind("dragleave", function () {
       $(".image-upload-wrap").removeClass("image-dropping");
     });
   },
@@ -58,7 +63,7 @@ export default {
       var input = event.target;
       if (input.files && input.files[0]) {
         var reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
           $(".image-upload-wrap").hide();
           $(".file-upload-image").attr("src", e.target.result);
           $(".file-upload-content").show();
@@ -79,9 +84,11 @@ export default {
     saveFile() {
       var formData = new FormData();
       formData.append("file", this.file);
-      console.log(this.file);
+      formData.append("uploader", this.username);
+      formData.append("teamId", this.teamId);
       registerFile(
         formData,
+
         (response) => {
           console.log(response);
           this.$router.go();
