@@ -36,6 +36,12 @@ public class FileInfo extends BaseTimeEntity {
 	@Column(name = "data")
 	private byte[] data;
 
+	@Column(name = "team_id")
+	private String teamId;
+	
+	@Column(name = "uploader")
+	private String uploader;
+	
 	@Builder
 	public FileInfo(String fileName, byte[] data, String contentType) {
 		this.fileName = fileName;

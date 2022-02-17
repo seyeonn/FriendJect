@@ -89,8 +89,8 @@ public class TeamServiceImpl implements TeamService {
 		return team;
 	}
 
-	public Optional<Team> findByTeamNumber(String teamNumber) {
-		return teamRepository.findByTeamNumber(teamNumber);
+	public Optional<Team> findByTeamId(Long teamId) {
+		return teamRepository.findById(teamId);
 	}
 
 }

@@ -11,9 +11,7 @@
           /> -->
         <h4>팀 코드 : {{ this.$store.state.teamNumber }}</h4>
         <h4>팀 네임 : {{ this.$store.state.teamName }}</h4>
-        <button @click="leaveSession" value="Leave session">
-          세션 나가기
-        </button>
+        <button @click="leaveSession" value="Leave session">세션 나가기</button>
         <input
           type="button"
           class="btn btn-info"
@@ -25,18 +23,18 @@
 
           <user-video
             :stream-manager="mainStreamManager"
-            style="width:200px;"
+            style="width: 200px"
           ></user-video>
 
           <!-- 화면공유 캠 -->
           <user-video
             :stream-manager="screenShare"
-            style="width:200px;"
+            style="width: 200px"
           ></user-video>
 
           <!-- 접속자 캠 -->
           <user-video
-            style="width:200px;"
+            style="width: 200px"
             v-for="sub in subscribers"
             :key="sub.stream.connection.connectionId"
             :stream-manager="sub"
@@ -102,11 +100,11 @@
         </span>
       </div>
 
-      <div style="text-align:center;" v-on:click="getLog">
+      <div style="text-align: center" v-on:click="getLog">
         <a href="#consultLog"> <div>상담내역보기</div> </a>
       </div>
 
-      <div style="text-align:center;">
+      <div style="text-align: center">
         <!-- 투표는 openvidu의 브로드캐스팅 참고해야할듯.. -->
         <a href="#vot"> <div>투표 생성하기</div> </a>
       </div>
@@ -124,7 +122,7 @@
 
     <!-- 상담 모달 -->
     <div id="consultLog" class="modal-window">
-      <div style="width:70%">
+      <div style="width: 70%">
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
@@ -155,17 +153,16 @@
 
     <!-- 투표 모달 -->
     <div id="vot" class="modal-vot">
-      <div style="width:40%">
+      <div style="width: 40%">
         <a href="#" title="Close" class="modal-close">
           <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
         </a>
 
         <img
           src="https://i.imgur.com/H6aJjTA.png"
-          style="
-        width: 400px;
+          style="width: 400px;
         height: 150px;
-        margin-left: -50;
+        margin-left: -50px;
         margin-top: -20px;
         "
         />
@@ -176,7 +173,7 @@
             v-model="votTitle"
             type="text"
             class="form-control"
-            style="width:80%"
+            style="width: 80%"
             placeholder="투표 질문을 입력해주세요."
           />
           <br />
