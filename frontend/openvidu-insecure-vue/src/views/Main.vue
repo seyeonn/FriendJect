@@ -1,1445 +1,307 @@
 <template>
-  <div style="background-color:white">
-    <button class="app-cancel-bonuses">Please cancel this !</button>
-    <div class="app-info app-info--right bonus-dark-mode">
-      Switch Light/Dark
-    </div>
-    <div class="app">
-      <div class="top">
-        <div class="top-menu">
-          <div class="top-menu__item">
-            <div class="top-menu__label">File</div>
-            <ul class="top-menu-sub">
-              <li class="top-menu-sub__item">New mail</li>
-              <li class="top-menu-sub__item">Refresh mails</li>
-              <li class="top-menu-sub__separator"></li>
-              <li class="top-menu-sub__item">Export mails to MP3</li>
-              <li class="top-menu-sub__item">Export mails to BMP</li>
-              <li class="top-menu-sub__separator"></li>
-              <li class="top-menu-sub__item bonus-exit">Exit</li>
-            </ul>
-          </div>
-          <div class="top-menu__item">
-            <div class="top-menu__label">Edit</div>
-            <ul class="top-menu-sub">
-              <li class="top-menu-sub__item">Undo</li>
-              <li class="top-menu-sub__item">Redo</li>
-              <li class="top-menu-sub__separator"></li>
-              <li class="top-menu-sub__item">Settings</li>
-            </ul>
-          </div>
-          <div class="top-menu__item">
-            <div class="top-menu__label">Bonus</div>
-            <ul class="top-menu-sub">
-              <li class="top-menu-sub__item bonus-weird-rotate">
-                Infinite weird rotate of the app
-              </li>
-              <li class="top-menu-sub__item bonus-zoom">Please zoom</li>
-              <li class="top-menu-sub__item bonus-why-so-serious">
-                Why so serious ?
-              </li>
-              <li class="top-menu-sub__item bonus-russia">
-                Please more russia
-              </li>
-            </ul>
-          </div>
-          <div class="top-menu__item">
-            <div class="top-menu__label">About</div>
-            <ul class="top-menu-sub">
-              <li class="top-menu-sub__item">
-                <a
-                  class="top-menu-sub__link"
-                  target="_BLANK"
-                  href="https://github.com/BeardedBear/pens/tree/master/mail"
-                  >Repository of this app</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="top-search">
-          <i class="fas fa-search"></i>
-          <input class="input" type="text" placeholder="Search mails..." />
-        </div>
-        <div class="top-action">
-          <div class="top-action__item">
-            <i class="far fa-window-minimize"></i>
-          </div>
-          <div class="top-action__item">
-            <i class="far fa-window-maximize"></i>
-          </div>
-          <div class="top-action__item"><i class="fas fa-times"></i></div>
-        </div>
-      </div>
-      <div class="app__content">
-        <div class="accounts">
-          <div class="accounts__item accounts__item--active">
-            <span class="accounts__pill pill pill--solid">3</span>
-            <img
-              class="accounts__avatar"
-              src="https://creer.casecompany.paris/uploads/themes/original/5c9deb858a91e.png"
-              alt=""
-            />
-          </div>
-          <div class="accounts__item">
-            <img
-              class="accounts__avatar"
-              src="https://t4.ftcdn.net/jpg/02/60/06/73/500_F_260067304_OQ2dL97DGSv0goBsQXSaYCjaq9nb8wrM.jpg"
-              alt=""
-            />
-          </div>
-          <div class="accounts__item">
-            <span class="accounts__pill pill pill--solid">8</span>
-            <img
-              class="accounts__avatar"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQtNAzHal9Qv7jD3-8w63hz3k0AE1L3GyqAoYXUnOJrLvMDwVT8A"
-              alt=""
-            />
-          </div>
-        </div>
-        <div class="menu">
-          <div class="menu-user">
-            <div class="profile-head">
-              <div class="profile-head__id">
-                <img
-                  class="profile-head__avatar"
-                  src="https://creer.casecompany.paris/uploads/themes/original/5c9deb858a91e.png"
-                  alt=""
-                />
-                <div>
-                  <div class="profile-head__name">Jean-Claude</div>
-                  <div class="profile-head__mail">jeanclaude@gmail.com</div>
-                </div>
-              </div>
-              <div class="profile-head__options">
-                <i class="fas fa-ellipsis-h"></i>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="menu-main">
-              <div class="menu__item active">
-                <div>
-                  <i class="menu__icon fas fa-inbox"></i>
-                  <span class="menu__label">Inbox</span>
-                </div>
-                <span class="menu-main__pill pill">3</span>
-              </div>
-              <div class="menu__item">
-                <div>
-                  <i class="menu__icon fas fa-paper-plane"></i>
-                  <span class="menu__label">Sent mail</span>
-                </div>
-                <span class="menu-main__pill pill">78</span>
-              </div>
-              <div class="menu__item">
-                <div>
-                  <i class="menu__icon fas fa-pencil-alt"></i>
-                  <span class="menu__label">Drafts</span>
-                </div>
-                <span class="menu-main__pill pill">2</span>
-              </div>
-              <div class="menu__item">
-                <div>
-                  <i class="menu__icon fas fa-trash-alt"></i>
-                  <span class="menu__label">Spam</span>
-                </div>
-                <span class="menu-main__pill pill">290</span>
-              </div>
-            </div>
-            <ul class="menu-tags">
-              <li class="menu-tags__item">
-                <span class="dot dot--pink"></span>
-                <span class="menu-tags__label">Shopping</span>
-              </li>
-              <li class="menu-tags__item">
-                <span class="dot dot--red"></span>
-                <span class="menu-tags__label">Important</span>
-              </li>
-              <li class="menu-tags__item">
-                <span class="dot dot--blue"></span>
-                <span class="menu-tags__label">Work</span>
-              </li>
-              <li class="menu-tags__item">
-                <span class="dot dot--green"></span>
-                <span class="menu-tags__label">Done</span>
-              </li>
-              <li class="menu-tags__item">
-                <span class="dot dot--yellow"></span>
-                <span class="menu-tags__label">To-Do</span>
-              </li>
-              <li class="menu-tags__item">
-                <span class="dot dot--purple"></span>
-                <span class="menu-tags__label">Personal</span>
-              </li>
-            </ul>
-          </div>
-          <div class="new">
-            <button class="new__button new-mail__toggle">
-              <i class="fas fa-plus"></i>
+  <div>
+    <div class="container" fluid x-data="{ rightSide: false, leftSide: false }">
+      <div class="main">
+        <div class="main-container">
+          <!-- <img
+            src="@/assets/images/main_day.png"
+            style="width:100%; height:100%"
+          /> -->
+          <!-- 이 부분에 if문 써서 컴포넌트로 각 4개의 방이 들어가야함.   -->
+          <!-- <router-link :to="{ name: 'consult', params: { username: 'erina' }}">
+            상담실
+          </router-link> -->
+          <div id="dynamic-component-demo" class="demo">
+            <button
+              v-for="tab in tabs"
+              :key="tab"
+              :class="['tab-button', { active: currentTab === tab }]"
+              @click="currentTab = tab"
+            >
+              {{ tab }}
             </button>
-            <div class="new-mail">
-              <div class="new-mail__top">
-                <div class="new-mail__title">
-                  <span>Write a new mail from</span>
-                  <div class="select">
-                    <select class="select__item" name="" id="">
-                      <option value="">jeanclaude@gmail.com</option>
-                      <option value="">him@gmail.com</option>
-                    </select>
-                    <i class="select__arrow fas fa-sort-down"></i>
-                  </div>
-                </div>
-                <i class="new-mail__close new-mail__toggle fas fa-times"></i>
-              </div>
-              <div class="new-mail-exp">
-                <div class="new-mail-exp__item">
-                  <div class="new-mail-exp__label">To</div>
-                  <input
-                    placeholder="Enter email"
-                    type="text"
-                    class="new-mail-exp__input"
-                  />
-                </div>
-                <div class="new-mail-exp__item">
-                  <div class="new-mail-exp__label">Object</div>
-                  <input
-                    placeholder="Enter mail object"
-                    type="text"
-                    class="new-mail-exp__input"
-                  />
-                </div>
-              </div>
-              <div class="new-mail__content">
-                <textarea class="new-mail__message">
-Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur eveniet corrupti deserunt ad cum inventore error architecto voluptatum temporibus eligendi asperiores placeat explicabo, consequatur molestias. Corrupti voluptatem commodi dicta dolorum.</textarea
-                >
-              </div>
-              <div class="new-mail-foot">
-                <div class="new-mail-foot__insert">
-                  <i class="new-mail-foot__icon far fa-file-archive"></i>
-                  <i class="new-mail-foot__icon far fa-image"></i>
-                  <i class="new-mail-foot__icon fas fa-paperclip"></i>
-                </div>
-                <div class="new-mail-foot__actions">
-                  <button class="button button new-mail__toggle">Cancel</button>
-                  <button class="button button--primary">
-                    <i class="fas fa-paper-plane"></i>
-                  </button>
-                </div>
-              </div>
+
+            <!-- Inactive components will be cached! -->
+            <keep-alive>
+              <component :is="currentTab"> </component>
+            </keep-alive>
+          </div>
+        </div>
+      </div>
+      <div class="right-side" :class="{ active: rightSide }">
+        <div class="account">
+          <button class="account-button">
+            <svg
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="css-i6dzq1"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              />
+              <path d="M22 6l-10 7L2 6" />
+            </svg>
+          </button>
+          <button class="account-button">
+            <svg
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="css-i6dzq1"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"
+              />
+            </svg>
+          </button>
+          <span class="account-user"
+            >Quan Ha
+            <img
+              src="https://images.genius.com/2326b69829d58232a2521f09333da1b3.1000x1000x1.jpg"
+              alt=""
+              class="account-profile"
+            />
+            <span>▼</span>
+          </span>
+        </div>
+        <div class="side-wrapper stories">
+          <div class="side-title">STORIES</div>
+          <div class="user">
+            <img
+              src="https://pbs.twimg.com/profile_images/1102351320567164931/ZCkJgJIH.png"
+              alt=""
+              class="user-img"
+            />
+            <div class="username">
+              Lisandro Matos
+              <div class="album-date">12 hours ago</div>
+            </div>
+          </div>
+          <div class="user">
+            <img
+              src="https://pbs.twimg.com/profile_images/1153966095444992000/1lpIyHaQ.jpg"
+              alt=""
+              class="user-img"
+            />
+            <div class="username">
+              Gvozden Boskovsky
+              <div class="album-date">29 minutes ago</div>
+            </div>
+          </div>
+          <div class="user">
+            <img
+              src="https://images.unsplash.com/photo-1565464027194-7957a2295fb7?ixlib=rb-1.2.1&auto=format&fit=crop&w=3500&q=80"
+              alt=""
+              class="user-img"
+            />
+            <div class="username">
+              Hnek Fortuin
+              <div class="album-date">3 hours ago</div>
+            </div>
+          </div>
+          <div class="user">
+            <img
+              src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80"
+              alt=""
+              class="user-img"
+            />
+            <div class="username">
+              Lubomir Dvorak
+              <div class="album-date">18 hours ago</div>
             </div>
           </div>
         </div>
-        <div class="mails">
-          <div class="message-list scrollable">
-            <div class="scrollable__target">
-              <div class="message">
-                <div class="message-tags">
-                  <span class="dot dot--green"></span>
-                </div>
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>Kanye West</div>
-                    <div class="date">Today, 15:14</div>
-                  </div>
-                  <div class="message__title">
-                    Please come back bro !
-                  </div>
-                  <div class="message__expr">
-                    « Please, I need you to make my music fantastic! »
-                  </div>
-                </div>
-              </div>
-              <div class="message message--new">
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>Phil Collins</div>
-                    <div class="date">Yesterday, 23:12</div>
-                  </div>
-                  <div class="message__title">
-                    Genesis... again ?
-                  </div>
-                  <div class="message__expr">
-                    « Hi Peter, are you interested in coming back to genesis? »
-                  </div>
-                </div>
-              </div>
-              <div class="message">
-                <div class="message-tags">
-                  <span class="dot dot--purple"></span>
-                  <span class="dot dot--green"></span>
-                </div>
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>Tim Curry</div>
-                    <div class="date">Yesterday, 20:45</div>
-                  </div>
-                  <div class="message__title">
-                    I lost my glasses...
-                  </div>
-                  <div class="message__expr">
-                    « Hi, I lost my glasses in your living room, could you bring
-                    them back to me? »
-                  </div>
-                </div>
-              </div>
-              <div class="message message--new message--active">
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>Papy Bear</div>
-                    <div class="date">Yesterday, 12:01</div>
-                  </div>
-                  <div class="message__title">
-                    Am I on the Internet?
-                  </div>
-                  <div class="message__expr">
-                    « Oh, my God, I was scared! »
-                  </div>
-                </div>
-              </div>
-              <div class="message message--new">
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>Josie Smith</div>
-                    <div class="date">Yesterday, 02:59</div>
-                  </div>
-                  <div class="message__title">
-                    Have you heard of our lord Raptor Jesus?
-                  </div>
-                  <div class="message__expr">
-                    « Do you know Raptor Jesus? He is the savior of us all. »
-                  </div>
-                </div>
-              </div>
-              <div class="message">
-                <div class="message-tags">
-                  <span class="dot dot--red"></span>
-                  <span class="dot dot--blue"></span>
-                </div>
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>Vador</div>
-                    <div class="date">Monday, 23:12</div>
-                  </div>
-                  <div class="message__title">
-                    You know... The force...
-                  </div>
-                  <div class="message__expr">
-                    « HHhhhHHhhhhH Jean hhhhrrhrhhhr Claude hhhHhhhHH »
-                  </div>
-                </div>
-              </div>
-              <div class="message">
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>John Wayne</div>
-                    <div class="date">Monday, 17:08</div>
-                  </div>
-                  <div class="message__title">
-                    STOP saving people !!!
-                  </div>
-                  <div class="message__expr">
-                    « It's MY job, OKAY ?! »
-                  </div>
-                </div>
-              </div>
-              <div class="message">
-                <div class="message-tags">
-                  <span class="dot dot--pink"></span>
-                </div>
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>Discount4Life</div>
-                    <div class="date">Monday, 11:28</div>
-                  </div>
-                  <div class="message__title">
-                    EXCLUSIVE DISCOUNT JUST FOR YOU
-                  </div>
-                  <div class="message__expr">
-                    « Unbelievable! Save 89% on the green sock catalogue! »
-                  </div>
-                </div>
-              </div>
-              <div class="message">
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>Dewey</div>
-                    <div class="date">Monday, 06:35</div>
-                  </div>
-                  <div class="message__title">
-                    Poupi Poupi Poupi Pou.
-                  </div>
-                  <div class="message__expr">
-                    « Poupi Poupi Poupi Pou. Poupi Poupi Poupi Pou. »
-                  </div>
-                </div>
-              </div>
-              <div class="message">
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>Vlad Poutipout</div>
-                    <div class="date">Monday, 04:52</div>
-                  </div>
-                  <div class="message__title">
-                    Vodka
-                  </div>
-                  <div class="message__expr">
-                    « Я люблю водку настолько, что пукнул алкоголиком. »
-                  </div>
-                </div>
-              </div>
-              <div class="message">
-                <div class="message__actions">
-                  <i class="message__icon far fa-square"></i>
-                  <i class="message__icon fas fa-trash-alt"></i>
-                  <i class="message__icon fas fa-archive"></i>
-                </div>
-                <div class="message__content">
-                  <div class="message__exp">
-                    <div>Captain Krabs</div>
-                    <div class="date">Monday, 02:16</div>
-                  </div>
-                  <div class="message__title">
-                    Need for crab meat
-                  </div>
-                  <div class="message__expr">
-                    « Hi, I need some coconut crab meat, quick. »
-                  </div>
-                </div>
-              </div>
+
+        <div style="text-align:center;" v-on:click="getLog">
+          <a href="#consultLog"> <div>상담내역보기</div> </a>
+        </div>
+
+        <div class="side-wrapper contacts">
+          <div class="side-title">CONTACTS</div>
+          <div class="user">
+            <img
+              src="https://randomuser.me/api/portraits/men/1.jpg"
+              class="user-img"
+            />
+            <div class="username">
+              Andrei Mashrin
+              <div class="user-status"></div>
             </div>
           </div>
-          <div class="preview">
-            <div class="preview-top">
-              <div class="preview__title">Am I on the Internet?</div>
-              <div>
-                <i class="preview-top__icon fas fa-print"></i>
-                <i class="preview-top__icon fas fa-archive"></i>
-                <i class="preview-top__icon fas fa-ellipsis-h"></i>
-              </div>
+          <div class="user">
+            <img
+              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=046c29138c1335ef8edee7daf521ba50"
+              class="user-img"
+            />
+            <div class="username">
+              Aryn Jacobssen
+              <div class="user-status offline"></div>
             </div>
-            <div class="scrollable">
-              <div class="preview-content scrollable__target">
-                <div class="preview-respond">
-                  <div class="preview-respond__head">
-                    <div class="profile-head">
-                      <div class="profile-head__id">
-                        <img
-                          class="profile-head__avatar"
-                          src="https://pickaface.net/gallery/avatar/20130510_100741_226_grandpa.png"
-                          alt=""
-                        />
-                        <div>
-                          <div class="profile-head__name">Papy Bear</div>
-                          <div class="profile-head__mail">
-                            itsmepapy@gmail.com
-                          </div>
-                        </div>
-                      </div>
-                      <div class="date">Yesterday, 11:17</div>
-                    </div>
-                  </div>
-                  <div class="preview-respond__content">
-                    <p class="paragraph">
-                      I plugged in the computer, and I'm not sure I plugged in
-                      the internets properly. Do you think you could come and
-                      check me out? There are little beeps in the black box in
-                      the living room, maybe I broke the internet, I wouldn't
-                      want to do anything stupid!
-                    </p>
-                    <p class="paragraph">
-                      Grandma tells me I'm an idiot and if I can see my messages
-                      it's because it's okay, but you know, Grandma's not good
-                      with these things. And then I'm suspicious, maybe the
-                      aliens aren't watching my internets? They would be able to
-                      fit into the small box in the living room, Jack told me
-                      last week, when we were drinking wine on the terrace... Do
-                      you think that's true?
-                    </p>
-                    <p class="paragraph">Are you there?</p>
-                    <p class="paragraph">Jean-Claude?</p>
-                    <p class="paragraph">I call 911.</p>
-                  </div>
-                </div>
-                <div class="preview-respond">
-                  <div class="preview-respond__head">
-                    <div class="profile-head">
-                      <div class="profile-head__id">
-                        <img
-                          class="profile-head__avatar"
-                          src="https://creer.casecompany.paris/uploads/themes/original/5c9deb858a91e.png"
-                          alt=""
-                        />
-                        <div>
-                          <div class="profile-head__name">Jean-Claude</div>
-                          <div class="profile-head__mail">
-                            jeanclaude@gmail.com
-                          </div>
-                        </div>
-                      </div>
-                      <div class="date">Yesterday, 11:27</div>
-                    </div>
-                  </div>
-                  <div class="preview-respond__content">
-                    <p class="paragraph">Grandpa! Don't call 911!</p>
-                    <p class="paragraph">
-                      Don't panic! they're e-mails, I only see them when they're
-                      sent, I don't see your messages live! I'm coming to help
-                      you.
-                    </p>
-                  </div>
-                </div>
-                <div class="preview-respond">
-                  <div class="preview-respond__head">
-                    <div class="profile-head">
-                      <div class="profile-head__id">
-                        <img
-                          class="profile-head__avatar"
-                          src="https://pickaface.net/gallery/avatar/20130510_100741_226_grandpa.png"
-                          alt=""
-                        />
-                        <div>
-                          <div class="profile-head__name">Papy Bear</div>
-                          <div class="profile-head__mail">
-                            itsmepapy@gmail.com
-                          </div>
-                        </div>
-                      </div>
-                      <div class="date">Yesterday, 12:01</div>
-                    </div>
-                  </div>
-                  <div class="preview-respond__content">
-                    <p class="paragraph">Oh, my God, I was scared!</p>
-                  </div>
-                </div>
-              </div>
+          </div>
+          <div class="user">
+            <img
+              src="https://images.unsplash.com/photo-1575084713138-342cae5f8d00?ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80"
+              class="user-img"
+            />
+            <div class="username">
+              Carole Landu
+              <div class="user-status offline"></div>
             </div>
-            <div class="preview-foot">
-              <button class="preview-foot__button button">
-                <i class="fas fa-reply-all"></i> Reply All
-              </button>
-              <button class="preview-foot__button button">
-                <i class="fas fa-reply"></i> Reply
-              </button>
+          </div>
+          <div class="user">
+            <img
+              src="https://images.pexels.com/photos/598745/pexels-photo-598745.jpeg?h=350&auto=compress&cs=tinysrgb"
+              class="user-img"
+            />
+            <div class="username">
+              Chineze Afa
+              <div class="user-status"></div>
+            </div>
+          </div>
+          <div class="user">
+            <img
+              src="https://pbs.twimg.com/profile_images/2452384114/noplz47r59v1uxvyg8ku.png"
+              class="user-img"
+            />
+            <div class="username">
+              Mok Kwang
+              <div class="user-status"></div>
+            </div>
+          </div>
+          <div class="user">
+            <img
+              src="https://randomuser.me/api/portraits/women/63.jpg"
+              class="user-img"
+            />
+            <div class="username">
+              Naomi Yepes
+              <div class="user-status"></div>
+            </div>
+          </div>
+          <div class="user">
+            <img
+              src="https://images.unsplash.com/photo-1476493279419-b785d41e38d8?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=61eaea85f1aa3d065400179c78163f15"
+              class="user-img"
+            />
+            <div class="username">
+              Shaamikh Ale
+              <div class="user-status"></div>
+            </div>
+          </div>
+          <div class="user">
+            <img
+              src="https://m.media-amazon.com/images/M/MV5BMjI4NDcyNjQxNl5BMl5BanBnXkFtZTgwMzI4OTM3NjM@._V1_UY256_CR13,0,172,256_AL_.jpg"
+              class="user-img"
+            />
+            <div class="username">
+              Sofia Alcocer
+              <div class="user-status idle"></div>
+            </div>
+          </div>
+          <div class="user">
+            <img
+              src="https://images.unsplash.com/photo-1509380836717-c4320ccf1a6f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=e01c8c45a063daaf6d6e571a32bd6c90"
+              class="user-img"
+            />
+            <div class="username">
+              Wen Yahui
+              <div class="user-status"></div>
+            </div>
+          </div>
+          <div class="user">
+            <img
+              src="https://pbs.twimg.com/profile_images/737221709267374081/sdwta9Oh.jpg"
+              alt=""
+              class="user-img"
+            />
+            <div class="username">
+              Leslee Moss
+              <div class="user-status idle"></div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- 모달 -->
+      <div id="consultLog" class="modal-window">
+        <div>
+          <a href="#" title="Close" class="modal-close">
+            <b-icon icon="x-circle-fill" scale="2" variant="danger"></b-icon>
+          </a>
+
+          <h1>지난 상담내역보기</h1>
+          <!-- <div><small>Check out</small></div> -->
+          {{ log }}
+        </div>
+      </div>
+
+      <div
+        class="overlay"
+        @click="
+          rightSide = false;
+          leftSide = false;
+        "
+        :class="{ active: rightSide || leftSide }"
+      ></div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+import ConsultRoom from "./ConsultRoom/ConsultRoom.vue";
+import ProjectRoom from "../components/projectroom/MemoBoard.vue";
+import MeetingRoom from "./Meeting.vue";
+import StudyRoom from "./Studyroom/Studyroom.vue";
+import LeftBar from "../components/layout/LeftTempBar.vue";
+
+export default {
+  name: "main",
+  data() {
+    return {
+      log: [],
+      currentTab: "Main",
+      tabs: ["Main", "ConsultRoom", "ProjectRoom", "MeetingRoom", "StudyRoom"],
+    };
+  },
+  computed: {
+    currentTabComponent() {
+      return "tab-" + this.currentTab.toLowerCase();
+    },
+  },
+  components: {
+    ConsultRoom,
+    ProjectRoom,
+    MeetingRoom,
+    StudyRoom,
+    LeftBar,
+  },
+  methods: {
+    getLog: function() {
+      console.log("상담 기록 조회");
+      this.log = [];
+      axios
+        .get(
+          `http://localhost:8081/consultroom/consult?userId=ilove_13@naver.com`
+        )
+        .then((response) => {
+          console.log(response.data);
+          this.log.push(response.data);
+        })
+        .catch();
+    },
+  },
+};
 </script>
 
-<style scoped>
-:root {
-  --background-color: #fff;
-  --font-color: #444;
-}
-.accounts {
-  background: #F9B225;
-  border-bottom-left-radius: 7px;
-  padding: 10px;
-}
-.accounts__item {
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 10px;
-  padding: 10px;
-  position: relative;
-}
-.accounts__item:hover {
-  background: #FDDD7C;
-}
-.accounts__item--active,
-.accounts__item--active:hover {
-  background: #FDDD7C;
-}
-.accounts__pill {
-  position: absolute;
-  right: 2px;
-  top: 5px;
-}
-.accounts__avatar {
-  border-radius: 40px;
-  width: 40px;
-}
-.app {
-  background: var(--background-color);
-  border-radius: 7px;
-  box-shadow: 0 11px 20px 0 rgba(0, 0, 0, 0.2);
-  color: var(--font-color);
-  display: grid;
-  font-family: Nunito, sans-serif;
-  grid-template-rows: auto 1fr;
-  height: 100%;
-  line-height: 1.5;
-  min-width: 780px;
-  overflow: hidden;
-  position: relative;
-}
-.app.bonus-russia {
-  background: linear-gradient(
-    150deg,
-    #e9e9e9,
-    #e9e9e9 33%,
-    #112794 0,
-    #112794 66%,
-    #c51b0e 0,
-    #c51b0e
-  );
-}
-.app.bonus-russia * {
-  cursor: url(https://www.larousse.fr/encyclopedie/data/vignettes/1200048-Vladimir_Poutine.jpg)
-      0 0,
-    auto !important;
-}
-.app.weird-rotate {
-  animation: weird-rotate 2s linear infinite alternate;
-}
-@keyframes weird-rotate {
-  0% {
-    transform: scale(0.3) skew(0deg, 3turn);
-  }
-  to {
-    transform: scale(1) skew(1turn, 0deg);
-  }
-}
-.app.dark-mode {
-  --background-color: #28212b;
-  --font-color: #e6e6e6;
-}
-.app.why-so-serious {
-  --background-color: #751e9b;
-  --font-color: #40ff26;
-  font-family: cursive;
-  font-size: 1.6em;
-}
-.app.bonus-exit {
-  margin-top: 50%;
-  transform: scale(0) translateY(-200%) rotate(500deg);
-  transition: all, 1s ease;
-}
-.app.bonus-zoom {
-  transform: scale(3);
-  transition: transform, 1s ease;
-}
-.app__content {
-  display: grid;
-  grid-template-columns: auto minmax(300px, auto) 1fr;
-}
-@media (max-width: 1300px) {
-  .app__content {
-    grid-template-columns: auto 80px 1fr;
-  }
-}
-.app-info {
-  background: #F9DF8D;
-  border-radius: 0 50px 50px 0;
-  font-family: Nunito, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  left: 0;
-  padding: 5px 10px;
-  position: absolute;
-  top: 0;
-  z-index: 1;
-}
-.app-info,
-.app-info a {
-  color: var(--background-color);
-}
-.app-info--right {
-  border-radius: 50px 0 0 50px;
-  cursor: pointer;
-  left: unset;
-  right: 0;
-}
-.app-cancel-bonuses {
-  background: #F9DF8D;
-  border: 0;
-  border-radius: 200px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 2rem;
-  left: 50%;
-  outline: 0;
-  padding: 10px 50px;
-  position: fixed;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  visibility: hidden;
-  z-index: 999999;
-}
-.app-cancel-bonuses--active {
-  visibility: visible;
-}
-.mails {
-  display: grid;
-  grid-template-columns: minmax(400px, auto) 1fr;
-}
-@media (max-width: 1020px) {
-  .mails {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 2fr;
-  }
-}
-body {
-  background-image: linear-gradient(90deg, #ff9a8b, #ff6a88 55%, #ff99ac);
-  height: 100vh;
-  overflow: hidden;
-  padding: 2.5vw;
-}
-*,
-:after,
-:before {
-  box-sizing: border-box;
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-  scrollbar-width: thin;
-}
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-corner {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background-clip: content-box;
-  background-color: hsla(0, 0%, 47.1%, 0);
-  border: 2px solid transparent;
-  border-radius: 20px;
-}
-button,
-input,
-textarea {
-  color: #444;
-  font-family: Nunito, sans-serif;
-  font-size: 1rem;
-  line-height: 1.4;
-}
-.button {
-  background: #ebebeb;
-  border: 0;
-  border-radius: 100px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: 700;
-  line-height: 1;
-  outline: 0;
-  padding: 10px 25px;
-  text-transform: uppercase;
-}
-.button--primary {
-  background: #F9DF8D;
-  color: var(--background-color);
-}
-.date {
-  color: hsla(0, 0%, 50.2%, 0.8);
-  font-size: 0.8rem;
-  font-style: italic;
-  font-weight: 400;
-}
-.dot {
-  border-radius: 8px;
-  display: inline-block;
-  height: 8px;
-  margin-right: 3px;
-  position: relative;
-  top: -1px;
-  width: 16px;
-}
-.dot--red {
-  background: #ff6767;
-}
-.dot--blue {
-  background: #67dcff;
-}
-.dot--green {
-  background: #54dd89;
-}
-.dot--yellow {
-  background: #ffcf67;
-}
-.dot--purple {
-  background: #9567ff;
-}
-.dot--pink {
-  background: #fc84ec;
-}
-.scrollable {
-  position: relative;
-}
-.scrollable__target {
-  bottom: 0;
-  left: 0;
-  overflow: auto;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-.message-list {
-  border-right: 1px solid hsla(0, 0%, 50.2%, 0.2);
-}
-.message-list > .scrollable__target {
-  padding: 15px 5px 15px 15px;
-}
-.message-list:hover ::-webkit-scrollbar-thumb {
-  background-color: hsla(0, 0%, 47.1%, 0.2);
-}
-.message {
-  background: hsla(0, 0%, 50.2%, 0.08);
-  border: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  border-bottom: 0;
-  color: hsla(0, 0%, 50.2%, 0.9);
-  cursor: pointer;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  position: relative;
-}
-.message:first-of-type {
-  border-radius: 5px 5px 0 0;
-}
-.message:last-of-type {
-  border-bottom: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  border-radius: 0 0 5px 5px;
-}
-.message--new {
-  background: var(--background-color);
-  color: var(--font-color);
-}
-.message--active:before {
-  background: #F9DF8D;
-  border-radius: 5px;
-  bottom: 3px;
-  content: "";
-  left: 3px;
-  position: absolute;
-  top: 3px;
-  width: 4px;
-  z-index: 1;
-}
-.message__content {
-  padding: 15px 15px 15px 0;
-}
-@media (max-width: 1020px) {
-  .message__content {
-    padding: 10px 15px 10px 0;
-  }
-}
-.message__exp {
-  color: hsla(0, 0%, 50.2%, 0.8);
-  display: flex;
-  font-size: 0.8rem;
-  font-style: italic;
-  font-weight: 700;
-  justify-content: space-between;
-}
-.message__expr {
-  font-size: 0.9rem;
-  font-style: italic;
-  max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-@media (max-width: 1020px) {
-  .message__expr {
-    max-width: 1000px;
-  }
-}
-.message__title {
-  font-weight: 700;
-}
-.message__actions {
-  align-content: space-between;
-  display: grid;
-  grid-auto-flow: row;
-  grid-gap: 5px;
-  padding: 15px;
-  text-align: center;
-  transform: translateX(-10px);
-  transition: transform 0.2s ease;
-  visibility: hidden;
-}
-.message__icon {
-  color: hsla(0, 0%, 50.2%, 0.5);
-  font-size: 0.9rem;
-}
-.message__icon:hover {
-  color: var(--font-color);
-}
-.message:hover .message__actions {
-  transform: translateX(0);
-  visibility: visible;
-}
-.message-tags {
-  bottom: 2px;
-  line-height: 1;
-  position: absolute;
-  right: 2px;
-}
-.menu {
-  border-right: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  padding: 10px 20px 20px;
-  position: relative;
-  z-index: 2;
-}
-@media (max-width: 1300px) {
-  .menu {
-    padding: 10px;
-  }
-}
-.menu-user {
-  border-bottom: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  margin-bottom: 20px;
-  padding: 10px 10px 15px;
-}
-@media (max-width: 1300px) {
-  .menu-user {
-    margin-bottom: 10px;
-    padding: 10px 0 15px;
-  }
-  .menu-user .profile-head__mail,
-  .menu-user .profile-head__name {
-    display: none;
-  }
-}
-.menu-tags {
-  font-size: 0.9rem;
-  font-weight: 700;
-  padding: 20px 0 0;
-}
-@media (max-height: 700px) {
-  .menu-tags {
-    display: none;
-  }
-}
-@media (max-width: 1300px) {
-  .menu-tags__label {
-    display: none;
-  }
-}
-.menu-tags__item {
-  border-radius: 50px;
-  color: hsla(0, 0%, 50.2%, 0.8);
-  cursor: pointer;
-  margin-bottom: 2px;
-  padding: 2px 10px;
-}
-.menu-tags__item:hover {
-  background: hsla(0, 0%, 50.2%, 0.1);
-}
-@media (max-width: 1300px) {
-  .menu-tags__item {
-    text-align: center;
-  }
-}
-.menu-main {
-  border-bottom: 1px solid hsla(0, 0%, 50.2%, 0.2);
-}
-@media (max-width: 1300px) {
-  .menu-main__pill {
-    display: none !important;
-  }
-}
-.menu__icon {
-  color: hsla(0, 0%, 50.2%, 0.4);
-  margin-right: 10px;
-}
-@media (max-width: 1300px) {
-  .menu__icon {
-    margin-right: 0;
-  }
-}
-.menu__item {
-  align-items: center;
-  border-radius: 50px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  padding: 15px 30px;
-  transition: background 0.15s ease;
-}
-@media (max-width: 1300px) {
-  .menu__item {
-    display: block;
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-    padding: 5px 10px 7px;
-    text-align: center;
-  }
-}
-.menu__item:hover {
-  background: hsla(0, 0%, 50.2%, 0.1);
-}
-.menu__item.active {
-  background: #F9B225;
-  color: #fff;
-}
-.menu__item.active .menu__icon {
-  color: hsla(0, 0%, 100%, 0.8);
-}
-.menu__label {
-  font-weight: 700;
-}
-@media (max-width: 1300px) {
-  .menu__label {
-    display: none;
-  }
-}
-@media (max-width: 1300px) {
-  .new {
-    text-align: center;
-  }
-}
-.new__button {
-  background: #F9E7AD;
-  border: 0;
-  border-radius: 50px;
-  color: var(--background-color);
-  cursor: pointer;
-  font-size: 1.6rem;
-  height: 50px;
-  outline: 0;
-  transition: transform 0.2s ease;
-  width: 50px;
-}
-.new__button:hover {
-  transform: scale(1.1);
-}
-.new-mail,
-.new__button.active {
-  transform: scale(0);
-}
-.new-mail {
-  background: var(--background-color);
-  border: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  border-radius: 7px;
-  bottom: 20px;
-  box-shadow: 0 11px 20px 0 transparent;
-  left: 20px;
-  opacity: 0;
-  position: absolute;
-  transform-origin: bottom left;
-  transition-duration: 0.3s;
-  transition-property: transform, visibility, opacity;
-  transition-timing-function: ease-in-out;
-  visibility: hidden;
-  width: 600px;
-  z-index: 99;
-}
-.new-mail__close {
-  cursor: pointer;
-  padding: 5px;
-}
-.new-mail.active {
-  box-shadow: 0 11px 20px 0 rgba(0, 0, 0, 0.2);
-  opacity: 1;
-  transform: scale(1);
-  visibility: visible;
-}
-.new-mail__top {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 10px 10px 40px;
-}
-.new-mail-exp,
-.new-mail__top {
-  border-bottom: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  font-weight: 700;
-}
-.new-mail-exp {
-  background: hsla(0, 0%, 50.2%, 0.1);
-  color: #636363;
-  padding: 10px 40px;
-}
-.new-mail-exp__item {
-  align-items: center;
-  display: grid;
-  grid-template-columns: 70px 1fr;
-  margin-bottom: 10px;
-}
-.new-mail-exp__input {
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  font-weight: 700;
-  outline: 0;
-  padding: 5px;
-  width: 100%;
-}
-.new-mail-exp__input::placeholder {
-  color: #9c9c9c;
-  font-style: italic;
-  font-weight: 400;
-}
-.new-mail-exp__label {
-  font-size: 0.8rem;
-}
-.new-mail-foot {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
-}
-.new-mail-foot__icon {
-  border-radius: 5px;
-  color: #b1b1b1;
-  cursor: pointer;
-  padding: 10px;
-}
-.new-mail-foot__icon:hover {
-  background: rgba(0, 0, 0, 0.07);
-  color: #6d6d6d;
-}
-.new-mail__message {
-  background: var(--background-color);
-  border: 1px solid transparent;
-  border-radius: 5px;
-  color: var(--font-color);
-  max-height: 50vh;
-  min-height: 30vh;
-  outline: 0;
-  padding: 20px 40px;
-  resize: vertical;
-  width: 100%;
-}
-.paragraph {
-  margin: 20px 0;
-}
-.pill {
-  align-items: center;
-  background: hsla(0, 0%, 50.2%, 0.1);
-  border-radius: 30px;
-  color: var(--font-color);
-  display: flex;
-  font-size: 0.7rem;
-  font-weight: 700;
-  height: 20px;
-  line-height: 1;
-  padding: 1px 10px 0;
-}
-.pill--solid {
-  background: #fff;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
-  color: #000;
-}
-.preview {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}
-.preview:hover ::-webkit-scrollbar-thumb {
-  background-color: hsla(0, 0%, 47.1%, 0.3);
-}
-@media (max-width: 1020px) {
-  .preview {
-    border-top: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  }
-}
-.preview__title {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-.preview-top {
-  align-items: center;
-  border-bottom: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-}
-.preview-top__icon {
-  color: hsla(0, 0%, 50.2%, 0.5);
-  cursor: pointer;
-  padding: 5px;
-}
-.preview-top__icon:hover {
-  color: grey;
-}
-.preview-content {
-  padding: 20px;
-}
-.preview-respond {
-  background: var(--background-color);
-  border: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  border-radius: 5px;
-  box-shadow: 0 11px 20px 0 rgba(0, 0, 0, 0.1);
-  margin: 0 auto 20px;
-  max-width: 600px;
-}
-.preview-respond__who {
-  font-weight: 700;
-}
-.preview-respond__who-mail {
-  color: #838383;
-  font-size: 0.8rem;
-}
-.preview-respond__head {
-  border-bottom: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  padding: 10px 20px;
-}
-.preview-respond__content {
-  padding: 20px 40px;
-}
-.preview-foot {
-  border-top: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px;
-}
-.preview-foot__button {
-  margin-left: 10px;
-}
-.profile-head {
-  align-items: start;
-  display: flex;
-  justify-content: space-between;
-}
-.profile-head__id {
-  align-items: center;
-  display: flex;
-}
-.profile-head__name {
-  font-weight: 700;
-}
-.profile-head__mail {
-  color: hsla(0, 0%, 50.2%, 0.8);
-  font-size: 0.8rem;
-}
-.profile-head__avatar {
-  border-radius: 30px;
-  display: inline-block;
-  margin-right: 10px;
-  width: 30px;
-}
-.select {
-  border: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  border-radius: 5px;
-  display: inline-block;
-  line-height: 1;
-  padding-right: 5px;
-  position: relative;
-}
-.select__item {
-  all: unset;
-  padding: 5px 10px;
-}
-.select__arrow {
-  position: relative;
-  right: 5px;
-  top: -2px;
-}
-.top {
-  align-items: center;
-  border-bottom: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  border-radius: 7px 7px 0 0;
-  color: #999;
-  display: flex;
-  font-size: 0.8rem;
-  font-weight: 700;
-  justify-content: space-between;
-  position: relative;
-  z-index: 999;
-}
-.top-search {
-  background: hsla(0, 0%, 50.2%, 0.1);
-  border-radius: 50px;
-  padding: 2px 10px;
-}
-.top-menu {
-  display: grid;
-  grid-auto-flow: column;
-  line-height: 1;
-  padding-left: 15px;
-}
-.top-menu-sub {
-  background: var(--background-color);
-  border: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  border-radius: 0 5px 5px 5px;
-  box-shadow: 0 11px 20px 0 rgba(0, 0, 0, 0.2);
-  left: 0;
-  padding: 10px 0;
-  position: absolute;
-  top: calc(100% - 7px);
-  transition: top 0.2s ease;
-  visibility: hidden;
-}
-.top-menu-sub__item {
-  cursor: pointer;
-  padding: 7px 15px;
-  white-space: nowrap;
-}
-.top-menu-sub__item:first-of-type {
-  border-radius: 0 5px 0 0;
-}
-.top-menu-sub__item:last-of-type {
-  border-radius: 0 0 5px 5px;
-}
-.top-menu-sub__item:hover {
-  color: var(--font-color);
-}
-.top-menu-sub__link {
-  color: hsla(0, 0%, 50.2%, 0.8);
-  text-decoration: none;
-}
-.top-menu-sub__link:hover {
-  color: var(--font-color);
-}
-.top-menu-sub__separator {
-  border-bottom: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  margin: 5px 0;
-}
-.top-menu__label {
-  border: 1px solid transparent;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 5px 15px;
-  position: relative;
-  z-index: 1;
-}
-.top-menu__label:hover {
-  background: var(--background-color);
-  border: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  border-bottom: 1px solid var(--background-color);
-  border-radius: 5px 5px 0 0;
-}
-.top-menu__item {
-  position: relative;
-}
-.top-menu__item:hover > .top-menu-sub {
-  top: calc(100% - 1px);
-  visibility: visible;
-}
-.top-menu__item:hover > .top-menu__label {
-  border: 1px solid hsla(0, 0%, 50.2%, 0.2);
-  border-bottom: 1px solid var(--background-color);
-  border-radius: 5px 5px 0 0;
-}
-.top-action {
-  display: flex;
-}
-.top-action__item {
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 15px;
-}
-.top-action__item:hover {
-  background: hsla(0, 0%, 50.2%, 0.1);
-  color: var(--font-color);
-}
-.top-action__item:last-of-type {
-  border-radius: 0 7px 0 0;
-}
-.top-action__item:last-of-type:hover {
-  background: #F9E7AD;
-  color: var(--background-color);
-}
-.input {
-  background: transparent;
-  border: 0;
-  font-weight: 700;
-  min-width: 350px;
-  outline: 0;
-  padding: 2px 5px;
-}
-.input::placeholder {
-  color: #a3a3a3;
-  font-style: italic;
-}
+<style lang="scss" scoped>
+@import "@/assets/style/main-new.scss";
+@import "@/assets/style/consultLog_modal.scss";
 </style>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const cancelBonuses = document.querySelector(".app-cancel-bonuses");
-  const app = document.querySelector(".app");
-
-  const toggleBtn = document.querySelectorAll(".new-mail__toggle");
-  toggleBtn.forEach((element) => {
-    element.addEventListener("click", () => {
-      document.querySelector(".new-mail").classList.toggle("active");
-      document.querySelector(".new__button").classList.toggle("active");
-    });
-  });
-
-  cancelBonuses.addEventListener("click", () => {
-    const classes = ["weird-rotate", "bonus-zoom", "bonus-exit"];
-    app.classList.remove(...classes);
-    byeCancelButton();
-  });
-
-  function byeCancelButton() {
-    cancelBonuses.classList.toggle("app-cancel-bonuses--active");
-  }
-
-  function toggleClassToApp(trigger, className, cancellable) {
-    let bonus = document.querySelector(trigger);
-    bonus.addEventListener("click", () => {
-      app.classList.toggle(className);
-      if (cancellable) byeCancelButton();
-    });
-  }
-
-  toggleClassToApp(".bonus-weird-rotate", "weird-rotate", true);
-  toggleClassToApp(".bonus-dark-mode", "dark-mode", false);
-  toggleClassToApp(".bonus-zoom", "bonus-zoom", true);
-  toggleClassToApp(".bonus-exit", "bonus-exit", true);
-  toggleClassToApp(".bonus-why-so-serious", "why-so-serious", false);
-  toggleClassToApp(".bonus-russia", "bonus-russia", false);
-});
-</script>
