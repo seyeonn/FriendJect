@@ -187,9 +187,9 @@ export default {
       var arr = new Array("정채은", "김주향", "안세연", "이소라", "송진섭");
       return arr[Math.floor(Math.random() * arr.length)];
     },
-    downloadFile() {
+    downloadFile(id) {
       getFileInfo(
-        this.id,
+        id,
         (response) => {
           this.forceFileDownload(response);
         },
