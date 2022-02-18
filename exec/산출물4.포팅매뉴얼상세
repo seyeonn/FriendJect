@@ -1,0 +1,150 @@
+# 사용한 제품의 종류와 설정 값
+- 서버 : AWS EC2
+- OS : Ubuntu 20.04 LTS (GNU/Linux 5.4.0-1018-aws x86_64)
+- JVM : OpenJDK 8
+- WAS(Web Application Server) : nginx/1.18.0 (Ubuntu) 
+- DBMS : MySql 5.7.37
+# 빌드시 사용되는 환경변수
+- DB 
+  - ID : friendject
+  - PW : ssafyb202t
+- 백엔드 요청 경로 환경변수 (수정 필요)
+  - 파일 위치 : frontend/openvidu-insecure-vue/src/config/index.js
+    - ```API_BASE_URL=http://<host>/api ```
+# 배포 
+> Jenkins를 이용해 배포 자동화를 하였습니다. 🖱 [서버 9090 포트](http://i6b202.p.ssafy.io:9090/job/front_friendject/)
+### 젠킨스 파이프라인
+```
+pipeline {
+    agent any
+    tools {
+        git 'git'
+        nodejs "node16"
+    }
+    stages {
+        stage('prepare') {
+            steps {
+                sh "git --version"
+                sh "node --version"
+                git branch: 'develop', credentialsId: 'GitLab', url: 'https://gitlab+deploy-token-3633:bVfXzxuya_8yxuvN-ZER@lab.ssafy.com/s06-webmobile1-sub2/S06P12B202.git'
+                sh "pwd"
+                
+                dir('frontend/openvidu-insecure-vue') {
+                    sh "pwd"
+                    sh "npm install"
+                    sh "ls -al"
+                }
+                dir("backend-java") {
+                    sh "pwd"
+                    sh "ls -al"
+                }
+            }
+        }
+        stage('build') {
+            steps {
+                echo 'build'
+                sh "pwd"
+                dir('frontend/openvidu-insecure-vue') {
+                    sh "pwd"
+                    sh "npm run build"
+                }
+                dir("backend-java") {
+                    echo "build stage"
+                    sh "ls -al"
+                    sh "chmod 777 ./gradlew"
+                    sh "./gradlew build"
+                    sh "ls -al"   
+                }
+            }
+            post {
+                success {
+                    echo "success"
+                    sh "pwd"
+                    dir('frontend/openvidu-insecure-vue') {
+                        sh "scp -r dist ubuntu@172.26.7.40:/var/www/html"
+                    }
+                }
+            }
+        }
+        stage('copy jar') {
+            steps {
+                dir("backend-java") {
+                    echo "copy jar"
+                    sh "pwd"
+                    sh "scp /var/jenkins_home/workspace/front_friendject/backend-java/build/libs/ssafy-web-project-1.0-SNAPSHOT.jar ubuntu@172.26.7.40:/home/ubuntu/app/backend_friendject"
+                    sh "scp /var/jenkins_home/workspace/front_friendject/backend-java/src/main/resources/application.properties ubuntu@172.26.7.40:/home/ubuntu/app/backend_friendject"
+                    sh "scp /var/jenkins_home/workspace/front_friendject/backend-java/Dockerfile ubuntu@172.26.7.40:/home/ubuntu/app/backend_friendject"
+                    sh "scp /var/jenkins_home/workspace/front_friendject/backend-java/deploy.sh ubuntu@172.26.7.40:/home/ubuntu/app/backend_friendject"
+                }
+            }
+            post {
+                success {
+                    echo "success"
+                    sh "ssh ubuntu@172.26.7.40 chmod 777 /home/ubuntu/app/backend_friendject/deploy.sh"
+                    sh "ssh ubuntu@172.26.7.40 /home/ubuntu/app/backend_friendject/deploy.sh"
+                }
+            }
+        }
+    }
+}
+```
+- stage('prepare')
+  - [깃랩 레포지토리](https://lab.ssafy.com/s06-webmobile1-sub2/S06P12B202) 클론받기
+  - 프론트엔드 작업 환경의 루트 디렉토리에서 패키지 설치(npm install)
+- stage('build')
+  - 프론트엔드 작업 환경의 루트 디렉토리에서 배포를 위한 빌드(npm run build)
+  - 백엔드 작업 환경의 루트 디렉토리에서 빌드(./gradlew build)
+  - 성공시 프론트엔드 빌드 파일(dist)을 서버의 /var/www/html/ 위치로 보냄
+    - 권한 문제로 직접 옮겨줌. (sudo cp -r dist/ /var/www/html)
+- stage('copy jar')
+  - 마찬가지로 백엔드에서 필요한 파일들(jar, properties, Dockerfile, deploy)을 서버의 /app/backend_friendject 위치로 보냄
+  - 성공하면 ssh 방식으로 deploy.sh 파일 실행 (백엔드는 도커 이미지 파일을 만들어서 컨테이너 실행)
+
+### 백엔드 Dockerfile, deploy.sh 파일)
+- Dockerfile
+```
+FROM openjdk:8-jdk-alpine
+ARG JAR_FILE=*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+```
+  - jdk 8 버전으로부터, .jar 파일을 app.jar로 복사한 후 jar 실행(명령어 : java -jar /app.jar)
+- deploy.sh
+```
+cd /home/ubuntu/app/backend_friendject
+pwd
+docker build -t friendject/backend:latest .
+docker container stop friendject
+docker rm friendject
+docker run -d --name friendject -p 8081:8081 friendject/backend
+```
+  - 서버에 설치한 백엔드 폴더로 가서 friendject/backend 이미지 생성
+  - 이미 실행중인 컨테이너가 있다면 멈추고 삭제한 후, 서버의 8000번 포트와 컨테이너의 80번 포트를 연결해서 다시 실행시킨다.
+# HTTPS 적용
+> certbot, letsencrypt를 이용
+- certbot 설치
+```
+~$ sudo apt update
+~$ sudo apt upgrade
+~$ sudo add-apt-repository ppa:certbot/certbot
+
+~$ sudo apt install python3-certbot-nginx
+```
+- nginx 설정 파일 작성
+```
+~$ sudo vim /etc/nginx/sites-available/default
+```
+![image](/uploads/d2a502e6e5d91b4c6c4328b82c252885/image.png)
+  - 설정 파일 적용시키기(reload)
+```
+~$ sudo systemctl reload nginx
+```
+- ssl 인증서 받기
+![image](/uploads/5f18ddf76989fbcef1dd1f0ed00cfd50/image.png)
+- nginx 서버 재시작
+```
+~$ sudo service nginx restart
+```
+- HTTPS 적용 확인
+=> http://i6b202.p.ssafy.io/ 로 접속해도 https://i6b202.p.ssafy.io/ 로 접속하게 된다. (자물쇠 모양 채워진 것도 확인 가능!)
+![image](/uploads/36349fd7cadc03672a883940dbd6a1e5/image.png)
