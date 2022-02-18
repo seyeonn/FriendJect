@@ -1,0 +1,39 @@
+$page-bg: #282f32;
+$bright-blue: #68b3ff;
+$light-gray: #999;
+//$curve: cubic-bezier(0, 0, 0.52, 1.11);
+$curve: linear;
+.title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.description {
+  font-size: 0.7rem;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding-left: 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid $light-gray;
+}
+.memo__register {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+.memo__register__btn {
+  color: white;
+  background: #f9b225;
+  padding: 0.3em 0.4em;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+* :focus {
+  outline-color: transparent;
+  outline-style: none;
+}

@@ -1,75 +1,85 @@
 package com.ssafy.api.controller;
 
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.ssafy.api.request.FileRegisterPostReq;
 import com.ssafy.api.response.FileRes;
-import com.ssafy.api.service.FilesStorageService;
+import com.ssafy.api.response.ResponseFactory;
+import com.ssafy.api.service.FileInfoService;
+import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.FileInfo;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "자료실", tags = {"프로젝트실"})
 @RestController
-@RequestMapping("project")
+@RequestMapping("api/projectroom")
+@CrossOrigin("*")
 public class FileController {
 
   @Autowired
-  FilesStorageService storageService;
-
-  @PostMapping("/upload")
-  public ResponseEntity<FileRes> uploadFile(@RequestParam("file") MultipartFile file) {
-    String message = "";
-    try {
-      storageService.save(file);
-      message = "Uploaded the file successfully: " + file.getOriginalFilename() + file.getSize();
-      return ResponseEntity.status(HttpStatus.OK).body(new FileRes(message));
-    } catch (Exception e) {
-      message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new FileRes(message));
-    }
-  }
+  FileInfoService storageService;
   
-  @PostMapping("/uploadFiles")
-  public List<ResponseEntity<FileRes>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-      return Arrays.asList(files)
-              .stream()
-              .map(file -> uploadFile(file))
-              .collect(Collectors.toList());
-  }
+  @ApiOperation(value = "파일 업로드", notes = "<strong> 파일을 업로드 </strong> 한다. ") 
+  @PostMapping(value = "/files", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  public ResponseEntity<? extends BaseResponseBody> uploadMultipleFiles(@ModelAttribute FileRegisterPostReq fileRegisterPostReq) {
+		try {
+			System.out.println(fileRegisterPostReq.getNickName());
+			System.out.println(fileRegisterPostReq.getTeamId());
+			storageService.save(fileRegisterPostReq.getFile());
+			return ResponseFactory.ok();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return ResponseFactory.forbidden();
+		}
+	}
+  
+  @GetMapping("/files/{fileId}")
+	public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
+		FileInfo fileInfo = storageService.findOne(fileId);
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileInfo.getId() + "\"")
+				.body(fileInfo.getData());
+	}
 
-  @GetMapping("/files")
-  public ResponseEntity<List<FileInfo>> getListFiles() {
-    List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
-    	path.toUri();
-      String filename = path.getFileName().toString();
-      String url = MvcUriComponentsBuilder
-          .fromMethodName(FileController.class, "getFile", path.getFileName().toString()).build().toString();
-
-      return new FileInfo(filename, url);
-    }).collect(Collectors.toList());
-
-    return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
-  }
-
-  @GetMapping("/files/{filename:.+}")
-  @ResponseBody
-  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-    Resource file = storageService.load(filename);
-    return ResponseEntity.ok()
-        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-  }
+	@GetMapping("/files")
+	@ApiOperation(value = "파일 목록 조회", notes = "<strong> 업로드된 파일 전체 </strong> 를 조회한다. ") 
+	public ResponseEntity<? extends BaseResponseBody> getFileList() {
+		Sort sort = Sort.by(Sort.Direction.DESC, "modifiedDate");
+		List<FileRes> files = storageService.findFiles(sort).map(file -> {
+		      String fileDownloadUri = ServletUriComponentsBuilder
+							          .fromCurrentContextPath()
+							          .path("/files/")
+							          .path(file.getId())
+							          .toUriString();
+	
+		      return new FileRes(
+					    		  file.getId(),
+					    		  file.getFileName(),
+						          fileDownloadUri,
+						          // 업로더 반환
+						          file.getContentType(),
+						          Long.valueOf(file.getData().length),
+						          file.getModifiedDate());
+				    			}).collect(Collectors.toList());
+	
+		return ResponseFactory.ok(files);
+	}
 }
