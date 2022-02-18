@@ -1,0 +1,254 @@
+.modal-profile {
+    position: fixed;
+    background-color: rgba(94, 93, 93, 0.25);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    &:target {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    & > div {
+      width: 400px;
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      transform: translate(-50%, -50%);
+      padding: 2em;
+      background: rgb(214, 237, 252);
+      border: #72b5ec solid 5px;
+    }
+    header {
+      font-weight: bold;
+    }
+    h1 {
+      font-size: 150%;
+      margin: 0 0 15px;
+    }
+  }
+  
+  .modal-close {
+    color: #aaa;
+    line-height: 50px;
+    font-size: 80%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 10%;
+    width: 70px;
+    text-decoration: none;
+    &:hover {
+      color: black;
+    }
+  }
+  
+  /* Demo Styles */
+  
+  
+  
+  a {
+    color: inherit;
+  }
+  
+  
+  
+  .modal-profile {
+    & > div {
+      border-radius: 1rem;
+    }
+  }
+  
+  .modal-profile div:not(:last-of-type) {
+    margin-bottom: 15px;
+  }
+  
+  small {
+    color: lightgray;
+  }
+  
+  .btn {
+    background-color: white;
+    padding: 1em 1.5em;
+    border-radius: 1rem;
+    text-decoration: none;
+    i {
+      padding-right: 0.3em;
+    }
+  }
+  
+  .modal-vot {
+    position: fixed;
+    background-color: rgba(94, 93, 93, 0.25);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    &:target {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    & > div {
+      width: 400px;
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      transform: translate(-50%, -50%);
+      padding: 2em;
+      background: rgb(255, 212, 148);
+      border: #fdb556 solid 5px;
+    }
+    header {
+      font-weight: bold;
+    }
+    h1 {
+      font-size: 150%;
+      margin: 0 0 15px;
+    }
+  }
+  
+  .modal-vot {
+    & > div {
+      border-radius: 1rem;
+    }
+  }
+  
+  .modal-vot div:not(:last-of-type) {
+    margin-bottom: 15px;
+  }
+
+  .w-btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+    margin-right: 5px;
+  }
+  
+  .w-btn-outline {
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+  }
+  
+  .w-btn-indigo {
+    background-color: aliceblue;
+    color: #1e6b7b;
+    margin-bottom: 5px;
+  }
+  
+  .w-btn-indigo-outline {
+    border: 3px solid aliceblue;
+    color: #1e6b7b;
+  }
+  
+  .w-btn-indigo-outline:hover {
+    color: #1e6b7b;
+    background: aliceblue;
+  }
+  
+  .w-btn-green {
+    background-color: #77af9c;
+    color: #d7fff1;
+  }
+  
+  .w-btn-green2 {
+    background-color: #519d9e;
+    color: rgb(223, 255, 250);
+  }
+  
+  .w-btn-green-outline {
+    border: 3px solid #77af9c;
+    color: darkgray;
+  }
+  
+  .w-btn-green2-outline {
+    border: 3px solid #519d9e;
+    color: darkgray;
+  }
+  
+  .w-btn-green-outline:hover {
+    background-color: #77af9c;
+    color: #d7fff1;
+  }
+  
+  .w-btn-green2-outline:hover {
+    background-color: #519d9e;
+    color: #9dc8c8;
+  }
+  .delb {
+    background-color: transparent;
+  }
+  .voteinput {
+    border: 2px solid #519d9e;
+    border-radius: 10px;
+  }
+
+  .modal-consult {
+    position: fixed;
+    background-color: rgba(94, 93, 93, 0.25);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    &:target {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    & > div {
+      width: 400px;
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      transform: translate(-50%, -50%);
+      padding: 2em;
+      background: #f1dc96;
+      border: #e9c962 solid 5px;
+    }
+    header {
+      font-weight: bold;
+    }
+    h1 {
+      font-size: 150%;
+      margin: 0 0 15px;
+    }
+  }
+  
+  .modal-consult {
+    & > div {
+      border-radius: 1rem;
+    }
+  }
+  
+  .modal-consult div:not(:last-of-type) {
+    margin-bottom: 15px;
+  }
