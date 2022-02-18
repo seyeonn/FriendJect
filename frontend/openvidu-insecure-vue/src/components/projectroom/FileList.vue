@@ -42,8 +42,8 @@
               <td>
                 {{ randomUploader() }}
               </td>
-              <td>{{ this.returnFileSize(file.size) }}</td>
-              <td>{{ this.timeForToday(file.modifiedDate) }}</td>
+              <td>{{ returnFileSize(file.size) }}</td>
+              <td>{{ timeForToday(file.modifiedDate) }}</td>
             </tr>
           </tbody>
         </table>
@@ -127,6 +127,39 @@ export default {
     //       return idx >= s && idx < e;
     //     });
     // },
+    timeForToday(createdDate) {
+      const today = new Date();
+      const timeValue = new Date(createdDate);
+
+      const betweenTime = Math.floor(
+        (today.getTime() - timeValue.getTime()) / 1000 / 60
+      );
+      if (betweenTime < 1) return "방금 전";
+      if (betweenTime < 60) {
+        return `${betweenTime}분 전`;
+      }
+
+      const betweenTimeHour = Math.floor(betweenTime / 60);
+      if (betweenTimeHour < 24) {
+        return `${betweenTimeHour}시간 전`;
+      }
+
+      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+      if (betweenTimeDay < 365) {
+        return `${betweenTimeDay}일전`;
+      }
+
+      return `${Math.floor(betweenTimeDay / 365)}년전`;
+    },
+    returnFileSize(number) {
+      if (number < 1024) {
+        return number + "bytes";
+      } else if (number >= 1024 && number < 1048576) {
+        return (number / 1024).toFixed(1) + "KB";
+      } else if (number >= 1048576) {
+        return (number / 1048576).toFixed(1) + "MB";
+      }
+    },
     sortBy(s) {
       if (s === this.sort) {
         this.sortDir = this.sortDir === "asc" ? "desc" : "asc";
