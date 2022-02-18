@@ -1,0 +1,46 @@
+spa:
+  default-file: /dist/index.html
+  
+spring:
+  jpa:
+    generate-ddl: 'true'
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57Dialect
+    show-sql: 'true'
+    
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      password: ssafyb202t
+      username: friendject
+    url: jdbc:mysql://54.180.140.55:3307/friendject?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+  
+  devtools:
+    livereload:
+      enabled: 'true'
+      
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+      
+logging:
+  level:
+    org:
+      sringframework:
+        boot: DEBUG
+      apache:
+        tiles: INFO
+      springframework:
+        web: DEBUG
+    root: INFO
+    
+server:
+  port: 8081
+

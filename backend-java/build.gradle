@@ -18,9 +18,10 @@ buildscript{
         classpath "io.spring.gradle:dependency-management-plugin:${springDependencyMgmtVer}.RELEASE"
         classpath "org.springframework:springloaded:${springLoadedVer}.RELEASE"
         //이클립스인 경우를 위한 QueryDSL 플러그인. IntelliJ는 불필요. [시작]
-        classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVer}"
+        //classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVer}"
         //[끝] 
         classpath "com.github.node-gradle:gradle-node-plugin:3.1.0"
+       	
     }
 }
 
@@ -34,7 +35,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'eclipse'
 apply plugin: 'com.github.node-gradle.node'
 //이클립스인 경우를 위한 QueryDSL 플러그인. IntelliJ는 불필요.
-apply plugin: 'com.ewerk.gradle.plugins.querydsl'
+//apply plugin: 'com.ewerk.gradle.plugins.querydsl'
 
 
 repositories {
@@ -54,7 +55,7 @@ node {
     download = true
     version = '14.17.0'
     // Set the work directory where node_modules should be located
-    nodeModulesDir = file("${project.projectDir}/../frontend")
+    nodeModulesDir = file("${project.projectDir}/../frontend/openvidu-insecure-vue")
 }
 
 configurations {
@@ -63,14 +64,14 @@ configurations {
 
 /*task npmInstall(type: NpmTask, overwrite: true) {
     args = ['install']
-}*/
+}
 
 task webpack(type: NpmTask, dependsOn: 'npmInstall') {
     args = ['run','build']
 }
 
 // processResources is a Java task. Run the webpack bundling before this task using the 'build' task in the package.json
-processResources.dependsOn 'webpack'
+processResources.dependsOn 'webpack'*/
 
 //set build time and inject value to application.properties
 def buildTime() {
@@ -78,6 +79,9 @@ def buildTime() {
     def formattedDate = date.format('yyyyMMdd_HHmm')
     return formattedDate
 }
+
+
+
 
 project.ext.set("build.date", buildTime())
 
@@ -98,39 +102,16 @@ processResources {
     }
 }
 
-//이클립스인 경우를 위한 QueryDSL 설정. IntelliJ는 불필요. [시작]
-def querydslDir = 'src/main/generated'
-querydsl {
-    library = "com.querydsl:querydsl-apt"
-    jpa = true
-    querydslSourcesDir = querydslDir
-}
-
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main/java', querydslDir]
-        }
-    }
-}
-
-compileQuerydsl {
-    options.annotationProcessorPath = configurations.querydsl
-}
-
-configurations {
-    querydsl.extendsFrom compileClasspath
-}
-//[끝]
-
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+   // implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-validation") 
+    
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE")
-    testImplementation("org.springframework.security:spring-security-test")
+  //  testImplementation("org.springframework.security:spring-security-test")
     annotationProcessor("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("mysql:mysql-connector-java")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -140,8 +121,14 @@ dependencies {
     implementation("org.apache.commons:commons-collections4:4.4")
     implementation("org.apache.commons:commons-lang3:3.9")
 
-    implementation("com.querydsl:querydsl-jpa:${querydslVer}")
-    implementation("com.querydsl:querydsl-apt:${querydslVer}")
+    //implementation("com.querydsl:querydsl-jpa:${querydslVer}")
+    //implementation("com.querydsl:querydsl-apt:${querydslVer}")
+    
+	//spring security
+    //implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.7.RELEASE'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+	//implementation 'org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE'
+    //testImplementation 'org.springframework.security:spring-security-test'
 
     //STOMP 웹소캣 서버 사이드 테스트를 위한 의존성 추가
     implementation("org.springframework.boot:spring-boot-starter-mustache")
@@ -183,8 +170,18 @@ dependencies {
     implementation("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
 
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6")
+    
+    // 스웨거
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+
+	compile group: 'io.openvidu', name: 'openvidu-java-client', version: '2.4.0'
+	//Thanks for using https://jar-download.com
 }
+
+
 
 test {
     useJUnitPlatform()

@@ -1,0 +1,12 @@
+.metadata
+.DS_Store
+
+backend-java/bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+
+
+.vscode/*
+.history/

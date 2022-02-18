@@ -1,0 +1,102 @@
+.mt-3_2 {
+    margin-top: 3.2rem;
+    }
+.my-contatiner {
+    background-color: #ffffff;
+}
+  // Variables
+  $color-basic-friedject: #ffc107;
+  $color-gray-secondary: #354856;
+  $color-white: #ffffff;
+  $icon-margin: 5px;
+  
+  // Button style
+  button {
+      font-size: 1rem;
+      padding: 8px 20px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    
+  
+      &:focus, &:active {
+          outline: none;
+      }
+    
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+  
+      &.normal {
+      border-radius: 4px;
+      &.btn-icon {
+        padding: 8px 14px;
+      }
+      }
+  
+      &.rounded {
+          border-radius: 25px;
+      &.btn-icon {
+        padding: 8px 14px;
+      }
+      }
+  
+      &.outline {
+          border-color: inherit;
+          background: $color-white;
+      margin: 1rem;
+      }
+  
+      &.flat {
+          background-color: transparent;
+          border-color: transparent;
+      }
+    
+    &.btn-icon-left {
+      .left-icon {
+        margin-right: $icon-margin;
+      }
+      }
+  
+    &.btn-icon-right {
+      .right-icon {
+        margin-left: $icon-margin;
+      }
+    }
+  
+      &.basic {
+  
+          &.normal, &.rounded {
+              background-color: $color-basic-friedject;
+              color: $color-white;
+              border-color: $color-basic-friedject;
+  
+              &:hover {
+                  background-color: $color-basic-friedject;
+                  border-color: $color-basic-friedject;
+              }
+          }
+  
+          &.outline {
+              background-color: $color-white;
+              color: $color-basic-friedject;
+              border-color: $color-basic-friedject;
+  
+              &:hover {
+                  background-color:  $color-basic-friedject;
+                  border-color:  $color-basic-friedject;
+                  color: $color-white;
+              }
+          }
+  
+          &.flat {
+              color:  $color-basic-friedject;
+  
+              &:hover {
+                  color: $color-gray-secondary;
+              }
+          }
+      }
+  }
+  
+    
