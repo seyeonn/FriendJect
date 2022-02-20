@@ -392,7 +392,7 @@ import UserVideo from "../components/UserVideo.vue";
 import AceEditor from "vuejs-ace-editor";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
-const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
+const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":5443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 import Chat from "./Chat.vue";
