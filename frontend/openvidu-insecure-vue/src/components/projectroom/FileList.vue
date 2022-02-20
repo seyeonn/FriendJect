@@ -34,7 +34,7 @@
             ></file-list-row> -->
             <tr
               class="list__tr"
-              @click.prevent="downloadFile(file.id)"
+              @click.prevent="downloadFile(file.id, file.name)"
               v-for="(file, index) in files"
               :key="index"
             >
@@ -93,6 +93,7 @@ export default {
       returnSize: "",
       modifiedAt: "",
       uploader: "",
+      name: "",
     };
   },
   created() {
@@ -187,9 +188,10 @@ export default {
       var arr = new Array("정채은", "김주향", "안세연", "이소라", "송진섭");
       return arr[Math.floor(Math.random() * arr.length)];
     },
-    downloadFile() {
+    downloadFile(id, name) {
+      this.name = name;
       getFileInfo(
-        this.id,
+        id,
         (response) => {
           this.forceFileDownload(response);
         },

@@ -17,7 +17,11 @@ https://i.imgur.com/B4WaufK.png -->
             <p class="myprops">{{ this.$store.state.teamNumber }}</p>
           </b-col>
           <b-col>
-          <img src="https://i.imgur.com/nImP0UC.png" @click="copyTeamCode" class="copybtn"/>
+            <img
+              src="https://i.imgur.com/nImP0UC.png"
+              @click="copyTeamCode"
+              class="copybtn"
+            />
           </b-col>
           <b-col>
             <img src="https://i.imgur.com/B4WaufK.png" class="team-name" />
@@ -25,7 +29,6 @@ https://i.imgur.com/B4WaufK.png -->
           </b-col>
         </b-row>
 
-        
         <b-row id="roomHeader">
           <!-- 방장 캠 -->
 
@@ -122,7 +125,12 @@ https://i.imgur.com/B4WaufK.png -->
       </div>
 
       <span class="account-user">
-        <img :src="profileUrl" alt="" class="account-profile" @error="replaceImg" />
+        <img
+          :src="profileUrl"
+          alt=""
+          class="account-profile"
+          @error="replaceImg"
+        />
         <a href="#profileModal">
           <b-icon-pencil-square></b-icon-pencil-square
         ></a>
@@ -143,48 +151,46 @@ https://i.imgur.com/B4WaufK.png -->
       <div class="side-wrapper contacts">
         <div class="side-title">접속 중인 팀원</div>
         <div class="user">
-            <img
-              src='https://user-images.githubusercontent.com/83205029/153934686-1582bb31-bc21-43ca-a78f-1ac21530af3b.png'
-              alt=""
-              class="user-img"
-            />
-            <div class="username">
-              송진섭
-              <div class="album-date">게임 중</div>
-            </div>
+          <img
+            src="https://user-images.githubusercontent.com/83205029/153934686-1582bb31-bc21-43ca-a78f-1ac21530af3b.png"
+            alt=""
+            class="user-img"
+          />
+          <div class="username">
+            송진섭
+            <div class="album-date">게임 중</div>
+          </div>
         </div>
         <div class="user">
-            <img
-              src='https://user-images.githubusercontent.com/83205029/153934682-074d5222-905f-4c9b-ac86-bf2b75e6faa6.png'
-              alt=""
-              class="user-img"
-            />
-            <div class="username">
-              안세연
-              <div class="album-date">코딩 중</div>
-            </div>
+          <img
+            src="https://user-images.githubusercontent.com/83205029/153934682-074d5222-905f-4c9b-ac86-bf2b75e6faa6.png"
+            alt=""
+            class="user-img"
+          />
+          <div class="username">
+            안세연
+            <div class="album-date">코딩 중</div>
+          </div>
         </div>
         <div class="user">
-            <img
-              src='https://user-images.githubusercontent.com/83205029/153934643-f07bb826-bce4-4b58-a4d6-4f78bb69cd71.png'
-              alt=""
-              class="user-img"
-            />
-            <div class="username">
-              이소라
-            </div>
-            <div class="album-date">웹서핑 중</div>
+          <img
+            src="https://user-images.githubusercontent.com/83205029/153934643-f07bb826-bce4-4b58-a4d6-4f78bb69cd71.png"
+            alt=""
+            class="user-img"
+          />
+          <div class="username">이소라</div>
+          <div class="album-date">웹서핑 중</div>
         </div>
         <div class="user">
-            <img
-              src='https://user-images.githubusercontent.com/83205029/153934672-c1e3436d-d5f6-4072-bef3-c678d7f329d8.png'
-              alt=""
-              class="user-img"
-            />
-            <div class="username">
-              정채은
-              <div class="album-date">코딩 중</div>
-            </div>
+          <img
+            src="https://user-images.githubusercontent.com/83205029/153934672-c1e3436d-d5f6-4072-bef3-c678d7f329d8.png"
+            alt=""
+            class="user-img"
+          />
+          <div class="username">
+            정채은
+            <div class="album-date">코딩 중</div>
+          </div>
         </div>
         <user-list-row
           v-for="sub in subscribers"
@@ -377,7 +383,6 @@ https://i.imgur.com/B4WaufK.png -->
 </template>
 
 <script>
-
 import axios from "axios";
 import { API_BASE_URL } from "@/config";
 import { getConsultLogList } from "@/api/consultroom.js";
@@ -443,6 +448,7 @@ export default {
     },
   },
   created() {
+    console.log(location.hostname);
     console.log(this.$route.params.code);
   },
   components: {
@@ -875,7 +881,7 @@ button {
 }
 
 .team-name {
-  width:260;
+  width: 260;
   position: relative;
   left: -100px;
   top: -10px;
@@ -893,9 +899,9 @@ button {
 }
 
 .copybtn {
-  width:120px;
+  width: 120px;
   position: relative;
   left: -120px;
-  top:30px;
+  top: 30px;
 }
 </style>
