@@ -31,7 +31,8 @@
 - 안세연 : 풀스택, AWS 담당
 - 정채은 : 풀스택, Jira 담당
 
-# 개발 일정
+# 시스템 구조
+![image](https://user-images.githubusercontent.com/68576770/154609010-1ab37188-1ad4-46b0-93f5-83fa4280c7d1.png)
 
 # 개발 스크린샷
 
