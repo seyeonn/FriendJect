@@ -82,7 +82,7 @@ public class TeamServiceImpl implements TeamService {
 		
 		List<JoinedTeamList> teamList = query.getResultList();
 		for (JoinedTeamList j : teamList) {
-			if (j.getUser().getId() == userId) {
+			if (j.getUser().getId().equals(userId)) {
 				team.add(j.getTeam());
 				System.out.println(j.getTeam().getName());
 			}
