@@ -19,12 +19,9 @@ export const store = new Vuex.Store({
     teamName: "",
     teamNumber: "",
     codeLog: "",
+    isLogin: false,
   },
   getters: {
-    isLogin: (state) => {
-      if (state.accessToken) return true;
-      return false;
-    },
     getUserName: (state) => state.myUserName,
   },
   mutations: {
@@ -53,6 +50,7 @@ export const store = new Vuex.Store({
       state.userEmail = "";
       state.profileUrl = "";
       state.teamId = "";
+      state.isLogin = false;
       localStorage.removeItem("accessToken");
       localStorage.removeItem("kakaoId");
       localStorage.removeItem("myUserName");
@@ -62,7 +60,7 @@ export const store = new Vuex.Store({
       localStorage.removeItem("teamId");
     },
     // 카카오 로그인으로 유저정보가 들어왔는지 확인
-    SET_USERINFO: function(state, userdata) {
+    SET_USERINFO: function (state, userdata) {
       state.kakaoId = userdata["kakaoId"];
       state.myUserName = userdata["nickName"];
       state.accessToken = userdata["accessToken"];
@@ -70,7 +68,7 @@ export const store = new Vuex.Store({
       state.profileUrl = userdata["profileUrl"];
       state.userId = userdata["userId"];
     },
-    SET_CURRENT_TEAM: function(state, teamInfo) {
+    SET_CURRENT_TEAM: function (state, teamInfo) {
       state.teamId = teamInfo.teamId;
       state.teamName = teamInfo.teamName;
       state.teamNumber = teamInfo.teamNumber;
@@ -103,29 +101,32 @@ export const store = new Vuex.Store({
     },
     SET_CODE(state, code) {
       state.codeLog = code;
-    }
+    },
+    SET_IS_LOGIN: (state, isLogin) => {
+      state.isLogin = isLogin;
+    },
   },
   actions: {
-    setUserinfo: function({ commit }, userdata) {
+    setUserinfo: function ({ commit }, userdata) {
       commit("SET_USERINFO", userdata);
     },
-    setCurrentTeam: function({ commit }, teamInfo) {
+    setCurrentTeam: function ({ commit }, teamInfo) {
       commit("SET_CURRENT_TEAM", teamInfo);
     },
-    setProfileUrl: function({ commit }, userprofile) {
+    setProfileUrl: function ({ commit }, userprofile) {
       commit("SET_PROFILEURL", userprofile);
     },
-    setUserEmail: function({ commit }, userEmail) {
+    setUserEmail: function ({ commit }, userEmail) {
       commit("SET_USEREMAIL", userEmail);
     },
-    set_ov({commit}, ov) {
+    set_ov({ commit }, ov) {
       commit("SET_OV", ov);
     },
-    set_session({commit}, session) {
+    set_session({ commit }, session) {
       commit("SET_SESSOIN", session);
     },
-    set_code({commit}, code) {
-      commit("SET_CODE", code)
-    }
+    set_code({ commit }, code) {
+      commit("SET_CODE", code);
+    },
   },
 });
