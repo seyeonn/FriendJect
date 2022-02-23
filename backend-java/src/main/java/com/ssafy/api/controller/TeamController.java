@@ -46,7 +46,7 @@ public class TeamController {
 	
 	@GetMapping("/list/{userId}")
 	public ResponseEntity<? extends BaseResponseBody> getTeamList(@PathVariable Long userId) {
-		
+		System.out.println("================");
 		return ResponseFactory.ok(teamService.findByUserId(userId));
 	}
 	
