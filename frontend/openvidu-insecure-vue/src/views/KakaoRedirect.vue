@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 // import axios from "axios";
 // import { SIGNUP_URL } from "@/config";
 import { createUser } from "@/api/center.js";
@@ -15,6 +15,7 @@ export default {
   },
   methods: {
     ...mapActions(["setUserinfo"]),
+    ...mapMutations(["SET_IS_LOGIN"]),
     kakao_api() {
       createUser(
         this.$route.query.code,
@@ -30,7 +31,7 @@ export default {
           this.$store.commit("SET_USEREMAIL", res.data.userEmail);
           this.$store.commit("SET_PROFILEURL", res.data.profileUrl);
           this.$store.commit("setUserId", res.data.id);
-
+          this.$store.commit("SET_IS_LOGIN", true);
           this.$router.replace("/main");
         },
         (error) => {

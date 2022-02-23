@@ -1,7 +1,6 @@
 <template>
-
-  <div style="overflow:auto; height:100%; background-color:white;">
-    <Header :is-login="isLogin" @logout="logout" />
+  <div style="overflow: auto; height: 100%; background-color: white">
+    <Header :is-login="this.isLogin" @logout="logout" />
     <div class="cards" style="width: 100%">
       <article
         class="information [ card ]"
@@ -73,7 +72,7 @@
       </article>
     </div>
 
-    <div style="height:800px;">
+    <div style="height: 800px">
       <h2 style="color: #3d3d3c; margin-left: 10%">참여중인 프로젝트</h2>
       <!-- 이부분 접속 했던 이력을 for 문으로 나타내기 -->
       <div class="cards" style="width: 100%">
@@ -119,15 +118,13 @@ export default {
       teams: [],
     };
   },
-  components:{ Header},
+  components: { Header },
   created() {
     // 참여중인 프로젝트 목록
     getTeamList(
       this.userId,
       (response) => {
-        console.log(response.data.data);
         this.teams = response.data.data;
-        console.log("length: ", this.teams.length);
       },
       (error) => {
         console.log(error);
@@ -135,8 +132,7 @@ export default {
     );
   },
   computed: {
-    ...mapState(["teamId"]),
-    ...mapState(["teamNumber"]),
+    ...mapState(["teamId", "isLogin", "teamNumber"]),
   },
   methods: {
     ...mapActions(["setCurrentTeam"]),
@@ -182,7 +178,6 @@ export default {
             userId: this.userId,
             teamNumber: this.teamNum,
           };
-          console.log(this.teamTempInfo);
           joinTeam(
             this.teamTempInfo,
             (response) => {
@@ -214,9 +209,7 @@ export default {
     },
     // 팀 생성
     randomNumber() {
-      this.teamNum = Math.random()
-        .toString(36)
-        .substr(2, 11);
+      this.teamNum = Math.random().toString(36).substr(2, 11);
 
       createTeam(
         {
@@ -240,7 +233,7 @@ export default {
           localStorage.setItem("teamId", response.data.data);
 
           // 팀 생성과 동시에 이동
-          this.$router.push({ name: "minime" }); // 화면이 안 움직임 아놔
+          this.$router.push({ name: "minime" });
         },
         (error) => {
           console.log(error);
