@@ -1,4 +1,4 @@
-# friendject
+# 프렌젝트(Friendject) 
 ##### SSAFY 6기 공통 프로젝트
 ##### 프로젝트 기간 - 2022.01.10 ~ 2022.02.18
 ![image](https://user-images.githubusercontent.com/68576770/155338355-5988edfc-a667-405d-951d-c1ee9758d58f.png)
