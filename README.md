@@ -5,7 +5,8 @@
 비대면 프로젝트도 대면하는 것처럼 개발 능률을 올려주고, 친근한
 개발에 특화된 화상 채팅 프로그램 개발
 
-# 기술 스택
+# 기술 스택![friendject1](https://user-images.githubusercontent.com/38287375/177260527-92b41664-4b2d-4301-b25a-69861afdef68.gif)
+
 
 ### Front-end
 
